@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,9 +32,7 @@ public class UserDto {
     @NotEmpty
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "roleID", nullable = false)
-    private Role role;
+    private List<String> roles;
 
     private LocalDateTime registerDate;
     private LocalDateTime lastLoginDate;

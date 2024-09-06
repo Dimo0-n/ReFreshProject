@@ -9,22 +9,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Recommendations")
+@Table(name = "recommendations")
 public class Recommendation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long recommendationID;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "productID", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column(name = "score")
     private Double score;
+
+    @Column(name = "dateRecommended")
     private LocalDateTime dateRecommended;
 
 }

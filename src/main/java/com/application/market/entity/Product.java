@@ -3,34 +3,66 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Products")
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productID;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "categoryID", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private Double price;
+
+    @Column(name = "location")
     private String location;
+
+    @Column(name = "quantity")
     private Integer quantity;
-    private String images;
+
+    @Lob
+    @Column(name = "images")
+    private byte[] image;
+
+    public String getBase64Image() {
+        if (this.image != null) {
+            return Base64.getEncoder().encodeToString(this.image);
+        }
+        return null;
+    }
+
+    public void setBase64Image(String base64Image) {
+        if (base64Image != null) {
+            this.image = Base64.getDecoder().decode(base64Image);
+        } else {
+            this.image = null;
+        }
+    }
+
+    @Column(name = "datePosted")
     private LocalDateTime datePosted;
+
+    @Column(name = "status")
     private String status;
 
 }

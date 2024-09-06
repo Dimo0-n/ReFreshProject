@@ -7,19 +7,19 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Favorites")
+@Table(name = "favorites")
 public class Favorites {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long favoriteID;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "productID", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
 }

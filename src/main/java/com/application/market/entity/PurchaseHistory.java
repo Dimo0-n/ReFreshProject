@@ -9,21 +9,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "PurchaseHistory")
+@Table(name = "purchaseHistory")
 public class PurchaseHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long purchaseID;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "productID", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product order;
 
+    @Column(name = "purchaseDate")
     private LocalDateTime purchaseDate;
 
 }

@@ -9,23 +9,28 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Reviews")
+@Table(name = "review")
 public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewID;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "sellerID", nullable = false)
+    @JoinColumn(name = "seller_id", nullable = false)
     private User seller;
 
+    @Column(name = "rating")
     private Integer rating;
+
+    @Column(name = "comment")
     private String comment;
+
+    @Column(name = "datePosted")
     private LocalDateTime datePosted;
 
 }
