@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class UserDto {
 
-    private Long userID;
+    private Long id;
 
     @NotEmpty
     private String name;
@@ -35,7 +35,10 @@ public class UserDto {
     private List<String> roles;
 
     private LocalDateTime registerDate;
+
     private LocalDateTime lastLoginDate;
+
     private String userType;
-    private String profilePicture;
+
+    private byte[] image;
 }
