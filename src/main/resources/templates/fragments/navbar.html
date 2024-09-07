@@ -64,15 +64,8 @@
                     <a th:href="@{/home}" th:classappend="${page == 'home'} ? 'active'" class="nav-item nav-link">Home</a>
                     <a th:href="@{/shop}" th:classappend="${page == 'shop'} ? 'active'" class="nav-item nav-link">Shop</a>
                     <a th:href="@{/shopDetail}" th:classappend="${page == 'shopDetail'} ? 'active'" class="nav-item nav-link">Shop Detail</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a th:href="@{/cart}" th:classappend="${page == 'cart'} ? 'active'" class="dropdown-item active">Cart</a>
-                            <a th:href="@{/chackout}" th:classappend="${page == 'chackout'} ? 'active'" class="dropdown-item">Chackout</a>
-                            <a th:href="@{/testimonial}" th:classappend="${page == 'testimonial'} ? 'active'" class="dropdown-item">Testimonial</a>
-                            <a th:href="@{/404}" th:classappend="${page == '404'} ? 'active'" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
+                    <a th:href="@{/cart}" th:classappend="${page == 'cart'} ? 'active'" class="nav-item nav-link">Cart</a>
+                    <a th:href="@{/chackout}" th:classappend="${page == 'chackout'} ? 'active'" class="nav-item nav-link">Chackout</a>
                     <a th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active'" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
@@ -81,9 +74,12 @@
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-                    <a href="#" class="my-auto">
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/register}" th:classappend="${page == 'register'} ? 'active'" class="nav-item nav-link">Register</a>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/login}" th:classappend="${page == 'login'} ? 'active'" class="nav-item nav-link">Login</a>
+                    <a sec:authorize="isAuthenticated()" href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
+<!--                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:classappend="${page == 'logout'} ? 'active'" class="nav-item nav-link">-->
                 </div>
             </div>
         </nav>
