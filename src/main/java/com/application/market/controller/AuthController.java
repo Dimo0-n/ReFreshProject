@@ -28,7 +28,7 @@ public class AuthController {
         public String showRegistrationForm(Model model) {
         UserDto userDto = new UserDto();
 //        model.addAtribute("user", userDto);
-        return "register";
+        return "reglogin";
         }
 
     @PostMapping("/register/save")
