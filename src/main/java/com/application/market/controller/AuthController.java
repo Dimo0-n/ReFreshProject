@@ -48,8 +48,25 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginVerification(@Valid @ModelAttribute("user") UserDto userDto){
+
+        User existingUser = userService.findByEmail(userDto.getEmail());
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if (existingUser != null && passwordEncoder.matches(userDto.getPassword(), existingUser.getPassword())) {
+            return "redirect:/home";
+        } else {
+            return "redirect:/login?error";
+        }
+
     }
 
 }
