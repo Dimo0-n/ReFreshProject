@@ -55,4 +55,10 @@ public class HomeController {
         return "404";
     }
 
+    @GetMapping("/addprod")
+    public String addProduct(Model model){
+        model.addAttribute("page", "addprod");
+        return "addprod";
+    }
+
 }
