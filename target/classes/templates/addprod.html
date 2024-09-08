@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ReFreshAi</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/stylereg.css" rel="stylesheet" th:href="@{/css/stylereg.css}">
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- Navbar start -->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!-- Navbar End -->
+
+<br><br><br><br><br><br>
+
+<section class="vh-100 bg-image"
+         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+                min-height: 130vh;">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100" style="padding-top: 25px;">
+             <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Recycle a Product</h2>
+
+                            <form action="/submit-product" method="POST" enctype="multipart/form-data">
+
+                                <!-- Product Name -->
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="productName" name="productName" class="form-control form-control-lg" required>
+                                    <label class="form-label" for="productName">Product Name</label>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div class="form-outline mb-4">
+                                    <input type="number" id="quantity" name="quantity" class="form-control form-control-lg" min="1" required>
+                                    <label class="form-label" for="quantity">Quantity</label>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-outline mb-4">
+                                    <select id="category" name="category" class="form-control form-control-lg" required>
+                                        <option value="" disabled selected>Select a Category</option>
+                                        <option value="Metals">Metals</option>
+                                        <option value="Battery Recycling">Battery Recycling</option>
+                                        <option value="Compost & Food Waste">Compost & Food Waste</option>
+                                        <option value="Computer & Electronics">Computer & Electronics</option>
+                                        <option value="Glass & Fiberglass">Glass & Fiberglass</option>
+                                        <option value="Chemicals">Chemicals</option>
+                                        <option value="Paper/Cardboard">Paper/Cardboard</option>
+                                        <option value="Plastic">Plastic</option>
+                                        <option value="Textiles & Leather">Textiles & Leather</option>
+                                        <option value="Tire & Rubber">Tire & Rubber</option>
+                                        <option value="Wood">Wood</option>
+                                        <option value="Used Commercial Goods">Used Commercial Goods</option>
+                                        <option value="Used Clothes">Used Clothes</option>
+                                        <option value="Used Equipment">Used Equipment</option>
+                                    </select>
+                                    <label class="form-label" for="category">Category</label>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="form-outline mb-4">
+                                    <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*" required>
+                                    <label class="form-label" for="productImage">Product Image</label>
+                                </div>
+
+                                <!-- Region -->
+                                <div class="form-outline mb-4">
+                                    <select id="region" name="region" class="form-control form-control-lg" required>
+                                        <option value="" disabled selected>Select a Region</option>
+                                        <option value="Chișinău">Chișinău</option>
+                                        <option value="Bălți">Bălți</option>
+                                        <option value="Tighina">Tighina</option>
+                                        <option value="Tiraspol">Tiraspol</option>
+                                        <option value="Comrat">Comrat</option>
+                                        <option value="Anenii Noi">Anenii Noi</option>
+                                        <option value="Basarabeasca">Basarabeasca</option>
+                                        <option value="Briceni">Briceni</option>
+                                        <option value="Cahul">Cahul</option>
+                                        <option value="Cantemir">Cantemir</option>
+                                        <option value="Călărași">Călărași</option>
+                                        <option value="Căușeni">Căușeni</option>
+                                        <option value="Cimișlia">Cimișlia</option>
+                                        <option value="Criuleni">Criuleni</option>
+                                        <option value="Dondușeni">Dondușeni</option>
+                                        <option value="Drochia">Drochia</option>
+                                        <option value="Dubăsari">Dubăsari</option>
+                                        <option value="Edineț">Edineț</option>
+                                        <option value="Fălești">Fălești</option>
+                                        <option value="Florești">Florești</option>
+                                        <option value="Glodeni">Glodeni</option>
+                                        <option value="Hîncești">Hîncești</option>
+                                        <option value="Ialoveni">Ialoveni</option>
+                                        <option value="Leova">Leova</option>
+                                        <option value="Nisporeni">Nisporeni</option>
+                                        <option value="Ocnița">Ocnița</option>
+                                        <option value="Orhei">Orhei</option>
+                                        <option value="Rezina">Rezina</option>
+                                        <option value="Rîșcani">Rîșcani</option>
+                                        <option value="Sîngerei">Sîngerei</option>
+                                        <option value="Soroca">Soroca</option>
+                                        <option value="Strășeni">Strășeni</option>
+                                        <option value="Șoldănești">Șoldănești</option>
+                                        <option value="Ștefan Vodă">Ștefan Vodă</option>
+                                        <option value="Taraclia">Taraclia</option>
+                                        <option value="Telenești">Telenești</option>
+                                        <option value="Ungheni">Ungheni</option>
+                                    </select>
+                                    <label class="form-label" for="region">Region</label>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="address" name="address" class="form-control form-control-lg" required>
+                                    <label class="form-label" for="address">Address</label>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-outline mb-4">
+                                    <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required></textarea>
+                                    <label class="form-label" for="description">Description</label>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Submit Product</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
