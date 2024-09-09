@@ -4,8 +4,6 @@ import com.application.market.dto.UserDto;
 import com.application.market.entity.User;
 import jakarta.validation.Valid;
 
-import java.util.List;
-
 public interface UserService{
 
     User findByEmail(String email);
@@ -13,6 +11,5 @@ public interface UserService{
 
     void saveUser(@Valid UserDto userDto);
 
-    List<UserDto> findAllUsers();
-
+    void deleteUserById(Long id);
 }
