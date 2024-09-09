@@ -52,7 +52,7 @@
                             <br>
                             <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form method="POST" th:action="@{/login}">
+                            <form method="POST" th:action="@{/login/verification}" th:object="${user}">
 
                                 <div th:if="${param.error}">
                                     <div class="alert alert-danger">Invalid Email or Password.</div>
@@ -62,12 +62,12 @@
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email"/>
+                                    <input type="email" id="email" th:field="*{email}" name="email" class="form-control form-control-lg" placeholder="Email"/>
                                     <label class="form-label" for="email"></label>
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password"/>
+                                    <input type="password" id="password" th:field="*{password}" name="password" class="form-control form-control-lg" placeholder="Password"/>
                                     <label class="form-label" for="password"></label>
                                 </div>
 

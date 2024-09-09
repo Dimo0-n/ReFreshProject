@@ -60,7 +60,7 @@ public class AuthController {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/verification")
     public String loginVerification(@Valid @ModelAttribute("user") UserDto userDto){
 
         User existingUser = userService.findByEmail(userDto.getEmail());
@@ -68,7 +68,7 @@ public class AuthController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if (existingUser != null && passwordEncoder.matches(userDto.getPassword(), existingUser.getPassword())) {
-            return "redirect:/home";
+            return "redirect:/index";
         } else {
             return "redirect:/login?error";
         }
