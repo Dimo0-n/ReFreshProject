@@ -19,19 +19,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "surname")
     private String surname;
 
-    @Column(nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -41,7 +41,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles = new ArrayList<>();
 
-    @Column(nullable = false)
+    @Column(name = "registerDate")
     private LocalDateTime registerDate;
 
     @Column(name = "lastLoginDate")
@@ -51,7 +51,7 @@ public class User {
     private String userType;
 
     @Lob
-    @Column(name = "profileImage")
+    @Column(name = "image")
     private byte[] image;
 
     public String getBase64Image() {

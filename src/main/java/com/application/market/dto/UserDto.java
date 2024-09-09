@@ -16,20 +16,14 @@ public class UserDto {
 
     private Long id;
 
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     private String surname;
 
-    @NotEmpty
-    @Email
     private String email;
 
-    @NotEmpty
     private String phoneNumber;
 
-    @NotEmpty
     private String password;
 
     private List<String> roles;
