@@ -53,27 +53,34 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-              <form>
+              <form method="POST" action="/register/save" th:object="${user}">
+
+                <div th:if="${param.error}">
+                  <div class="alert alert-danger">Invalid Email or Password.</div>
+                </div>
+                <div th:if="${param.success}">
+                  <div class="alert alert-success">You have been register</div>
+                </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                  <input type="name" th:required="name" id="form3Example1cg" th:field="*{name}" class="form-control form-control-lg"/>
                   <label class="form-label" for="form3Example1cg">Your Name</label>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" th:required="email"/>
+                  <input type="email" th:required="email" id="form3Example3cg" th:field="*{email}" class="form-control form-control-lg"/>
                   <label class="form-label" for="form3Example3cg">Your Email</label>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" th:required="password"/>
+                  <input type="password" th:required="password" id="form3Example4cg" th:field="*{password}" class="form-control form-control-lg"/>
                   <label class="form-label" for="form3Example4cg">Password</label>
                 </div>
 
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>
+<!--                <div data-mdb-input-init class="form-outline mb-4">-->
+<!--                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />-->
+<!--                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>-->
+<!--                </div>-->
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
@@ -83,11 +90,11 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button  type="button" data-mdb-button-init
+                  <button  type="submit" data-mdb-button-init
                            data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
 
               </form>
 

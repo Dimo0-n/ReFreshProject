@@ -4,6 +4,7 @@ package com.application.market.controller;
 import com.application.market.dto.UserDto;
 import com.application.market.entity.User;
 import com.application.market.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,23 +28,28 @@ public class AuthController {
     @GetMapping("/register")
         public String showRegistrationForm(Model model) {
         UserDto userDto = new UserDto();
-//        model.addAtribute("user", userDto);
+        model.addAttribute("user", userDto);
         return "register";
-        }
+    }
 
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
+                               BindingResult result,
+                               Model model) {
 
-    User existingUser = userService.findByEmail(userDto.getEmail());
+        User existingUser = userService.findByEmail(userDto.getEmail());
 
-      if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            result.rejectValue("email", null, "There is already an account registered with that email");
-    }
-        if (result.hasErrors()) {
-            model.addAttribute("user", userDto);
-            return "redirect:/register?error";
-    }
+          if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+                result.rejectValue("email", null, "There is already an account registered with that email");
+            }
+            if (result.hasErrors()) {
+                model.addAttribute("user", userDto);
+
+                return "redirect:/register?error";
+            }
+
         userService.saveUser(userDto);
+
         return "redirect:/register?success";
     }
 
