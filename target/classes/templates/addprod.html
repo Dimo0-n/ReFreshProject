@@ -106,6 +106,20 @@
                                     <label class="form-label" for="productImage">Product Image</label>
                                 </div>
 
+                                <script>
+                                    function checkFileSize(input) {
+                                        const file = input.files[0];
+                                        const maxSize = 1024 * 1024;
+
+                                        // Check if file is larger than 1MB
+                                        if (file && file.size > maxSize) {
+                                            document.getElementById('fileSizeWarning').style.display = 'block';
+                                        } else {
+                                            document.getElementById('fileSizeWarning').style.display = 'none';
+                                        }
+                                    }
+                                </script>
+
                                 <!-- Region -->
                                 <div class="form-outline mb-4">
                                     <select id="region" name="region" class="form-control form-control-lg" onchange="concatenateLocation()" required>
