@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
@@ -6,12 +7,8 @@
     <meta charset="utf-8">
     <title>ReFreshAi</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
@@ -22,6 +19,29 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/stylereg.css" rel="stylesheet" th:href="@{/css/stylereg.css}">
     <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <script>
+        function convertImageToBase64(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById('base64Image').value = reader.result.split(',')[1]; // Base64 string
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function concatenateLocation() {
+            const region = document.getElementById('region').value || '';
+            const address = document.getElementById('address').value || '';
+            if (region && address) {
+                document.getElementById('location').value = `${region}, ${address}`;
+            } else {
+                document.getElementById('location').value = ''; // Clear if either is empty
+            }
+            console.log(document.getElementById('location').value); // Debugging output
+        }
+
+    </script>
 </head>
 
 <body>
@@ -29,32 +49,33 @@
 <!-- Navbar start -->
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!-- Navbar End -->
-
 <br><br><br><br><br><br>
-
-<section class="vh-100 bg-image"
-         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
-                min-height: 130vh;">
+<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); min-height: 130vh;">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100" style="padding-top: 25px;">
-             <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Recycle a Product</h2>
 
-                            <form action="/submit-product" method="POST" enctype="multipart/form-data">
-
-                                <!-- Product Name -->
+                            <form th:action="@{/submit-product}" method="POST" enctype="multipart/form-data">
+                                <!-- Product Name (title in ProductDto) -->
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="productName" name="productName" class="form-control form-control-lg" required>
-                                    <label class="form-label" for="productName">Product Name</label>
+                                    <input type="text" id="title" name="title" class="form-control form-control-lg" required>
+                                    <label class="form-label" for="title">Product Name</label>
                                 </div>
 
                                 <!-- Quantity -->
                                 <div class="form-outline mb-4">
                                     <input type="number" id="quantity" name="quantity" class="form-control form-control-lg" min="1" required>
                                     <label class="form-label" for="quantity">Quantity</label>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="form-outline mb-4">
+                                    <input type="number" id="price" name="price" class="form-control form-control-lg" step="0.01" min="0" required>
+                                    <label class="form-label" for="price">Price</label>
                                 </div>
 
                                 <!-- Category -->
@@ -79,15 +100,29 @@
                                     <label class="form-label" for="category">Category</label>
                                 </div>
 
-                                <!-- Image Upload -->
+                                <!-- Image Upload (Base64) -->
                                 <div class="form-outline mb-4">
-                                    <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*" required>
+                                    <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*">
                                     <label class="form-label" for="productImage">Product Image</label>
                                 </div>
 
+                                <script>
+                                    function checkFileSize(input) {
+                                        const file = input.files[0];
+                                        const maxSize = 1024 * 1024;
+
+                                        // Check if file is larger than 1MB
+                                        if (file && file.size > maxSize) {
+                                            document.getElementById('fileSizeWarning').style.display = 'block';
+                                        } else {
+                                            document.getElementById('fileSizeWarning').style.display = 'none';
+                                        }
+                                    }
+                                </script>
+
                                 <!-- Region -->
                                 <div class="form-outline mb-4">
-                                    <select id="region" name="region" class="form-control form-control-lg" required>
+                                    <select id="region" name="region" class="form-control form-control-lg" onchange="concatenateLocation()" required>
                                         <option value="" disabled selected>Select a Region</option>
                                         <option value="Chișinău">Chișinău</option>
                                         <option value="Bălți">Bălți</option>
@@ -132,9 +167,12 @@
 
                                 <!-- Address -->
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="address" name="address" class="form-control form-control-lg" required>
+                                    <input type="text" id="address" name="address" class="form-control form-control-lg" oninput="concatenateLocation()" required>
                                     <label class="form-label" for="address">Address</label>
                                 </div>
+
+                                <!-- Hidden field to store concatenated location -->
+                                <input type="hidden" id="location" name="location">
 
                                 <!-- Description -->
                                 <div class="form-outline mb-4">
