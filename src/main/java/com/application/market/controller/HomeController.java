@@ -61,4 +61,10 @@ public class HomeController {
         return "addprod";
     }
 
+    @GetMapping("/profil")
+    public String profil(Model model){
+        model.addAttribute("page", "profil");
+        return "profil";
+    }
+
 }
