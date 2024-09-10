@@ -1,0 +1,15 @@
+INSERT INTO category (category_name) VALUES
+                                         ('Metals'),
+                                         ('Battery Recycling'),
+                                         ('Compost & Food Waste'),
+                                         ('Computer & Electronics'),
+                                         ('Glass & Fiberglass'),
+                                         ('Chemicals'),
+                                         ('Paper/Cardboard'),
+                                         ('Plastic'),
+                                         ('Textiles & Leather'),
+                                         ('Tire & Rubber'),
+                                         ('Wood'),
+                                         ('Used Commercial Goods'),
+                                         ('Used Clothes'),
+                                         ('Used Equipment');
