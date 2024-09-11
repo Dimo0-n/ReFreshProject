@@ -42,10 +42,10 @@ public class HomeController {
         return "shopDetail";
     }
 
-    @GetMapping("/chackout")
+    @GetMapping("/checkout")
     public String chackout(Model model){
-        model.addAttribute("page", "chackout");
-        return "chackout";
+        model.addAttribute("page", "checkout");
+        return "checkout";
     }
 
     @GetMapping("/testimonial")
