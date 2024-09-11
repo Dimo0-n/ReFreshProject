@@ -1,10 +1,8 @@
 package com.application.market.service;
 
 import com.application.market.dto.UserDto;
-import com.application.market.entity.Profil;
 import com.application.market.entity.Role;
 import com.application.market.entity.User;
-import com.application.market.repository.ProfilRepository;
 import com.application.market.repository.RoleRepository;
 import com.application.market.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ProfilRepository profilRepository;
-
 
     @Override
     public User findByEmail(String email) {
@@ -45,17 +40,6 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
-
-        Profil profil = new Profil();
-        profil.setUser(user);
-        profil.setName(user.getName());
-        profil.setSurname(user.getSurname());
-        profil.setEmail(user.getEmail());
-        profil.setPhoneNumber(user.getPhoneNumber());
-
-
-
-        profilRepository.save(profil);
     }
 
     @Override
