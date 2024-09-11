@@ -41,6 +41,9 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "user_id")
+//    private List<Token> tokens;
+
     @Column(name = "registerDate")
     private LocalDateTime registerDate;
 
