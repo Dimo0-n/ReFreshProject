@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Test Authentication</title>
+</head>
+<body>
+<h1>Test Thymeleaf + Spring Security</h1>
+
+<div sec:authorize="!isAuthenticated()">
+    <p>You are not logged in. Please <a th:href="@{/login}">Login</a> or <a th:href="@{/register}">Register</a>.</p>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <p>Welcome, you are logged in. <a th:href="@{/logout}">Logout</a></p>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ReFreshAi</title>
+    <title>ReFreshAi - Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -27,8 +27,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/stylereg.css" rel="stylesheet"  th:href="@{/css/stylereg.css}">
-    <link href="css/style.css" rel="stylesheet"  th:href="@{/css/style.css}">
+    <link href="css/stylereg.css" rel="stylesheet" th:href="@{/css/stylereg.css}">
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -52,31 +52,37 @@
                             <br>
                             <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form method="POST" th:action="@{/login/verification}" th:object="${user}">
+                            <!-- Modifică action la /login -->
+                            <form method="POST" th:action="@{/login}" novalidate>
 
+                                <!-- Mesaj de eroare la login -->
                                 <div th:if="${param.error}">
                                     <div class="alert alert-danger">Invalid Email or Password.</div>
                                 </div>
+
+                                <!-- Mesaj de confirmare la logout -->
                                 <div th:if="${param.logout}">
                                     <div class="alert alert-success">You have been logged out.</div>
                                 </div>
 
+                                <!-- Email -->
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="email" id="email" th:field="*{email}" name="email" class="form-control form-control-lg" placeholder="Email"/>
+                                    <input type="email" id="email" name="username" class="form-control form-control-lg" placeholder="Email" required/>
                                     <label class="form-label" for="email"></label>
                                 </div>
 
+                                <!-- Parola -->
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <input type="password" id="password" th:field="*{password}" name="password" class="form-control form-control-lg" placeholder="Password"/>
+                                    <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required/>
                                     <label class="form-label" for="password"></label>
                                 </div>
 
+                                <!-- Buton de Login -->
                                 <div class="d-flex justify-content-center">
-                                    <button  type="submit" data-mdb-button-init
-                                             data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
+                                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
                                 </div>
 
-                                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a class="fw-bold text-body" href="/register"><u>Register Here</u></a></p>
+                                <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register Here</u></a></p>
 
                             </form>
 

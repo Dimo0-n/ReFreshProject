@@ -31,16 +31,17 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                                 authorize
-                                        .requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/scss/**").permitAll()
-                                        .requestMatchers("/index", "/error").permitAll()
-                                        .requestMatchers("/register/**", "/login/**", "/contact/**", "/**").permitAll()
-//                                .requestMatchers("/users").hasRole("ADMIN")
+                                        .requestMatchers(
+                                                "/css/**", "/js/**", "/img/**", "/lib/**", "/scss/**",
+                                                "/index", "/register/**", "/login/**", "/verif"
+                                        ).permitAll()
+                                        .anyRequest().authenticated()
                 )
                 .formLogin(
                         form -> form
                                 .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/login")
+                                .defaultSuccessUrl("/index", true)
+                                .failureUrl("/login?error")
                                 .permitAll()
                 ).logout(
                         logout -> logout
