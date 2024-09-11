@@ -11,4 +11,6 @@ public interface ProductService {
 
     void saveProduct(ProductDto productDto,  MultipartFile imageFile);
 
+    List<Product> getAllProducts();
+
 }

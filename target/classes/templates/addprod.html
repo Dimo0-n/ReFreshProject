@@ -41,6 +41,39 @@
             console.log(document.getElementById('location').value); // Debugging output
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('category').addEventListener('change', function() {
+                var category = this.value;
+                var unitField = document.getElementById('quantityUnit');
+                var unitDisplay = document.getElementById('unitDisplay');
+
+                // Define units for each category
+                var units = {
+                    'Metals': 'kg',
+                    'Battery Recycling': 'kg',
+                    'Compost & Food Waste': 'm³',
+                    'Computer & Electronics': 'pcs',
+                    'Glass & Fiberglass': 'kg',
+                    'Chemicals': 'kg',
+                    'Paper/Cardboard': 'kg',
+                    'Plastic': 'kg',
+                    'Textiles & Leather': 'pcs',
+                    'Tire & Rubber': 'kg',
+                    'Wood': 'm³',
+                    'Used Commercial Goods': 'pcs',
+                    'Used Clothes': 'pcs',
+                    'Used Equipment': 'pcs',
+                };
+
+                // Update the unit field based on the selected category
+                if (units[category]) {
+                    unitDisplay.textContent = units[category];
+                } else {
+                    unitDisplay.textContent = '';
+                }
+            });
+        });
+
     </script>
 </head>
 
@@ -66,18 +99,6 @@
                                     <label class="form-label" for="title">Product Name</label>
                                 </div>
 
-                                <!-- Quantity -->
-                                <div class="form-outline mb-4">
-                                    <input type="number" id="quantity" name="quantity" class="form-control form-control-lg" min="1" required>
-                                    <label class="form-label" for="quantity">Quantity</label>
-                                </div>
-
-                                <!-- Price -->
-                                <div class="form-outline mb-4">
-                                    <input type="number" id="price" name="price" class="form-control form-control-lg" step="0.01" min="0" required>
-                                    <label class="form-label" for="price">Price</label>
-                                </div>
-
                                 <!-- Category -->
                                 <div class="form-outline mb-4">
                                     <select id="category" name="category" class="form-control form-control-lg" required>
@@ -98,6 +119,19 @@
                                         <option value="Used Equipment">Used Equipment</option>
                                     </select>
                                     <label class="form-label" for="category">Category</label>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div class="form-outline mb-4">
+                                    <input type="number" id="quantity" name="quantity" class="form-control form-control-lg" min="1" required>
+                                    <label class="form-label" for="quantity">Quantity</label>
+                                    <div id="unitDisplay" class="form-text" style="color: green;">Select a category to specify unit</div>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="form-outline mb-4">
+                                    <input type="number" id="price" name="price" class="form-control form-control-lg" step="0.01" min="0" required>
+                                    <label class="form-label" for="price">Price</label>
                                 </div>
 
                                 <!-- Image Upload (Base64) -->

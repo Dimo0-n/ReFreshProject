@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -30,12 +30,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize
-                                .requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/scss/**").permitAll()
-                                .requestMatchers("/index", "/error").permitAll()
-                                .requestMatchers("/register/**", "/login/**", "/contact/**", "/**").permitAll()
+                                authorize
+                                        .requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/scss/**").permitAll()
+                                        .requestMatchers("/index", "/error").permitAll()
+                                        .requestMatchers("/register/**", "/login/**", "/contact/**", "/**").permitAll()
 //                                .requestMatchers("/users").hasRole("ADMIN")
-                ).formLogin(
+                )
+                .formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
