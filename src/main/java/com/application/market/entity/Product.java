@@ -65,4 +65,16 @@ public class Product {
     @Column(name = "status")
     private String status;
 
+    public Product(User user, Category category, String title, String description, Double price, String location, Integer quantity, byte[] image, LocalDateTime datePosted, String status) {
+        this.user = user;
+        this.category = category;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.location = location;
+        this.quantity = quantity;
+        this.image = image;
+        this.datePosted = datePosted;
+        this.status = status;
+    }
 }
