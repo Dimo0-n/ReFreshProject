@@ -59,7 +59,15 @@
                   <div class="alert alert-danger">Invalid Email or Password.</div>
                 </div>
                 <div th:if="${param.success}">
-                  <div class="alert alert-success">You have been register</div>
+                  <div class="alert alert-success">
+                    You have been registered successfully. You will be redirected to the homepage in 2 seconds...
+                  </div>
+                  <!-- Script pentru redirecționare după 1 secunde -->
+                  <script type="text/javascript">
+                    setTimeout(function() {
+                      window.location.href = "/";
+                    }, 1000); // 1 sec
+                  </script>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
