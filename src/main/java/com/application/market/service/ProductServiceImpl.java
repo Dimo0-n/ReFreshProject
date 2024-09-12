@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import net.coobird.thumbnailator.Thumbnails;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,6 +33,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Override
+    public Page<Product> getProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+
+    @Override
+    public List<Product> getAllProductsSortedByDatePosted() {
+        return productRepository.findAllByOrderByDatePostedDesc();
+    }
 
     // Compress image method
     public byte[] compressImageWithThumbnailator(MultipartFile imageFile) throws IOException {

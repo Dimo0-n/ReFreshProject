@@ -198,11 +198,11 @@
                                     <h4>Additional</h4>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                        <label for="Categories-1"> Organic</label>
+                                        <label for="Categories-1"> Free</label>
                                     </div>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                        <label for="Categories-2"> Fresh</label>
+                                        <label for="Categories-2"> Near me</label>
                                     </div>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
@@ -210,11 +210,11 @@
                                     </div>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                        <label for="Categories-4"> Discount</label>
+                                        <label for="Categories-4"> Popular</label>
                                     </div>
                                     <div class="mb-2">
                                         <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                        <label for="Categories-5"> Expired</label>
+                                        <label for="Categories-5"> New</label>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                         <img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">Recycle apples</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -244,7 +244,7 @@
                                         <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">Recycle Strawberry</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -263,7 +263,7 @@
                                         <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
-                                        <h6 class="mb-2">Big Banana</h6>
+                                        <h6 class="mb-2">Recycle broccoli</h6>
                                         <div class="d-flex mb-2">
                                             <i class="fa fa-star text-secondary"></i>
                                             <i class="fa fa-star text-secondary"></i>
@@ -285,7 +285,7 @@
                                 <div class="position-relative">
                                     <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                                     <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                        <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
+
                                     </div>
                                 </div>
                             </div>
@@ -317,18 +317,24 @@
                             </div>
                             <!-- Dynamic product listing ends here -->
 
+                            <!-- Pagination -->
                             <div class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
-                                    <a href="#" class="rounded">&laquo;</a>
-                                    <a href="#" class="active rounded">1</a>
-                                    <a href="#" class="rounded">2</a>
-                                    <a href="#" class="rounded">3</a>
-                                    <a href="#" class="rounded">4</a>
-                                    <a href="#" class="rounded">5</a>
-                                    <a href="#" class="rounded">6</a>
-                                    <a href="#" class="rounded">&raquo;</a>
+                                    <!-- Previous Page Link -->
+                                    <a th:href="@{/shop(page=${currentPage - 1})}" th:if="${currentPage > 0}" class="rounded">&laquo;</a>
+
+                                    <!-- Page Number Links -->
+                                    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                       th:href="@{/shop(page=${i})}"
+                                       th:text="${i + 1}"
+                                       th:classappend="${i == currentPage} ? 'active' : ''"
+                                       class="rounded"></a>
+
+                                    <!-- Next Page Link -->
+                                    <a th:href="@{/shop(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}" class="rounded">&raquo;</a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

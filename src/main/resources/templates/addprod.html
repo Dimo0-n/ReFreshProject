@@ -135,17 +135,19 @@
                                 </div>
 
                                 <!-- Image Upload (Base64) -->
+                                <div id="fileSizeWarning" style="display: none; color: red; margin-top: -10px;">
+                                    The selected file is too large. Please select a file smaller than 1MB.
+                                </div>
                                 <div class="form-outline mb-4">
-                                    <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*">
+                                    <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*" onchange="checkFileSize(this)">
                                     <label class="form-label" for="productImage">Product Image</label>
                                 </div>
 
                                 <script>
                                     function checkFileSize(input) {
                                         const file = input.files[0];
-                                        const maxSize = 1024 * 1024;
+                                        const maxSize = 1024 * 1024; // 1MB
 
-                                        // Check if file is larger than 1MB
                                         if (file && file.size > maxSize) {
                                             document.getElementById('fileSizeWarning').style.display = 'block';
                                         } else {
@@ -153,6 +155,8 @@
                                         }
                                     }
                                 </script>
+
+
 
                                 <!-- Region -->
                                 <div class="form-outline mb-4">
