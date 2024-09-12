@@ -8,7 +8,6 @@ public interface UserService{
 
     User findByEmail(String email);
 
-
     void saveUser(@Valid UserDto userDto);
 
     void deleteUserById(Long id);
