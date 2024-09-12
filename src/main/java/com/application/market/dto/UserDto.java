@@ -16,6 +16,8 @@ public class UserDto {
 
     private Long id;
 
+    private String username;
+
     private String name;
 
     private String surname;

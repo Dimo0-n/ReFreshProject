@@ -59,36 +59,23 @@
                   <div class="alert alert-danger">Invalid Email or Password.</div>
                 </div>
                 <div th:if="${param.success}">
-                  <div class="alert alert-success">
-                    You have been registered successfully. You will be redirected to the homepage in 2 seconds...
-                  </div>
-                  <!-- Script pentru redirecționare după 1 secunde -->
-                  <script type="text/javascript">
-                    setTimeout(function() {
-                      window.location.href = "/";
-                    }, 1000); // 1 sec
-                  </script>
+                  <div class="alert alert-success">You've successfully registered to our app!</div>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="name" th:required="name" id="form3Example1cg" th:field="*{name}" class="form-control form-control-lg"/>
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
+                  <input type="text" id="form3Example1cg" th:field="*{username}" class="form-control form-control-lg" required/>
+                  <label class="form-label" for="form3Example1cg">Your username</label>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="email" th:required="email" id="form3Example3cg" th:field="*{email}" class="form-control form-control-lg"/>
+                  <input type="email" id="form3Example3cg" th:field="*{email}" class="form-control form-control-lg" required/>
                   <label class="form-label" for="form3Example3cg">Your Email</label>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" th:required="password" id="form3Example4cg" th:field="*{password}" class="form-control form-control-lg"/>
+                  <input type="password" id="form3Example4cg" th:field="*{password}" class="form-control form-control-lg" required/>
                   <label class="form-label" for="form3Example4cg">Password</label>
                 </div>
-
-<!--                <div data-mdb-input-init class="form-outline mb-4">-->
-<!--                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />-->
-<!--                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>-->
-<!--                </div>-->
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />

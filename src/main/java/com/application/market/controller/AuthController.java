@@ -37,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
+    public String registration(@Valid @ModelAttribute("userDto") UserDto userDto,
                                BindingResult result,
                                Model model) {
 
@@ -47,7 +47,7 @@ public class AuthController {
                 result.rejectValue("email", null, "There is already an account registered with that email");
             }
             if (result.hasErrors()) {
-                model.addAttribute("user", userDto);
+                model.addAttribute("userDto", userDto);
 
                 return "redirect:/register?error";
             }

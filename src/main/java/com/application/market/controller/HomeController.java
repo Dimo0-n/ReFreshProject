@@ -71,4 +71,5 @@ public class HomeController {
         model.addAttribute("page", "addprod");
         return "addprod";
     }
+
 }
