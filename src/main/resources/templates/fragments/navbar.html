@@ -43,7 +43,7 @@
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Bulevardul Ștefan cel Mare și Sfînt 168, MD-2004</a></small>
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Nr1</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@refreshai.com</a></small>
             </div>
             <div class="top-link pe-2">
@@ -55,7 +55,7 @@
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">ReFreshAI</h1></a>
+            <a th:href="@{/index}" class="navbar-brand"><h1 class="text-primary display-6">ReFreshAI</h1></a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
@@ -84,7 +84,7 @@
                     <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="nav-item nav-link">Register</a>
                     <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-item nav-link" >Login</a>
 
-                    <a sec:authorize="isAuthenticated()" th:href="@{/myProfile}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/profile/{id}}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-item nav-link">Logout</a>
                 </div>
 

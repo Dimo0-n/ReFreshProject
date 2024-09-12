@@ -3,11 +3,16 @@ package com.application.market.controller;
 import com.application.market.entity.Product;
 import com.application.market.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,11 +35,17 @@ public class HomeController {
     }
 
     @GetMapping("/shop")
-    public String shop(Model model) {
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
+    public String shop(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+        Pageable pageable = PageRequest.of(page, 12, Sort.by("datePosted").descending());
+        Page<Product> productPage = productService.getProducts(pageable);
+
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
         return "shop";
     }
+
+
 
     @GetMapping("/shopDetail")
     public String shopDetails(Model model){
@@ -71,4 +82,5 @@ public class HomeController {
         model.addAttribute("page", "addprod");
         return "addprod";
     }
+
 }
