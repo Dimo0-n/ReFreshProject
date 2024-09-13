@@ -14,16 +14,18 @@ public class ProfController {
     @Autowired
     private ProfileServiceImpl profileService;
 
-    @GetMapping("/profile/{id}")
-    public String showProfile(@PathVariable("id") long id, Model model) {
+    @GetMapping("/profile")
+    public String showProfile(Model model) {
 
-        Profile profile = profileService.findById(id);
+//        Profile profile = profileService.findById(id);
 
-        if (profile != null) {
-            model.addAttribute("profile", profile);
-            return "profile";
-        } else
-            return "redirect:/404";
+//        if (profile != null) {
+//            model.addAttribute("profile", profile);
+//            return "profile";
+//        } else
+//            return "redirect:/404";
+
+        return "profile";
 
     }
 
