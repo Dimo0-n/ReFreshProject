@@ -20,7 +20,9 @@ import net.coobird.thumbnailator.Thumbnails;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -43,6 +45,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProductsSortedByDatePosted() {
         return productRepository.findAllByOrderByDatePostedDesc();
+    }
+
+    @Override
+    public Page<Product> getProductsByCategory(String categoryName, Pageable pageable) {
+        return productRepository.findByCategoryCategoryName(categoryName, pageable);
+    }
+
+    @Override
+    public long countAllProducts() {
+        return productRepository.count();
     }
 
     // Compress image method
@@ -99,5 +111,27 @@ public class ProductServiceImpl implements ProductService {
         product.setStatus("Available");
 
         productRepository.save(product);
+    }
+
+    @Override
+    public Map<String, Long> countProductsPerCategory() {
+        Map<String, Long> productCountPerCategory = new HashMap<>();
+
+        productCountPerCategory.put("Metals", productRepository.countProductsByCategory("Metals"));
+        productCountPerCategory.put("Battery Recycling", productRepository.countProductsByCategory("Battery Recycling"));
+        productCountPerCategory.put("Compost & Food Waste", productRepository.countProductsByCategory("Compost & Food Waste"));
+        productCountPerCategory.put("Computer & Electronics", productRepository.countProductsByCategory("Computer & Electronics"));
+        productCountPerCategory.put("Glass & Fiberglass", productRepository.countProductsByCategory("Glass & Fiberglass"));
+        productCountPerCategory.put("Chemicals", productRepository.countProductsByCategory("Chemicals"));
+        productCountPerCategory.put("Paper/Cardboard", productRepository.countProductsByCategory("Paper/Cardboard"));
+        productCountPerCategory.put("Plastic", productRepository.countProductsByCategory("Plastic"));
+        productCountPerCategory.put("Textiles & Leather", productRepository.countProductsByCategory("Textiles & Leather"));
+        productCountPerCategory.put("Tire & Rubber", productRepository.countProductsByCategory("Tire & Rubber"));
+        productCountPerCategory.put("Wood", productRepository.countProductsByCategory("Wood"));
+        productCountPerCategory.put("Used Commercial Goods", productRepository.countProductsByCategory("Used Commercial Goods"));
+        productCountPerCategory.put("Used Clothes", productRepository.countProductsByCategory("Used Clothes"));
+        productCountPerCategory.put("Used Equipment", productRepository.countProductsByCategory("Used Equipment"));
+
+        return productCountPerCategory;
     }
 }

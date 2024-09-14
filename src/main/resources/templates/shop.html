@@ -198,86 +198,94 @@
                                     <ul class="list-unstyled fruite-categorie">
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Metals</a>
-                                                <span>(0)</span>
+                                                <a href="/shop">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">All Products
+                                                </a>
+                                                <span th:text="${totalProducts}"></span> <!-- Display total products count -->
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Battery Recycling</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Metals"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Metals</a>
+                                                <span th:text="${productCounts['Metals']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Compost & Food Waste</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Battery%20Recycling"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Battery Recycling</a>
+                                                <span th:text="${productCounts['Battery Recycling']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Computer & Electronics</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Compost%20&%20Food%20Waste"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Compost & Food Waste</a>
+                                                <span th:text="${productCounts['Compost & Food Waste']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Glass & Fiberglass</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Computer%20&%20Electronics"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Computer & Electronics</a>
+                                                <span th:text="${productCounts['Computer & Electronics']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Chemicals</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Glass%20&%20Fiberglass"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Glass & Fiberglass</a>
+                                                <span th:text="${productCounts['Glass & Fiberglass']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Paper/Cardboard</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Chemicals"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Chemicals</a>
+                                                <span th:text="${productCounts['Chemicals']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Plastic</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Paper%2FCardboard"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Paper/Cardboard</a>
+                                                <span th:text="${productCounts['Paper/Cardboard']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Textiles & Leather</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Plastic"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Plastic</a>
+                                                <span th:text="${productCounts['Plastic']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Tire & Rubber</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Textiles%20&%20Leather"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Textiles & Leather</a>
+                                                <span th:text="${productCounts['Textiles & Leather']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Wood</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Tire%20&%20Rubber"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Tire & Rubber</a>
+                                                <span th:text="${productCounts['Tire & Rubber']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Commercial Goods</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Wood"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Wood</a>
+                                                <span th:text="${productCounts['Wood']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Clothes</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Used%20Commercial%20Goods"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Commercial Goods</a>
+                                                <span th:text="${productCounts['Used Commercial Goods']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Equipment</a>
-                                                <span>(0)</span>
+                                                <a href="/shop?category=Used%20Clothes"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Clothes</a>
+                                                <span th:text="${productCounts['Used Clothes']}"></span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a href="/shop?category=Used%20Equipment"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Equipment</a>
+                                                <span th:text="${productCounts['Used Equipment']}"></span>
                                             </div>
                                         </li>
                                     </ul>
@@ -424,19 +432,22 @@
                             <div class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
                                     <!-- Previous Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage - 1})}" th:if="${currentPage > 0}" class="rounded">&laquo;</a>
+                                    <a th:href="@{/shop(page=${currentPage - 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                       th:if="${currentPage > 0}" class="rounded">&laquo;</a>
 
                                     <!-- Page Number Links -->
                                     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                       th:href="@{/shop(page=${i})}"
+                                       th:href="@{/shop(page=${i}, category=${currentCategory != '' ? currentCategory : null})}"
                                        th:text="${i + 1}"
                                        th:classappend="${i == currentPage} ? 'active' : ''"
                                        class="rounded"></a>
 
                                     <!-- Next Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}" class="rounded">&raquo;</a>
+                                    <a th:href="@{/shop(page=${currentPage + 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                       th:if="${currentPage < totalPages - 1}" class="rounded">&raquo;</a>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>
