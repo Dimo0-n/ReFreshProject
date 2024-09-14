@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -26,14 +27,23 @@ public class ProductController {
     @PostMapping("/submit-product")
     public String submitProduct(@ModelAttribute ProductDto productDto,
                                 @RequestParam("imageFile") MultipartFile imageFile,
-                                Model model) {
+                                RedirectAttributes redirectAttributes) {
         try {
+            if (imageFile.getSize() > 10485760) { // 10 MB size limit
+                throw new IllegalStateException("File size too large");
+            }
             productService.saveProduct(productDto, imageFile);
-            model.addAttribute("successMessage", "Product added successfully!");
+            redirectAttributes.addFlashAttribute("productAdded", true);
+            return "redirect:/shop?productAdded=true";
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "File size exceeds the 10MB limit.");
+            return "redirect:/addproduct?error=fileTooLarge";
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "Error uploading product");
+            redirectAttributes.addFlashAttribute("errorMessage", "Error uploading product.");
+            return "redirect:/addproduct?error=true";
         }
-        return "redirect:/addprod";
     }
+
+
 
 }

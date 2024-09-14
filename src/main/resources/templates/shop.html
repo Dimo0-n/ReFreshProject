@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -27,10 +28,48 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1055;
+        }
+
+        .custom-toast {
+            min-width: 400px;
+            max-width: 500px;
+            background-color: #d4edda; /* Light green background */
+            color: #155724; /* Dark green text */
+            font-size: 1.25rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out; /* Faster fade transition */
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .custom-toast .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #155724;
+        }
+    </style>
 </head>
 
 <body>
-
 <!-- Spinner Start -->
 <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
@@ -62,6 +101,66 @@
 </div>
 <!-- Modal Search End -->
 
+<!-- Toast container, centered at the bottom -->
+<div class="toast-container">
+    <!-- Success Toast -->
+    <div id="toast" class="custom-toast hidden">
+        <div>
+            <span id="toast-message">Product added successfully!</span>
+            <!-- <button class="close-btn" onclick="hideToast()">×</button>-->
+        </div>
+    </div>
+</div>
+
+<!-- Your shop content goes here -->
+
+<script>
+    // Function to hide the toast after a delay
+    function showToast() {
+        const toast = document.getElementById('toast');
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+        }, 2000); // Wait 2 seconds before starting the fade-out
+
+        setTimeout(() => {
+            toast.classList.add('hidden'); // Hide the toast completely
+        }, 3000); // 1 second after the fade-out begins, hide the element
+    }
+
+    // Function to manually close the toast
+    function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('fade-out');
+
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 800); // Wait 0.8 seconds for the fade-out effect to complete
+    }
+
+    // Function to check for the query parameter and show the toast
+    function checkForProductAdded() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productAdded = urlParams.get('productAdded');
+        const error = urlParams.get('error');
+
+        if (productAdded === 'true') {
+            document.getElementById('toast').classList.remove('hidden');
+            document.getElementById('toast-message').textContent = 'Product added successfully!';
+            showToast();
+        }
+
+        if (error === 'fileTooLarge') {
+            alert('The uploaded file is too large. Please select a file under 10MB.');
+            window.location.href = '/addproduct';
+        } else if (error === 'true') {
+            alert('An error occurred while uploading the product.');
+            window.location.href = '/addproduct';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', checkForProductAdded);
+
+</script>
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
@@ -73,7 +172,6 @@
     </ol>
 </div>
 <!-- Single Page Header End -->
-
 
 <!-- Fruits Shop Start-->
 <div class="container-fluid fruite py-5">
@@ -291,6 +389,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-9">
                         <div class="row g-4 justify-content-center">
 
@@ -305,7 +404,11 @@
                                     </div>
                                     <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                         <h4 th:text="${product.title}">Product Title</h4>
-                                        <p th:text="${product.description}">Product Description</p>
+                                        <!-- Add poster username linked to their profile -->
+                                        <p class="text-muted">
+                                            Posted by: <a th:href="@{/profile/{username}(username=${product.user.username})}" th:text="${product.user.username}">Username</a>
+                                        </p>
+                                        <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">$<span th:text="${product.price}">0.00</span></p>
                                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
@@ -383,6 +486,20 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Show the toast messages automatically
+    document.addEventListener('DOMContentLoaded', function() {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl).show();
+        });
+    });
+</script>
+
     </body>
 
 </html>

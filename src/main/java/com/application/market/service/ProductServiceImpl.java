@@ -70,20 +70,15 @@ public class ProductServiceImpl implements ProductService {
         product.setLocation(productDto.getLocation());
         product.setQuantity(productDto.getQuantity());
 
-        /*User user = userRepository.findById(1L).orElseThrow(() -> new RuntimeException("User not found"));
-        product.setUser(user);
-
-        // Get the currently authenticated user's email
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
+        String currentUsername = authentication.getName();
 
-        User user = userRepository.findByEmail(userEmail);
+        User user = userRepository.findByEmail(currentUsername);
         if (user == null) {
-            throw new RuntimeException("User not found with email: " + userEmail);
+            throw new RuntimeException("User not found");
         }
-        product.setUser(user);*/
 
-        User user = userRepository.findById(1L).orElseThrow(() -> new RuntimeException("User not found"));
+        /*User user = userRepository.findById(1L).orElseThrow(() -> new RuntimeException("User not found"));*/
         product.setUser(user);
 
         Category category = categoryRepository.findByCategoryName(productDto.getCategory())
@@ -92,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             if (!imageFile.isEmpty()) {
-                byte[] compressedImage = compressImageWithThumbnailator(imageFile); // Compress the image here
+                byte[] compressedImage = compressImageWithThumbnailator(imageFile);
                 product.setImage(compressedImage);
             }
         } catch (IOException e) {
