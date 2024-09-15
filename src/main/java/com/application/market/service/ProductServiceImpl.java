@@ -53,6 +53,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
+    }
+
+    @Override
     public long countAllProducts() {
         return productRepository.count();
     }

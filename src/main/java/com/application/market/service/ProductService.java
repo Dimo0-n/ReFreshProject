@@ -25,4 +25,8 @@ public interface ProductService {
 
     long countAllProducts();
 
+    Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable);
+
+
+
 }

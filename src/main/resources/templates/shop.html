@@ -66,6 +66,30 @@
             cursor: pointer;
             color: #155724;
         }
+
+        .price-filter-link {
+            display: inline-block;
+            margin-bottom: 10px; /* Adds spacing between links */
+        }
+        .btn-filter {
+            width: fit-content; /* Ensures the button width adjusts to its content */
+            padding: 0.5rem 1rem; /* Adds a balanced padding around the text */
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-filter:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+        .sort-dropdown-container {
+            position: relative; /* Remove absolute positioning */
+            float: right;       /* Align to the right */
+            margin-bottom: 20px; /* Ensure space between dropdown and products */
+            z-index: 1000;      /* Keep above other elements if needed */
+        }
+
     </style>
 </head>
 
@@ -292,13 +316,79 @@
 
                                 </div>
                             </div>
+
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <h4 class="mb-2">Price</h4>
-                                    <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                    <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=0&maxPrice=50" class="text-muted price-filter-link">Less than 50 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=50&maxPrice=100" class="text-muted price-filter-link">50 - 100 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=100&maxPrice=250" class="text-muted price-filter-link">100 - 250 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=250&maxPrice=500" class="text-muted price-filter-link">250 - 500 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=500&maxPrice=750" class="text-muted price-filter-link">500 - 750 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=750&maxPrice=1000" class="text-muted price-filter-link">750 - 1000 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=1000&maxPrice=5000" class="text-muted price-filter-link">1000 - 5000 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/shop?minPrice=5000" class="text-muted price-filter-link">More than 5000 MDL</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Custom Price Filter -->
+                                    <div class="d-flex align-items-center mt-3">
+                                        <span>From</span>
+                                        <input type="number" class="form-control mx-2" id="minPrice" name="minPrice" placeholder="0" min="0">
+                                        <span>To</span>
+                                        <input type="number" class="form-control mx-2" id="maxPrice" name="maxPrice" placeholder="5000" min="0">
+                                        <span>MDL</span>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <a href="#" onclick="applyPriceFilter()" class="btn-recycle btn border border-secondary d-flex align-items-center me-3 d-flex align-items-center justify-content-center">
+                                            Filter
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
+
+                            <script>
+                                function applyPriceFilter() {
+                                    // Get the current page number from the URL
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const currentPage = urlParams.get('page') || 0;
+
+                                    const minPrice = document.getElementById('minPrice').value || 0;
+                                    const maxPrice = document.getElementById('maxPrice').value || 5000;
+                                    const sortOrder = document.getElementById('sortFilter').value;
+
+                                    // Construct URL based on sort and filter criteria
+                                    let url = `/shop?page=${currentPage}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortOrder}`;
+                                    window.location.href = url;
+                                }
+
+                                // Called directly when sort dropdown changes
+                                function applySort() {
+                                    applyPriceFilter();
+                                }
+                            </script>
+
+
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <h4>Additional</h4>
@@ -398,9 +488,22 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
-                        <div class="row g-4 justify-content-center">
+                    <div class="col-lg-9" >
+                        <!-- Container for the sort dropdown with margin for spacing -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <div class="sort-dropdown-container">
+                                <select id="sortFilter" class="form-control" onchange="applySort()" style="width: auto;">
+                                    <option value="">Sort</option>
+                                    <option value="priceAsc" th:selected="${currentSort == 'priceAsc'}">Price Low to High</option>
+                                    <option value="priceDesc" th:selected="${currentSort == 'priceDesc'}">Price High to Low</option>
+                                    <option value="dateAsc" th:selected="${currentSort == 'dateAsc'}">Date Oldest First</option>
+                                    <option value="dateDesc" th:selected="${currentSort == 'dateDesc'}">Date Newest First</option>
+                                </select>
 
+                            </div>
+                        </div>
+
+                        <div class="row g-4 justify-content-center">
                             <!-- Dynamic product listing starts here -->
                             <div th:each="product : ${products}" class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative fruite-item">
@@ -418,7 +521,7 @@
                                         </p>
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$<span th:text="${product.price}">0.00</span></p>
+                                            <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'">0.00</span></p>
                                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
                                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                             </a>
@@ -428,26 +531,30 @@
                             </div>
                             <!-- Dynamic product listing ends here -->
 
+                            <!-- Check if there are no products -->
+                            <div th:if="${products.isEmpty()}">
+                                <p class="text-center">No products found in this price range. Please adjust your filter criteria.</p>
+                            </div>
+
                             <!-- Pagination -->
-                            <div class="col-12">
+                            <div th:if="${!products.isEmpty()}" class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
                                     <!-- Previous Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage - 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                    <a th:href="@{/shop(page=${currentPage - 1}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory})}"
                                        th:if="${currentPage > 0}" class="rounded">&laquo;</a>
 
-                                    <!-- Page Number Links -->
+                                    <!-- Page Numbers -->
                                     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                       th:href="@{/shop(page=${i}, category=${currentCategory != '' ? currentCategory : null})}"
+                                       th:href="@{/shop(page=${i}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory})}"
                                        th:text="${i + 1}"
                                        th:classappend="${i == currentPage} ? 'active' : ''"
                                        class="rounded"></a>
 
                                     <!-- Next Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage + 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                    <a th:href="@{/shop(page=${currentPage + 1}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory})}"
                                        th:if="${currentPage < totalPages - 1}" class="rounded">&raquo;</a>
                                 </div>
                             </div>
-
 
                         </div>
                     </div>

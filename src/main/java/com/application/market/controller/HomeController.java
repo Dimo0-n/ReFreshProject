@@ -35,35 +35,6 @@ public class HomeController {
         return "cart";
     }
 
-    @GetMapping("/shop")
-    public String shop(@RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "category", defaultValue = "") String category,
-                       Model model) {
-        Pageable pageable = PageRequest.of(page, 12, Sort.by("datePosted").descending());
-        Page<Product> productPage;
-
-        long totalProducts = productService.countAllProducts();
-
-        if (category.isEmpty()) {
-            productPage = productService.getProducts(pageable);
-        } else {
-            productPage = productService.getProductsByCategory(category, pageable);
-        }
-
-        Map<String, Long> productCounts = productService.countProductsPerCategory();
-        model.addAttribute("productCounts", productCounts);
-        model.addAttribute("products", productPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", productPage.getTotalPages());
-        model.addAttribute("currentCategory", category);
-        model.addAttribute("totalProducts", totalProducts);
-
-        return "shop";
-    }
-
-
-
-
     @GetMapping("/shopDetail")
     public String shopDetails(Model model){
         model.addAttribute("page", "shopDetail");
