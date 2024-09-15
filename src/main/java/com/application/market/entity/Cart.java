@@ -2,6 +2,8 @@ package com.application.market.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Base64;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,15 +16,39 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Column(name = "category_name")
+    private String categoryName;
+
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "quantity")
     private Integer quantity;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Lob
+    @Column(name = "images",  columnDefinition = "LONGBLOB")
+    private byte[] image;
+
+    public String getBase64Image() {
+        if (this.image != null) {
+            return Base64.getEncoder().encodeToString(this.image);
+        }
+        return null;
+    }
+
+    public void setBase64Image(String base64Image) {
+        if (base64Image != null) {
+            this.image = Base64.getDecoder().decode(base64Image);
+        } else {
+            this.image = null;
+        }
+    }
 
 }
