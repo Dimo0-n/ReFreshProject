@@ -419,14 +419,57 @@
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">$<span th:text="${product.price}">0.00</span></p>
-                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                            <a th:href="@{/addToCart}"
+                                               th:data-id="${product.id}"
+                                               th:data-title="${product.title}"
+                                               th:data-quantity="${product.quantity}"
+                                               th:data-description="${product.description}"
+                                               th:data-price="${product.price}"
+                                               th:data-image="${product.base64Image}"
+                                               th:data-username="${product.user.username}"
+                                               class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
                                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                                             </a>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Dynamic product listing ends here -->
+
+                            <script>
+                                document.querySelectorAll('.to-cart-button').forEach(button => {
+                                    button.addEventListener('click', function(event) {
+                                        event.preventDefault(); // Previne navigarea standard
+
+                                        // Colectează informațiile produsului din atributele data-*
+                                        const productInfo = {
+                                            id: this.getAttribute('data-id'),
+                                            title: this.getAttribute('data-title'),
+                                            description: this.getAttribute('data-description'),
+                                            quantity: this.getAttribute('data-quantity'),
+                                            price: this.getAttribute('data-price'),
+                                            image: this.getAttribute('data-image'),
+                                            username: this.getAttribute('data-username')
+                                        };
+
+                                        // Trimiterea datelor la server prin cererea POST
+                                        fetch('/addToCart', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify(productInfo)
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                console.log('Response:', data);
+                                                // Aici poți adăuga logică pentru a actualiza UI-ul, cum ar fi afișarea unui mesaj de succes
+                                            })
+                                    });
+                                });
+
+                            </script>
 
                             <!-- Pagination -->
                             <div class="col-12">
