@@ -138,12 +138,12 @@
                                 <div id="fileSizeWarning" style="display: none; color: red; margin-top: -10px;">
                                     The selected file is too large. Please select a file smaller than 1MB.
                                 </div>
-                                <div class="form-outline mb-4">
-                                    <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*" onchange="checkFileSize(this)">
+                                <div class="form-outline mb-4"> <!--onchange="checkFileSize(this)"-->
+                                    <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*" >
                                     <label class="form-label" for="productImage">Product Image</label>
                                 </div>
 
-                                <script>
+                                <!--<script>
                                     function checkFileSize(input) {
                                         const file = input.files[0];
                                         const maxSize = 1024 * 1024; // 1MB
@@ -154,7 +154,7 @@
                                             document.getElementById('fileSizeWarning').style.display = 'none';
                                         }
                                     }
-                                </script>
+                                </script>-->
 
 
 

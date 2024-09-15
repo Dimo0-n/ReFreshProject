@@ -1,6 +1,7 @@
 package com.application.market.service;
 
 import com.application.market.dto.UserDto;
+import com.application.market.entity.Profile;
 import com.application.market.entity.Role;
 import com.application.market.entity.User;
 import com.application.market.repository.RoleRepository;
@@ -9,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUserProfile(Profile profile) {
+
+    }
+
+    @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
 
@@ -44,6 +52,25 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+    }
+
+    @Override
+    public Profile getUserInfo(String email){
+
+        User userOptional = userRepository.findByEmail(email);
+
+        if (userOptional != null) {
+            Profile profile = new Profile();
+
+            profile.setName(userOptional.getName());
+            profile.setSurname(userOptional.getSurname());
+            profile.setEmail(userOptional.getEmail());
+            profile.setPhoneNumber(userOptional.getPhoneNumber());
+            profile.setBase64Image(userOptional.getBase64Image());
+
+            return profile;
+        }
+        else return null;
     }
 
     @Override
