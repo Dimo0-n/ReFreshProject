@@ -301,6 +301,25 @@
     height: 100%;
     transition: 0.5s;
 }
+
+.fruite-item {
+    height: 450px; /* Make this height fixed for all cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit the description to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    height: 3em; /* Approximate height for 2 lines of text */
+    line-height: 1.5em; /* Line height ensures consistent spacing */
+}
+
 .fruite .fruite-item:hover {
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);
 }

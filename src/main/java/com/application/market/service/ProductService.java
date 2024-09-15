@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
 
@@ -18,7 +19,10 @@ public interface ProductService {
     List<Product> getAllProductsSortedByDatePosted();
 
     Page<Product> getProducts(Pageable pageable);
+    Map<String, Long> countProductsPerCategory();
 
+    Page<Product> getProductsByCategory(String categoryName, Pageable pageable);
 
+    long countAllProducts();
 
 }
