@@ -4,6 +4,7 @@ import com.application.market.dto.UserDto;
 import com.application.market.entity.Profile;
 import com.application.market.entity.Role;
 import com.application.market.entity.User;
+import com.application.market.repository.ProfileRepository;
 import com.application.market.repository.RoleRepository;
 import com.application.market.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
 
     @Override
     public User findByEmail(String email) {
@@ -35,23 +38,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserProfile(Profile profile) {
-
-    }
-
-    @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
+        Profile profile = new Profile();
 
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRegisterDate(LocalDateTime.now());
 
+
+//        profile.setName(userDto.getName());
+//        profile.setSurname(userDto.getSurname());
+//          profile.setId(userDto.getId());
+          profile.setEmail(userDto.getEmail());
+//        profile.setPhoneNumber(userDto.getPhoneNumber());
+//        profile.setBase64Image(userDto.getBase64Image());
+
         Role role = roleRepository.findByName("ROLE_USER");
 
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+        profileRepository.save(profile);
     }
 
     @Override

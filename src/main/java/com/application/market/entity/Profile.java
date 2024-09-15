@@ -15,10 +15,12 @@ import java.util.Base64;
 @NoArgsConstructor
 @Table(name = "profile")
 public class Profile {
+    private static final long serialVersonUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -32,9 +34,12 @@ public class Profile {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "address")
+    private String address;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @Lob
     @Column(name = "image")
