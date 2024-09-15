@@ -3,6 +3,7 @@ package com.application.market.controller;
 import com.application.market.dto.UserDto;
 import com.application.market.entity.Profile;
 import com.application.market.entity.User;
+import com.application.market.service.ProfileService;
 import com.application.market.service.UserService;
 import com.application.market.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class ProfController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/profil")
+    @Autowired
+    private ProfileService profileService;
+
+    @GetMapping("/profile")
     public String showProfile(Model model, Authentication auth) {
 
         Profile profile = userService.getUserInfo(auth.getName());
@@ -31,10 +35,11 @@ public class ProfController {
         return "profile";
     }
 
-    @PostMapping("/profil/update")
-    public String updateProfile(Model model) {
-
-        return "redirect:/profil";
+    @PostMapping("/update")
+    public String updateProfil(@ModelAttribute Profile addedProfile, Authentication auth) {
+        profileService.updateProfil(auth.getName(), addedProfile);
+        System.out.println(auth.getName());
+        return "redirect:/profile";
     }
 
 }

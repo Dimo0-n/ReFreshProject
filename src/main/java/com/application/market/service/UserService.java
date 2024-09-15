@@ -10,11 +10,13 @@ public interface UserService{
 
     User findByEmail(String email);
 
-    void updateUserProfile(Profile profile);
+//    void updateUserProfile(Profile profile);
 
     void saveUser(@Valid UserDto userDto);
 
     Profile getUserInfo(String email);
 
     void deleteUserById(Long id);
+
+//    Profile getUserInfo(String name);
 }

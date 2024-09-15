@@ -84,7 +84,7 @@
                     <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="nav-item nav-link">Register</a>
                     <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-item nav-link" >Login</a>
 
-                    <a sec:authorize="isAuthenticated()" th:href="@{/profil}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-item nav-link">Logout</a>
                 </div>
 
