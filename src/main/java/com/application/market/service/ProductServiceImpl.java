@@ -41,6 +41,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Product> getProductsWithFilters(String category, Double minPrice, Double maxPrice, String region, Pageable pageable) {
+        return productRepository.findProductsWithFilters(category, minPrice, maxPrice, region, pageable);
+    }
 
     @Override
     public List<Product> getAllProductsSortedByDatePosted() {
@@ -52,15 +56,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryCategoryName(categoryName, pageable);
     }
 
-    @Override
-    public Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
-        return productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
-    }
 
     @Override
     public long countAllProducts() {
         return productRepository.count();
     }
+
 
     // Compress image method
     public byte[] compressImageWithThumbnailator(MultipartFile imageFile) throws IOException {

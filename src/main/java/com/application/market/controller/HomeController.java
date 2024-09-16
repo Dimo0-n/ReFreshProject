@@ -23,9 +23,6 @@ import java.util.Map;
 public class HomeController {
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
     private CartService cartService;
 
     @GetMapping("/index")

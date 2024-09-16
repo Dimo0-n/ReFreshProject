@@ -26,7 +26,11 @@ public class ShopController {
                        @RequestParam(value = "minPrice", required = false) Double minPrice,
                        @RequestParam(value = "maxPrice", required = false) Double maxPrice,
                        @RequestParam(value = "sort", required = false) String sort,
+                       @RequestParam(value = "region", required = false) String region,
                        Model model) {
+
+        if (minPrice == null) minPrice = 0.0;
+        if (maxPrice == null) maxPrice = Double.MAX_VALUE;
 
         Sort sortOrder = Sort.by("datePosted").descending();
 
@@ -48,32 +52,26 @@ public class ShopController {
         }
 
         Pageable pageable = PageRequest.of(page, 12, sortOrder);
-
-        Page<Product> productPage;
-
-        if (minPrice != null && maxPrice == null) {
-            productPage = productService.getProductsByPriceRange(minPrice, null, pageable);
-        } else if (minPrice != null && maxPrice != null) {
-            productPage = productService.getProductsByPriceRange(minPrice, maxPrice, pageable);
-        } else if (!category.isEmpty()) {
-            productPage = productService.getProductsByCategory(category, pageable);
-        } else {
-            productPage = productService.getProducts(pageable);
-        }
-
+        Page<Product> productPage = productService.getProductsWithFilters(category, minPrice, maxPrice, region, pageable);
+        long totalProducts = productService.countAllProducts();
         Map<String, Long> productCounts = productService.countProductsPerCategory();
+
         model.addAttribute("productCounts", productCounts);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
-        model.addAttribute("currentCategory", category);
+        model.addAttribute("currentCategory", category != null ? category : "");
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
-        model.addAttribute("noProductsFound", productPage.getTotalElements() == 0);
         model.addAttribute("currentSort", sort);
+        model.addAttribute("currentRegion", region);
+        model.addAttribute("noProductsFound", productPage.getTotalElements() == 0);
+        model.addAttribute("totalProducts", totalProducts);
 
         return "shop";
     }
 
 
 }
+
+

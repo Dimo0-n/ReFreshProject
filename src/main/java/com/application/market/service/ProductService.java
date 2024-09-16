@@ -12,21 +12,19 @@ import java.util.Map;
 
 public interface ProductService {
 
-    void saveProduct(ProductDto productDto,  MultipartFile imageFile);
+    void saveProduct(ProductDto productDto, MultipartFile imageFile);
 
     List<Product> getAllProducts();
 
     List<Product> getAllProductsSortedByDatePosted();
 
     Page<Product> getProducts(Pageable pageable);
+
     Map<String, Long> countProductsPerCategory();
 
     Page<Product> getProductsByCategory(String categoryName, Pageable pageable);
 
     long countAllProducts();
 
-    Page<Product> getProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable);
-
-
-
+    Page<Product> getProductsWithFilters(String category, Double minPrice, Double maxPrice, String region, Pageable pageable);
 }
