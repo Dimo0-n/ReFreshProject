@@ -37,28 +37,24 @@
             transform: translateX(-50%);
             z-index: 1055;
         }
-
         .custom-toast {
             min-width: 400px;
             max-width: 500px;
-            background-color: #d4edda; /* Light green background */
-            color: #155724; /* Dark green text */
+            background-color: #d4edda;
+            color: #155724;
             font-size: 1.25rem;
             padding: 1.5rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             opacity: 1;
-            transition: opacity 0.8s ease-in-out; /* Faster fade transition */
+            transition: opacity 0.8s ease-in-out;
         }
-
         .fade-out {
             opacity: 0;
         }
-
         .hidden {
             display: none;
         }
-
         .custom-toast .close-btn {
             background: none;
             border: none;
@@ -66,6 +62,44 @@
             cursor: pointer;
             color: #155724;
         }
+
+        .price-filter-link {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .btn-filter {
+            width: fit-content;
+            padding: 0.5rem 1rem;
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-filter:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+        .sort-dropdown-container {
+            position: relative;
+            float: right;
+            margin-bottom: 20px;
+            z-index: 1000;
+        }
+
+        .active-category {
+            color: #ffb524;
+            font-weight: bold;
+        }
+
+        .active-price-filter {
+            color: #81c408 !important; /* The green color you want */
+            font-weight: bold; /* Optional: to make it stand out more */
+        }
+
+        .price-filter-link {
+            color: #6c757d; /* Default text-muted color */
+        }
+
     </style>
 </head>
 
@@ -113,18 +147,16 @@
 </div>
 
 <!-- Your shop content goes here -->
-
 <script>
-    // Function to hide the toast after a delay
     function showToast() {
         const toast = document.getElementById('toast');
         setTimeout(() => {
             toast.classList.add('fade-out');
-        }, 2000); // Wait 2 seconds before starting the fade-out
+        }, 2000);
 
         setTimeout(() => {
-            toast.classList.add('hidden'); // Hide the toast completely
-        }, 3000); // 1 second after the fade-out begins, hide the element
+            toast.classList.add('hidden');
+        }, 3000);
     }
 
     // Function to manually close the toast
@@ -134,10 +166,9 @@
 
         setTimeout(() => {
             toast.classList.add('hidden');
-        }, 800); // Wait 0.8 seconds for the fade-out effect to complete
+        }, 800);
     }
 
-    // Function to check for the query parameter and show the toast
     function checkForProductAdded() {
         const urlParams = new URLSearchParams(window.location.search);
         const productAdded = urlParams.get('productAdded');
@@ -198,195 +229,314 @@
                                     <ul class="list-unstyled fruite-categorie">
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop">
+                                                <a th:href="@{/shop(category='', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == ''} ? 'active-category'">
                                                     <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">All Products
                                                 </a>
-                                                <span th:text="${totalProducts}"></span> <!-- Display total products count -->
+                                                <span th:text="${totalProducts}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Metals"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Metals</a>
+                                                <a th:href="@{/shop(category='Metals', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Metals'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Metals
+                                                </a>
                                                 <span th:text="${productCounts['Metals']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Battery%20Recycling"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Battery Recycling</a>
+                                                <a th:href="@{/shop(category='Battery Recycling', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Battery Recycling'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Battery Recycling
+                                                </a>
                                                 <span th:text="${productCounts['Battery Recycling']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Compost%20&%20Food%20Waste"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Compost & Food Waste</a>
+                                                <a th:href="@{/shop(category='Compost & Food Waste', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Compost & Food Waste'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Compost & Food Waste
+                                                </a>
                                                 <span th:text="${productCounts['Compost & Food Waste']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Computer%20&%20Electronics"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Computer & Electronics</a>
+                                                <a th:href="@{/shop(category='Computer & Electronics', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Computer & Electronics'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Computer & Electronics
+                                                </a>
                                                 <span th:text="${productCounts['Computer & Electronics']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Glass%20&%20Fiberglass"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Glass & Fiberglass</a>
+                                                <a th:href="@{/shop(category='Glass & Fiberglass', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Glass & Fiberglass'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Glass & Fiberglass
+                                                </a>
                                                 <span th:text="${productCounts['Glass & Fiberglass']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Chemicals"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Chemicals</a>
+                                                <a th:href="@{/shop(category='Chemicals', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Chemicals'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Chemicals
+                                                </a>
                                                 <span th:text="${productCounts['Chemicals']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Paper%2FCardboard"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Paper/Cardboard</a>
+                                                <a th:href="@{/shop(category='Paper/Cardboard', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Paper/Cardboard'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Paper/Cardboard
+                                                </a>
                                                 <span th:text="${productCounts['Paper/Cardboard']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Plastic"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Plastic</a>
+                                                <a th:href="@{/shop(category='Plastic', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Plastic'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Plastic
+                                                </a>
                                                 <span th:text="${productCounts['Plastic']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Textiles%20&%20Leather"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Textiles & Leather</a>
+                                                <a th:href="@{/shop(category='Textiles & Leather', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Textiles & Leather'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Textiles & Leather
+                                                </a>
                                                 <span th:text="${productCounts['Textiles & Leather']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Tire%20&%20Rubber"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Tire & Rubber</a>
+                                                <a th:href="@{/shop(category='Tire & Rubber', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Tire & Rubber'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Tire & Rubber
+                                                </a>
                                                 <span th:text="${productCounts['Tire & Rubber']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Wood"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Wood</a>
+                                                <a th:href="@{/shop(category='Wood', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Wood'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Wood
+                                                </a>
                                                 <span th:text="${productCounts['Wood']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Used%20Commercial%20Goods"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Commercial Goods</a>
+                                                <a th:href="@{/shop(category='Used Commercial Goods', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Used Commercial Goods'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Commercial Goods
+                                                </a>
                                                 <span th:text="${productCounts['Used Commercial Goods']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Used%20Clothes"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Clothes</a>
+                                                <a th:href="@{/shop(category='Used Clothes', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Used Clothes'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Clothes
+                                                </a>
                                                 <span th:text="${productCounts['Used Clothes']}"></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="d-flex justify-content-between fruite-name">
-                                                <a href="/shop?category=Used%20Equipment"><img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Equipment</a>
+                                                <a th:href="@{/shop(category='Used Equipment', minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${currentSort}, region=${currentRegion})}"
+                                                   th:classappend="${currentCategory == 'Used Equipment'} ? 'active-category'">
+                                                    <img src="img/leaf.png" alt="leaf" class="me-2" style="width: 16px; height: 16px;">Used Equipment
+                                                </a>
                                                 <span th:text="${productCounts['Used Equipment']}"></span>
                                             </div>
                                         </li>
                                     </ul>
 
+
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <h4 class="mb-2">Price</h4>
-                                    <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                    <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=0, maxPrice=50, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 0 and maxPrice == 50} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                Less than 50 MDL
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=50, maxPrice=100, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 50 and maxPrice == 100} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                50 - 100 MDL
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=100, maxPrice=250, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 100 and maxPrice == 250} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                100 - 250 MDL</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=250, maxPrice=500, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 250 and maxPrice == 500} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                250 - 500 MDL
+                                            </a>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=500, maxPrice=750, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 500 and maxPrice == 750} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                500 - 750 MDL
+                                            </a>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=750, maxPrice=1000, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 750 and maxPrice == 1000} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                750 - 1000 MDL
+                                            </a>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=1000, maxPrice=5000, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice == 1000 and maxPrice == 5000} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                1000 - 5000 MDL
+                                            </a>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <a th:href="@{/shop(minPrice=${minPrice}, maxPrice=5000, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice > 5000} ? 'active-price-filter' : ''"
+                                               class="text-muted price-filter-link">
+                                                More than 5000 MDL
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Custom Price Filter -->
+                                    <div class="d-flex align-items-center mt-3">
+                                        <span>From</span>
+                                        <input type="number" class="form-control mx-2" id="minPrice" name="minPrice" placeholder="0" min="0">
+                                        <span>To</span>
+                                        <input type="number" class="form-control mx-2" id="maxPrice" name="maxPrice" placeholder="5000" min="0">
+                                        <span>MDL</span>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <a href="#" onclick="applyPriceFilter()" class="btn-recycle btn border border-secondary d-flex align-items-center me-3 d-flex align-items-center justify-content-center">
+                                            Filter
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <h4>Additional</h4>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                        <label for="Categories-1"> Free</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                        <label for="Categories-2"> Near me</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                        <label for="Categories-3"> Sales</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                        <label for="Categories-4"> Popular</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                        <label for="Categories-5"> New</label>
+                                    <h4 class="mb-2">Regions</h4>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <select id="regionFilter" class="form-control" onchange="applyRegionFilter()">
+                                                <option value="">All Regions</option>
+                                                <option value="Chișinău" th:selected="${currentRegion == 'Chișinău'}">Chișinău</option>
+                                                <option value="Bălți" th:selected="${currentRegion == 'Bălți'}">Bălți</option>
+                                                <option value="Tighina" th:selected="${currentRegion == 'Tighina'}">Tighina</option>
+                                                <option value="Tiraspol" th:selected="${currentRegion == 'Tiraspol'}">Tiraspol</option>
+                                                <option value="Comrat" th:selected="${currentRegion == 'Comrat'}">Comrat</option>
+                                                <option value="Anenii Noi" th:selected="${currentRegion == 'Anenii Noi'}">Anenii Noi</option>
+                                                <option value="Basarabeasca" th:selected="${currentRegion == 'Basarabeasca'}">Basarabeasca</option>
+                                                <option value="Briceni" th:selected="${currentRegion == 'Briceni'}">Briceni</option>
+                                                <option value="Cahul" th:selected="${currentRegion == 'Cahul'}">Cahul</option>
+                                                <option value="Cantemir" th:selected="${currentRegion == 'Cantemir'}">Cantemir</option>
+                                                <option value="Călărași" th:selected="${currentRegion == 'Călărași'}">Călărași</option>
+                                                <option value="Căușeni" th:selected="${currentRegion == 'Căușeni'}">Căușeni</option>
+                                                <option value="Cimișlia" th:selected="${currentRegion == 'Cimișlia'}">Cimișlia</option>
+                                                <option value="Criuleni" th:selected="${currentRegion == 'Criuleni'}">Criuleni</option>
+                                                <option value="Dondușeni" th:selected="${currentRegion == 'Dondușeni'}">Dondușeni</option>
+                                                <option value="Drochia" th:selected="${currentRegion == 'Drochia'}">Drochia</option>
+                                                <option value="Dubăsari" th:selected="${currentRegion == 'Dubăsari'}">Dubăsari</option>
+                                                <option value="Edineț" th:selected="${currentRegion == 'Edineț'}">Edineț</option>
+                                                <option value="Fălești" th:selected="${currentRegion == 'Fălești'}">Fălești</option>
+                                                <option value="Florești" th:selected="${currentRegion == 'Florești'}">Florești</option>
+                                                <option value="Glodeni" th:selected="${currentRegion == 'Glodeni'}">Glodeni</option>
+                                                <option value="Hîncești" th:selected="${currentRegion == 'Hîncești'}">Hîncești</option>
+                                                <option value="Ialoveni" th:selected="${currentRegion == 'Ialoveni'}">Ialoveni</option>
+                                                <option value="Leova" th:selected="${currentRegion == 'Leova'}">Leova</option>
+                                                <option value="Nisporeni" th:selected="${currentRegion == 'Nisporeni'}">Nisporeni</option>
+                                                <option value="Ocnița" th:selected="${currentRegion == 'Ocnița'}">Ocnița</option>
+                                                <option value="Orhei" th:selected="${currentRegion == 'Orhei'}">Orhei</option>
+                                                <option value="Rezina" th:selected="${currentRegion == 'Rezina'}">Rezina</option>
+                                                <option value="Rîșcani" th:selected="${currentRegion == 'Rîșcani'}">Rîșcani</option>
+                                                <option value="Sîngerei" th:selected="${currentRegion == 'Sîngerei'}">Sîngerei</option>
+                                                <option value="Soroca" th:selected="${currentRegion == 'Soroca'}">Soroca</option>
+                                                <option value="Strășeni" th:selected="${currentRegion == 'Strășeni'}">Strășeni</option>
+                                                <option value="Șoldănești" th:selected="${currentRegion == 'Șoldănești'}">Șoldănești</option>
+                                                <option value="Ștefan Vodă" th:selected="${currentRegion == 'Ștefan Vodă'}">Ștefan Vodă</option>
+                                                <option value="Taraclia" th:selected="${currentRegion == 'Taraclia'}">Taraclia</option>
+                                                <option value="Telenești" th:selected="${currentRegion == 'Telenești'}">Telenești</option>
+                                                <option value="Ungheni" th:selected="${currentRegion == 'Ungheni'}">Ungheni</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <h4 class="mb-3">Featured products</h4>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Recycle apples</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Recycle Strawberry</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Recycle broccoli</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center my-4">
-                                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                </div>
-                            </div>
+
+
+                            <script>
+                                function applyPriceFilter() {
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const minPrice = document.getElementById('minPrice').value || 0;
+                                    const maxPrice = document.getElementById('maxPrice').value || 5000;
+
+                                    urlParams.set('minPrice', minPrice);
+                                    urlParams.set('maxPrice', maxPrice);
+
+                                    window.location.search = urlParams.toString();
+                                }
+
+                                function applyRegionFilter() {
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const selectedRegion = document.getElementById("regionFilter").value;
+
+                                    if (selectedRegion) {
+                                        urlParams.set('region', selectedRegion);
+                                    } else {
+                                        urlParams.delete('region');
+                                    }
+
+                                    window.location.search = urlParams.toString();
+                                }
+
+                                function applySort() {
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const sortOrder = document.getElementById('sortFilter').value;
+
+                                    urlParams.set('sort', sortOrder);
+
+                                    window.location.search = urlParams.toString();
+                                }
+                            </script>
+
                             <div class="col-lg-12">
                                 <div class="position-relative">
                                     <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
@@ -398,9 +548,22 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-9">
-                        <div class="row g-4 justify-content-center">
+                    <div class="col-lg-9" >
+                        <!-- Container for the sort dropdown with margin for spacing -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <div class="sort-dropdown-container">
+                                <select id="sortFilter" class="form-control" onchange="applySort()" style="width: auto;">
+                                    <option value="">Sort</option>
+                                    <option value="priceAsc" th:selected="${currentSort == 'priceAsc'}">Price Low to High</option>
+                                    <option value="priceDesc" th:selected="${currentSort == 'priceDesc'}">Price High to Low</option>
+                                    <option value="dateAsc" th:selected="${currentSort == 'dateAsc'}">Date Oldest First</option>
+                                    <option value="dateDesc" th:selected="${currentSort == 'dateDesc'}">Date Newest First</option>
+                                </select>
+                            </div>
+                        </div>
 
+
+                        <div class="row g-4 justify-content-center">
                             <!-- Dynamic product listing starts here -->
                             <div th:each="product : ${products}" class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative fruite-item">
@@ -418,7 +581,7 @@
                                         </p>
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">$<span th:text="${product.price}">0.00</span></p>
+                                            <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'">0.00</span></p>
                                             <a th:href="@{/addToCart}"
                                                th:data-id="${product.id}"
                                                th:data-title="${product.title}"
@@ -471,22 +634,27 @@
 
                             </script>
 
+                            <!-- Check if there are no products -->
+                            <div th:if="${products.isEmpty()}">
+                                <p class="text-center">No products found in this price range. Please adjust your filter criteria.</p>
+                            </div>
+
                             <!-- Pagination -->
-                            <div class="col-12">
+                            <div th:if="${!products.isEmpty()}" class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
                                     <!-- Previous Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage - 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                    <a th:href="@{/shop(page=${currentPage - 1}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory}, region=${currentRegion})}"
                                        th:if="${currentPage > 0}" class="rounded">&laquo;</a>
 
-                                    <!-- Page Number Links -->
+                                    <!-- Page Numbers -->
                                     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                       th:href="@{/shop(page=${i}, category=${currentCategory != '' ? currentCategory : null})}"
+                                       th:href="@{/shop(page=${i}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory}, region=${currentRegion})}"
                                        th:text="${i + 1}"
                                        th:classappend="${i == currentPage} ? 'active' : ''"
                                        class="rounded"></a>
 
                                     <!-- Next Page Link -->
-                                    <a th:href="@{/shop(page=${currentPage + 1}, category=${currentCategory != '' ? currentCategory : null})}"
+                                    <a th:href="@{/shop(page=${currentPage + 1}, sort=${currentSort}, minPrice=${minPrice}, maxPrice=${maxPrice}, category=${currentCategory}, region=${currentRegion})}"
                                        th:if="${currentPage < totalPages - 1}" class="rounded">&raquo;</a>
                                 </div>
                             </div>
