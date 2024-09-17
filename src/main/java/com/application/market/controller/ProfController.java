@@ -42,4 +42,14 @@ public class ProfController {
         return "redirect:/profile";
     }
 
+    @GetMapping("/profile-articles")
+    public String profileArticles() {
+        return "profile-articles";
+    }
+
+    @GetMapping("/profile-sales")
+    public String profileSales() {
+        return "profile-sales";
+    }
 }
+

@@ -33,7 +33,9 @@
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                        href="#account-change-password">Change password</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#account-info">Info</a>
+                       href="#info">Info</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
                 </div>
             </div>
             <div class="col-md-9">
@@ -65,10 +67,10 @@
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
                                     <input type="text" class="form-control mb-1" th:field="*{email}">
-                                    <div class="alert alert-warning mt-3">
-                                        Your email is not confirmed. Please check your inbox.<br>
-                                        <a href="javascript:void(0)">Resend confirmation</a>
-                                    </div>
+<!--                                    <div class="alert alert-warning mt-3">-->
+<!--                                        Your email is not confirmed. Please check your inbox.<br>-->
+<!--                                        <a href="javascript:void(0)">Resend confirmation</a>-->
+<!--                                    </div>-->
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Address</label>
@@ -82,6 +84,7 @@
                         <button type="submit" class="btn btn-primary">Save changes</button>
                         <button type="reset" class="btn btn-default">Cancel</button>
                     </div>
+                    </br>
                 </form>
             </div>
         </div>
