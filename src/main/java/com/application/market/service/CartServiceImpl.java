@@ -14,11 +14,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartRepository cartRepository;
 
-    public List<Cart> getAllCartsItems() {
-        List<Cart> cartItems = cartRepository.findAll();
-        return cartItems;
+    public List<Cart> getCartsItemsByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
     }
-
-
 
 }
