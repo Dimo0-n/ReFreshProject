@@ -23,24 +23,20 @@ import java.util.Map;
 public class CartController {
 
     @Autowired
-    private CartService cartService;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
     private CartRepository cartRepository;
 
     @PostMapping("/addToCart")
-    public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> product, Model model) {
+    public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> product) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmail(authentication.getName());
 
         Cart cart = new Cart();
 
-        cart.setUserId(user.getId());
-
+        cart.setUser(user);
         cart.setCategoryName((String) product.get("category"));
         cart.setBase64Image((String) product.get("image"));
         cart.setPrice(Double.valueOf(product.get("price").toString()));

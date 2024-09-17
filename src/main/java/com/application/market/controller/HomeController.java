@@ -2,8 +2,10 @@ package com.application.market.controller;
 
 import com.application.market.entity.Cart;
 import com.application.market.entity.Product;
+import com.application.market.entity.User;
 import com.application.market.service.CartService;
 import com.application.market.service.ProductService;
+import com.application.market.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,9 @@ public class HomeController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/index")
     public String home(Model model){
         model.addAttribute("page", "home");
@@ -33,8 +38,14 @@ public class HomeController {
 
     @GetMapping("/cart")
     public String cart(Model model){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmail(authentication.getName());
+
+        Long id = user.getId();
+
         model.addAttribute("page", "cart");
-        List<Cart> cartItems = cartService.getAllCartsItems();
+        List<Cart> cartItems = cartService.getCartsItemsByUserId(id);
         model.addAttribute("cartItems", cartItems);
         return "cart";
     }
