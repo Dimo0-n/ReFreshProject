@@ -581,12 +581,13 @@
                                         </p>
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'">0.00</span></p>
+                                            <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
                                             <a th:href="@{/addToCart}"
                                                th:data-id="${product.id}"
                                                th:data-title="${product.title}"
                                                th:data-quantity="${product.quantity}"
                                                th:data-description="${product.description}"
+                                               th:data-category="${product.category.categoryName}"
                                                th:data-price="${product.price}"
                                                th:data-image="${product.base64Image}"
                                                th:data-username="${product.user.username}"
@@ -611,6 +612,7 @@
                                             title: this.getAttribute('data-title'),
                                             description: this.getAttribute('data-description'),
                                             quantity: this.getAttribute('data-quantity'),
+                                            category:this.getAttribute('data-category'),
                                             price: this.getAttribute('data-price'),
                                             image: this.getAttribute('data-image'),
                                             username: this.getAttribute('data-username')
