@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface CartService {
 
-    List<Cart> getAllCartsItems();
-
+    List<Cart> getCartsItemsByUserId(Long id);
 
 }
