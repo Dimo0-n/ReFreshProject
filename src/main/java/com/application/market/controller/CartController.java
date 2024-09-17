@@ -6,11 +6,13 @@ import com.application.market.entity.User;
 import com.application.market.repository.CartRepository;
 import com.application.market.service.CartService;
 import com.application.market.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,16 +32,20 @@ public class CartController {
     private CartRepository cartRepository;
 
     @PostMapping("/addToCart")
-    public ResponseEntity<?> addToCart(@RequestBody Product product) {
+    public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> product, Model model) {
 
-        //Trebuie sa fac ca sa se salveze si user_id cu category in baza de date
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmail(authentication.getName());
 
         Cart cart = new Cart();
 
-        cart.setBase64Image(product.getBase64Image());
-        cart.setPrice(product.getPrice());
-        cart.setQuantity(product.getQuantity());
-        cart.setTitle(product.getTitle());
+        cart.setUserId(user.getId());
+
+        cart.setCategoryName((String) product.get("category"));
+        cart.setBase64Image((String) product.get("image"));
+        cart.setPrice(Double.valueOf(product.get("price").toString()));
+        cart.setQuantity(Integer.parseInt(product.get("quantity").toString()));
+        cart.setTitle((String) product.get("title"));
 
         cartRepository.save(cart);
         return ResponseEntity.ok().body("Product added to cart successfully");
