@@ -583,8 +583,7 @@
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
-                                            <a th:href="@{/addToCart}"
-                                               th:data-id="${product.id}"
+                                            <a th:href="@{/addToCart}" onclick="addToCart(this)"                                               th:data-id="${product.id}"
                                                th:data-title="${product.title}"
                                                th:data-quantity="${product.quantity}"
                                                th:data-description="${product.description}"
@@ -634,6 +633,28 @@
                                             })
                                     });
                                 });
+
+                            </script>
+
+                            <script>
+                                function addToCart(button) {
+                                    // Salvăm conținutul original al butonului (inclusiv iconița)
+                                    const originalContent = button.innerHTML;
+
+                                    // Schimbă textul la "Added" și păstrează formatul HTML
+                                    button.innerHTML = "Added";
+
+                                    // Dezactivează butonul temporar pentru a evita multiple click-uri
+                                    button.disabled = true;
+
+                                    // După 2 secunde, revine la conținutul inițial (text + iconiță)
+                                    setTimeout(function() {
+                                        button.innerHTML = originalContent;
+                                        button.disabled = false; // Reactivăm butonul
+                                    }, 1500);
+                                }
+
+
 
                             </script>
 
