@@ -583,7 +583,7 @@
                                         <p class="product-description" th:text="${product.description}">Product Description</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
-                                            <a th:href="@{/addToCart}" onclick="addToCart(this)"                                               th:data-id="${product.id}"
+                                            <a th:href="@{addToCart}" onclick="addToCart(this)"                                               th:data-id="${product.id}"
                                                th:data-title="${product.title}"
                                                th:data-quantity="${product.quantity}"
                                                th:data-description="${product.description}"

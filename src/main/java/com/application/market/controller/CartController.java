@@ -13,13 +13,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @Controller
+@RequestMapping("/cart")
 public class CartController {
 
     @Autowired
@@ -46,5 +45,13 @@ public class CartController {
         cartRepository.save(cart);
         return ResponseEntity.ok().body("Product added to cart successfully");
     }
+
+    @PostMapping("/delete/{id}")
+    public String deleteItemFromCart(@PathVariable("id") Long id) {
+        // Logica pentru ștergerea produsului din coș
+        cartRepository.deleteById(id);
+        return "redirect:/cart"; // Redirectează către pagina coșului de cumpărături
+    }
+
 
 }
