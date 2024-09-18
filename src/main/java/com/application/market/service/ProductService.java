@@ -40,4 +40,6 @@ public interface ProductService {
     void updateProduct(ProductDto productDto, MultipartFile imageFile);
 
     Page<Product> getProductsWithFilters(String category, Double minPrice, Double maxPrice, String region, Pageable pageable);
+
+    void deleteProductById(Long id);
 }

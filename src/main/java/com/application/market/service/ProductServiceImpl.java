@@ -195,4 +195,9 @@ public class ProductServiceImpl implements ProductService {
 
         return productCountPerCategory;
     }
+
+    @Override
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
+    }
 }

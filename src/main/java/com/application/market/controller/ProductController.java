@@ -108,4 +108,19 @@ public class ProductController {
             return "redirect:/editproduct-" + productDto.getId() + "?error=true";
         }
     }
+
+    @GetMapping("/deleteProduct-{id}")
+    public String deleteProduct(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            productService.deleteProductById(id); // apel către serviciu pentru a șterge produsul
+            redirectAttributes.addFlashAttribute("productDeleted", true);
+            return "redirect:/profile-sales"; // Redirecționezi la pagina unde sunt afișate produsele
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
+            return "redirect:/profile-sales"; // Redirecționezi la pagina de produse
+        }
+    }
+
 }

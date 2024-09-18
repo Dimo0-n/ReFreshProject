@@ -65,9 +65,16 @@
 
                 <!-- "Change" Button -->
                 <div class="d-flex justify-content-between flex-lg-wrap mt-3">
+                  <!-- Change Button -->
                   <a th:href="@{'/editProduct-' + ${product.id}}"
                      class="btn border border-secondary rounded-pill px-3 text-primary">
                     Change
+                  </a>
+                  <!-- Delete Button -->
+                  <a th:href="@{'/deleteProduct-' + ${product.id}}"
+                     class="btn border border-danger rounded-pill px-3 text-danger"
+                     onclick="return confirm('Are you sure you want to delete this product?');">
+                    Delete
                   </a>
                 </div>
               </div>
