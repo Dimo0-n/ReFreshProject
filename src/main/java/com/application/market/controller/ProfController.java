@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -25,22 +26,42 @@ public class ProfController {
     private ProfileService profileService;
 
     @GetMapping("/profile")
-    public String showProfile(Model model, Authentication auth) {
-
+    public String showProfileGeneral(Model model, Authentication auth) {
         Profile profile = userService.getUserInfo(auth.getName());
-
-        model.addAttribute("page", "profile");
         model.addAttribute("profile", profile);
+        return "profile-general";
+    }
 
-        return "profile";
+    @GetMapping("/profile-settings")
+    public String showProfileSettings(Model model, Authentication auth) {
+        Profile profile = userService.getUserInfo(auth.getName());
+        model.addAttribute("profile", profile);
+        return "profile-settings";
+    }
+
+    @GetMapping("/profile-general")
+    public String profileGeneral(Model model, Authentication auth) {
+        Profile profile = userService.getUserInfo(auth.getName());
+        model.addAttribute("profile", profile);
+        return "profile-general";
     }
 
     @PostMapping("/update")
-    public String updateProfil(@ModelAttribute Profile addedProfile, Authentication auth) {
+    public String updateProfile(@ModelAttribute Profile addedProfile,
+                                @RequestParam("profileImage") MultipartFile profileImage,
+                                Authentication auth) {
+        try {
+            if (!profileImage.isEmpty()) {
+                addedProfile.setImage(profileImage.getBytes());  // Salvează imaginea ca byte[]
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         profileService.updateProfil(auth.getName(), addedProfile);
-        System.out.println(auth.getName());
-        return "redirect:/profile";
+        return "redirect:/profile-settings";
     }
+
 
     @GetMapping("/profile-articles")
     public String profileArticles() {
@@ -51,5 +72,7 @@ public class ProfController {
     public String profileSales() {
         return "profile-sales";
     }
+
 }
+
 

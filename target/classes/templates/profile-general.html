@@ -28,12 +28,23 @@
             <div class="col-md-3 pt-0">
                 <div class="list-group list-group-flush account-settings-links">
                     <!-- Linkuri pentru tab-uri -->
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}">General</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}" th:object="${profile}">General</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                        href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-settings}">Profile Settings</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-settings}">Profile Settings</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-articles}">Articles</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-sales}">Sales</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Information</h5>
+                    <p><strong>Profile Image:</strong></p> <img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="">
+                    <p><strong>Name:</strong> <span th:text="${profile.name}"></span></p>
+                    <p><strong>Surname:</strong> <span th:text="${profile.surname}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${profile.email}"></span></p>
+                    <p><strong>Address:</strong> <span th:text="${profile.address}"></span></p>
+                    <p><strong>Phone Number:</strong> <span th:text="${profile.phoneNumber}"></span></p>
                 </div>
             </div>
         </div>

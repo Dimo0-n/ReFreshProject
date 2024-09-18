@@ -47,13 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRegisterDate(LocalDateTime.now());
 
-
-//        profile.setName(userDto.getName());
-//        profile.setSurname(userDto.getSurname());
-//          profile.setId(userDto.getId());
           profile.setEmail(userDto.getEmail());
-//        profile.setPhoneNumber(userDto.getPhoneNumber());
-//        profile.setBase64Image(userDto.getBase64Image());
 
         Role role = roleRepository.findByName("ROLE_USER");
 
@@ -65,20 +59,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Profile getUserInfo(String email){
 
-        User userOptional = userRepository.findByEmail(email);
+        Profile profile = profileRepository.findByEmail(email);
 
-        if (userOptional != null) {
-            Profile profile = new Profile();
-
-            profile.setName(userOptional.getName());
-            profile.setSurname(userOptional.getSurname());
-            profile.setEmail(userOptional.getEmail());
-            profile.setPhoneNumber(userOptional.getPhoneNumber());
-            profile.setBase64Image(userOptional.getBase64Image());
-
+        if (profile != null) {
             return profile;
-        }
-        else return null;
+        } else
+            return null;
     }
 
     @Override
