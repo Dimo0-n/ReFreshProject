@@ -10,6 +10,7 @@ import com.application.market.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -117,6 +118,11 @@ public class ProductServiceImpl implements ProductService {
         }
 
         productRepository.save(product);
+    }
+
+    public List<Product> getProductsByUserSortedByDate(User user) {
+        Sort sortOrder = Sort.by("datePosted").descending();
+        return productRepository.findByUser(user, sortOrder);
     }
 
     @Override

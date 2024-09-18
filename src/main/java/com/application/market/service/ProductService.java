@@ -31,6 +31,8 @@ public interface ProductService {
 
     void save(Product product);
 
+    List<Product> getProductsByUserSortedByDate(User user);
+
    // List<Product> getTop5ProductsByCategory(String categoryName);
 
     List<Product> getProductsByUser(User user);
