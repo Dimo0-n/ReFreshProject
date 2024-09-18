@@ -37,12 +37,8 @@ public class Profile {
     @Column(name = "address")
     private String address;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
     @Lob
-    @Column(name = "image")
+    @Column(name = "image",  columnDefinition = "LONGBLOB")
     private byte[] image;
 
     public String getBase64Image() {
