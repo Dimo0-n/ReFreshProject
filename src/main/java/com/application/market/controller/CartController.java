@@ -38,8 +38,9 @@ public class CartController {
         cart.setCategoryName((String) product.get("category"));
         cart.setBase64Image((String) product.get("image"));
         cart.setPrice(Double.valueOf(product.get("price").toString()));
-        cart.setQuantity(Integer.parseInt(product.get("quantity").toString()));
+        cart.setQuantity(Integer.parseInt(String.valueOf(1)));
         cart.setTitle((String) product.get("title"));
+        cart.setTotal((Double)(cart.getPrice()*cart.getQuantity()));
 
         cartRepository.save(cart);
         return ResponseEntity.ok().body("Product added to cart successfully");

@@ -106,8 +106,77 @@
                                 </button>
                             </div>
                         </div>
-                        <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        <a th:href="@{addToCart}" onclick="addToCart(this)"
+                           th:data-id="${product.id}"
+                           th:data-title="${product.title}"
+                           th:data-quantity="${product.quantity}"
+                           th:data-description="${product.description}"
+                           th:data-category="${product.category.categoryName}"
+                           th:data-price="${product.price}"
+                           th:data-image="${product.base64Image}"
+                           th:data-username="${product.user.username}"
+                           class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
+                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                        </a>
                     </div>
+
+                    <script>
+                        document.querySelectorAll('.to-cart-button').forEach(button => {
+                            button.addEventListener('click', function(event) {
+                                event.preventDefault(); // Previne navigarea standard
+
+                                // Colectează informațiile produsului din atributele data-*
+                                const productInfo = {
+                                    id: this.getAttribute('data-id'),
+                                    title: this.getAttribute('data-title'),
+                                    description: this.getAttribute('data-description'),
+                                    quantity: this.getAttribute('data-quantity'),
+                                    category:this.getAttribute('data-category'),
+                                    price: this.getAttribute('data-price'),
+                                    image: this.getAttribute('data-image'),
+                                    username: this.getAttribute('data-username')
+                                };
+
+                                // Trimiterea datelor la server prin cererea POST
+                                fetch('/addToCart', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(productInfo)
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Response:', data);
+                                        // Aici poți adăuga logică pentru a actualiza UI-ul, cum ar fi afișarea unui mesaj de succes
+                                    })
+                            });
+                        });
+
+                    </script>
+
+                    <script>
+                        function addToCart(button) {
+                            // Salvăm conținutul original al butonului (inclusiv iconița)
+                            const originalContent = button.innerHTML;
+
+                            // Schimbă textul la "Added" și păstrează formatul HTML
+                            button.innerHTML = "Added";
+
+                            // Dezactivează butonul temporar pentru a evita multiple click-uri
+                            button.disabled = true;
+
+                            // După 2 secunde, revine la conținutul inițial (text + iconiță)
+                            setTimeout(function() {
+                                button.innerHTML = originalContent;
+                                button.disabled = false; // Reactivăm butonul
+                            }, 1500);
+                        }
+
+
+
+                    </script>
+
                     <div class="col-lg-12">
                         <nav>
                             <div class="nav nav-tabs mb-3">

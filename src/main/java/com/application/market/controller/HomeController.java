@@ -56,12 +56,6 @@ public class HomeController {
 //        return "shopDetail";
 //    }
 
-    @GetMapping("/checkout")
-    public String chackout(Model model){
-        model.addAttribute("page", "checkout");
-        return "checkout";
-    }
-
     @GetMapping("/testimonial")
     public String testimonial(Model model){
         model.addAttribute("page", "testimonial");

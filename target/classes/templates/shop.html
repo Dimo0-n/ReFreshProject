@@ -567,41 +567,43 @@
                         <div class="row g-4 justify-content-center">
                             <!-- Dynamic product listing starts here -->
                             <div th:each="product : ${products}" class="col-md-6 col-lg-6 col-xl-4">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <a th:href="@{'/shopDetail-' + ${product.id}}">
+                                <a th:href="@{'/shopDetail-' + ${product.id}}" class="text-decoration-none">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <!-- Elimină linkul din jurul imaginii -->
                                             <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" alt="Product Image">
-                                        </a>
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
-                                        <span th:text="${product.category.categoryName}">Category</span>
-                                    </div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4 th:text="${product.title}">Product Title</h4>
-                                        <!-- Add poster username linked to their profile -->
-                                        <p class="text-muted">
-                                            Posted by: <a th:href="@{/profile/{username}(username=${product.user.username})}" th:text="${product.user.username}">Username</a>
-                                        </p>
-                                        <p class="product-description" th:text="${product.description}">Product Description</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
-                                            <a th:href="@{addToCart}" onclick="addToCart(this)"                                               th:data-id="${product.id}"
-                                               th:data-title="${product.title}"
-                                               th:data-quantity="${product.quantity}"
-                                               th:data-description="${product.description}"
-                                               th:data-category="${product.category.categoryName}"
-                                               th:data-price="${product.price}"
-                                               th:data-image="${product.base64Image}"
-                                               th:data-username="${product.user.username}"
-                                               class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
-                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                                            </a>
-
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                            <span th:text="${product.category.categoryName}">Category</span>
+                                        </div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h4 th:text="${product.title}">Product Title</h4>
+                                            <!-- Scoate linkul profilului din zona clickabilă a containerului -->
+                                            <p class="text-muted">
+                                                Posted by: <a th:href="@{/profile/{username}(username=${product.user.username})}" th:text="${product.user.username}">Username</a>
+                                            </p>
+                                            <p class="product-description" th:text="${product.description}">Product Description</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
+                                                <a th:href="@{addToCart}" onclick="addToCart(this)"
+                                                   th:data-id="${product.id}"
+                                                   th:data-title="${product.title}"
+                                                   th:data-quantity="${product.quantity}"
+                                                   th:data-description="${product.description}"
+                                                   th:data-category="${product.category.categoryName}"
+                                                   th:data-price="${product.price}"
+                                                   th:data-image="${product.base64Image}"
+                                                   th:data-username="${product.user.username}"
+                                                   class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
+                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <!-- Dynamic product listing ends here -->
+
 
                             <script>
                                 document.querySelectorAll('.to-cart-button').forEach(button => {
@@ -655,8 +657,6 @@
                                         button.disabled = false; // Reactivăm butonul
                                     }, 1500);
                                 }
-
-
 
                             </script>
 

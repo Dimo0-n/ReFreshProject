@@ -31,6 +31,9 @@ public class Cart {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "total")
+    private Double total;
+
     @Lob
     @Column(name = "images",  columnDefinition = "LONGBLOB")
     private byte[] image;
