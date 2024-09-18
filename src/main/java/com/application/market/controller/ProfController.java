@@ -74,18 +74,17 @@ public class ProfController {
 
     @GetMapping("/profile-articles")
     public String profileArticles(Model model, Authentication auth) {
-        // Get the user profile information
+
         Profile profile = userService.getUserInfo(auth.getName());
 
-        // Fetch products posted by this user
-        List<Product> userProducts = productService.getProductsByUser(profile.getUser());
+        List<Product> userProducts = productService.getProductsByUserSortedByDate(profile.getUser());
 
-        // Add the profile and the user's products to the model
         model.addAttribute("profile", profile);
         model.addAttribute("products", userProducts);
 
         return "profile-articles";
     }
+
 
 
     @GetMapping("/profile-sales")
