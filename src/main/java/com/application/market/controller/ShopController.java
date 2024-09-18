@@ -1,6 +1,7 @@
 package com.application.market.controller;
 
 import com.application.market.entity.Product;
+import com.application.market.repository.ProductRepository;
 import com.application.market.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -19,6 +21,9 @@ public class ShopController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/shop")
     public String shop(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -71,6 +76,12 @@ public class ShopController {
         return "shop";
     }
 
+    @GetMapping("/activeList")
+    public String showShopPage(Model model) {
+        List<Product> activeProducts = productRepository.findByStatus("Available");
+        model.addAttribute("products", activeProducts);
+        return "shop";
+    }
 
 }
 

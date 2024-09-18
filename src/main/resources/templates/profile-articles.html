@@ -14,6 +14,24 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
+  <style>
+    .fruite2-img {
+      position: relative;
+    }
+
+    .activate-deactivate-button {
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+    }
+
+    .activate-deactivate-button a {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+  </style>
+
 </head>
 <body>
 
@@ -45,13 +63,27 @@
           <div th:each="product : ${products}" class="col">
             <div class="card h-100 rounded position-relative shadow-sm border-0">
               <!-- Product Image -->
-              <div class="fruite2-img">
+              <div class="fruite2-img position-relative">
                 <a th:href="@{'/shopDetail-' + ${product.id}}">
                   <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}"
                        class="img-fluid w-100 rounded-top card-img-top"
                        alt="Product Image"
                        style="object-fit: cover; height: 250px;">
                 </a>
+
+                <!-- Butonul "Activate/Deactivate" poziționat absolut -->
+                <!-- Butonul "Activate/Deactivate" poziționat absolut -->
+                <div class="activate-deactivate-button position-absolute">
+                  <form th:action="@{'/productStatus-' + ${product.id}}"
+                        method="post">
+                    <button type="submit"
+                            class="btn btn-sm btn-success">
+                      <span th:text="${product.status == 'Available' ? 'Deactivate' : 'Activate'}"></span>
+                    </button>
+                  </form>
+                </div>
+
+
               </div>
               <!-- Product Info -->
               <div class="card-body p-4 border border-top-0 rounded-bottom" style="border-color: #f6ba31;">
@@ -65,7 +97,6 @@
 
                 <!-- "Change" Button -->
                 <div class="d-flex justify-content-between flex-lg-wrap mt-3">
-                  <!-- Change Button -->
                   <a th:href="@{'/editProduct-' + ${product.id}}"
                      class="btn border border-secondary rounded-pill px-3 text-primary">
                     Change

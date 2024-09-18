@@ -1,11 +1,9 @@
 package com.application.market.controller;
 
 import com.application.market.dto.ProductDto;
-import com.application.market.entity.Category;
 import com.application.market.entity.Product;
 import com.application.market.repository.CategoryRepository;
 import com.application.market.repository.ProductRepository;
-import com.application.market.repository.UserRepository;
 import com.application.market.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -109,17 +107,29 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/productStatus-{id}")
+    public String productStatus(@PathVariable Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product with id " + id + " not found"));
+        if ("Available".equals(product.getStatus())) {
+            product.setStatus("Unavailable");
+        } else {
+            product.setStatus("Available");
+        }
+        productRepository.save(product);
+        return "redirect:/profile-articles";
+    }
+
     @GetMapping("/deleteProduct-{id}")
     public String deleteProduct(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Product> productOptional = productRepository.findById(id);
-
         if (productOptional.isPresent()) {
             productService.deleteProductById(id); // apel către serviciu pentru a șterge produsul
             redirectAttributes.addFlashAttribute("productDeleted", true);
-            return "redirect:/profile-sales"; // Redirecționezi la pagina unde sunt afișate produsele
+            return "redirect:/profile-articles"; // Redirecționezi la pagina unde sunt afișate produsele
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
-            return "redirect:/profile-sales"; // Redirecționezi la pagina de produse
+            return "redirect:/profile-articles"; // Redirecționezi la pagina de produse
         }
     }
 
