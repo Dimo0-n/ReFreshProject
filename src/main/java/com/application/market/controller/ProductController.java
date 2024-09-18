@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -23,6 +24,26 @@ public class ProductController {
         model.addAttribute("productDto", new ProductDto());
         return "addprod";
     }
+
+    @GetMapping("/shopDetail-{id}")
+    public String getProductDetails(@PathVariable("id") Long id, Model model) {
+        Product product = productService.findProductById(id);
+
+        if (product != null) {
+            model.addAttribute("page", "shopDetail");
+            model.addAttribute("product", product);
+//
+//            // Fetch related products from the same category (limit 5)
+//            List<Product> relatedProducts = productService.getTop5ProductsByCategory(product.getCategory().getCategoryName());
+//            model.addAttribute("relatedProducts", relatedProducts);
+
+            return "shopDetail";
+        } else {
+            model.addAttribute("errorMessage", "Product not found");
+            return "404";
+        }
+    }
+
 
     @PostMapping("/submit-product")
     public String submitProduct(@ModelAttribute ProductDto productDto,
@@ -43,7 +64,4 @@ public class ProductController {
             return "redirect:/addproduct?error=true";
         }
     }
-
-
-
 }

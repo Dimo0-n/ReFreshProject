@@ -26,5 +26,10 @@ public interface ProductService {
 
     long countAllProducts();
 
+    Product findProductById(Long id);
+
+   // List<Product> getTop5ProductsByCategory(String categoryName);
+
+
     Page<Product> getProductsWithFilters(String category, Double minPrice, Double maxPrice, String region, Pageable pageable);
 }

@@ -41,7 +41,7 @@ public class Product {
     private Integer quantity;
 
     @Lob
-    @Column(name = "images",  columnDefinition = "LONGBLOB")
+    @Column(name = "images", columnDefinition = "LONGBLOB")
     private byte[] image;
 
     public String getBase64Image() {
@@ -76,5 +76,9 @@ public class Product {
         this.image = image;
         this.datePosted = datePosted;
         this.status = status;
+    }
+
+    public String getName() {
+        return title;
     }
 }

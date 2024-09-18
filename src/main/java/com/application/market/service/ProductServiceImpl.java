@@ -8,6 +8,7 @@ import com.application.market.repository.ProductRepository;
 import com.application.market.repository.CategoryRepository;
 import com.application.market.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
@@ -56,6 +57,17 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryCategoryName(categoryName, pageable);
     }
 
+//    @Override
+//    public List<Product> getTop5ProductsByCategory(String categoryName) {
+//        Pageable pageable = PageRequest.of(0, 5); // Limit to 5 products
+//        return productRepository.findByCategoryCategoryName(categoryName, pageable).getContent();
+//    }
+
+
+    @Override
+    public Product findProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
 
     @Override
     public long countAllProducts() {
