@@ -1,8 +1,10 @@
 package com.application.market.controller;
 
 import com.application.market.dto.UserDto;
+import com.application.market.entity.Product;
 import com.application.market.entity.Profile;
 import com.application.market.entity.User;
+import com.application.market.service.ProductService;
 import com.application.market.service.ProfileService;
 import com.application.market.service.UserService;
 import com.application.market.service.UserServiceImpl;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,6 +27,9 @@ public class ProfController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/profile")
     public String showProfileGeneral(Model model, Authentication auth) {
@@ -42,6 +48,9 @@ public class ProfController {
     @GetMapping("/profile-general")
     public String profileGeneral(Model model, Authentication auth) {
         Profile profile = userService.getUserInfo(auth.getName());
+        if (profile == null) {
+            return "error";
+        }
         model.addAttribute("profile", profile);
         return "profile-general";
     }
@@ -64,9 +73,20 @@ public class ProfController {
 
 
     @GetMapping("/profile-articles")
-    public String profileArticles() {
+    public String profileArticles(Model model, Authentication auth) {
+        // Get the user profile information
+        Profile profile = userService.getUserInfo(auth.getName());
+
+        // Fetch products posted by this user
+        List<Product> userProducts = productService.getProductsByUser(profile.getUser());
+
+        // Add the profile and the user's products to the model
+        model.addAttribute("profile", profile);
+        model.addAttribute("products", userProducts);
+
         return "profile-articles";
     }
+
 
     @GetMapping("/profile-sales")
     public String profileSales() {

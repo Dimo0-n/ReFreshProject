@@ -17,4 +17,7 @@ public class Category {
     @Column(name = "categoryName")
     private String categoryName;
 
+    public String getName() {
+        return categoryName;
+    }
 }

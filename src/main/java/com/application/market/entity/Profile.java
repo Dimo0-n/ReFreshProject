@@ -41,6 +41,10 @@ public class Profile {
     @Column(name = "image",  columnDefinition = "LONGBLOB")
     private byte[] image;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public String getBase64Image() {
         if (this.image != null) {
             return Base64.getEncoder().encodeToString(this.image);

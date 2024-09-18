@@ -8,6 +8,7 @@ import com.application.market.repository.ProductRepository;
 import com.application.market.repository.CategoryRepository;
 import com.application.market.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
@@ -56,12 +57,27 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryCategoryName(categoryName, pageable);
     }
 
+//    @Override
+//    public List<Product> getTop5ProductsByCategory(String categoryName) {
+//        Pageable pageable = PageRequest.of(0, 5); // Limit to 5 products
+//        return productRepository.findByCategoryCategoryName(categoryName, pageable).getContent();
+//    }
+
+
+    @Override
+    public Product findProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
 
     @Override
     public long countAllProducts() {
         return productRepository.count();
     }
 
+
+    public List<Product> getProductsByUser(User user) {
+        return productRepository.findByUser(user);
+    }
 
     // Compress image method
     public byte[] compressImageWithThumbnailator(MultipartFile imageFile) throws IOException {
@@ -73,6 +89,39 @@ public class ProductServiceImpl implements ProductService {
                 .toOutputStream(outputStream);
 
         return outputStream.toByteArray();
+    }
+
+    @Override
+    public void updateProduct(ProductDto productDto, MultipartFile imageFile) {
+        Product product = productRepository.findById(productDto.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setQuantity(productDto.getQuantity());
+        product.setLocation(productDto.getLocation());
+
+        Category category = categoryRepository.findByCategoryName(productDto.getCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        product.setCategory(category);
+
+        try {
+            if (!imageFile.isEmpty()) {
+                byte[] compressedImage = compressImageWithThumbnailator(imageFile);
+                product.setImage(compressedImage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to upload and compress image", e);
+        }
+
+        productRepository.save(product);
+    }
+
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
     }
 
     @Override

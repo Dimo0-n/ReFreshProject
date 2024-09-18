@@ -50,11 +50,11 @@ public class HomeController {
         return "cart";
     }
 
-    @GetMapping("/shopDetail")
-    public String shopDetails(Model model){
-        model.addAttribute("page", "shopDetail");
-        return "shopDetail";
-    }
+//    @GetMapping("/shopDetail")
+//    public String shopDetails(Model model){
+//        model.addAttribute("page", "shopDetail");
+//        return "shopDetail";
+//    }
 
     @GetMapping("/checkout")
     public String chackout(Model model){

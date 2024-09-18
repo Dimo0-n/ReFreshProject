@@ -33,7 +33,8 @@ public class SecurityConfig {
                                 authorize
                                         .requestMatchers(
                                                 "/css/**", "/js/**", "/img/**", "/lib/**", "/scss/**",
-                                                "/index", "/register/**", "/login/**", "/verif",  "/shop"
+                                                "/index", "/register/**", "/login/**", "/verif",  "/shop",
+                                                "/shopDetail-{id}"
                                         ).permitAll()
                                         .anyRequest().authenticated()
                 )

@@ -425,12 +425,13 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <a th:href="@{/shop(minPrice=${minPrice}, maxPrice=5000, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
-                                               th:classappend="${minPrice > 5000} ? 'active-price-filter' : ''"
+                                            <a th:href="@{/shop(minPrice=5000, maxPrice=1000000, sort=${currentSort}, category=${currentCategory}, region=${currentRegion})}"
+                                               th:classappend="${minPrice >= 5000} ? 'active-price-filter' : ''"
                                                class="text-muted price-filter-link">
                                                 More than 5000 MDL
                                             </a>
                                         </div>
+
                                     </div>
 
                                     <!-- Custom Price Filter -->
@@ -568,7 +569,9 @@
                             <div th:each="product : ${products}" class="col-md-6 col-lg-6 col-xl-4">
                                 <div class="rounded position-relative fruite-item">
                                     <div class="fruite-img">
-                                        <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" alt="Product Image">
+                                        <a th:href="@{'/shopDetail-' + ${product.id}}">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" alt="Product Image">
+                                        </a>
                                     </div>
                                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
                                         <span th:text="${product.category.categoryName}">Category</span>
@@ -662,7 +665,7 @@
                                 <p class="text-center">No products found in this price range. Please adjust your filter criteria.</p>
                             </div>
 
-                            <!-- Pagination -->
+                            <!-- Pagination Section -->
                             <div th:if="${!products.isEmpty()}" class="col-12">
                                 <div class="pagination d-flex justify-content-center mt-5">
                                     <!-- Previous Page Link -->

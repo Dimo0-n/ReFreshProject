@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>ReFreshAi - Edit Product</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="css/stylereg.css" rel="stylesheet" th:href="@{/css/stylereg.css}">
+
+</head>
+
+<body>
+
+<!-- Navbar start -->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!-- Navbar End -->
+
+<br><br><br><br><br><br>
+<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp'); min-height: 130vh;">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100" style="padding-top: 25px;">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Update a Product</h2>
+                    <!-- Begin the updated form -->
+                    <form th:action="@{/update-product}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" id="id" name="id" th:value="${productDto.id}" />
+
+                        <!-- Product Name -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="title" name="title" class="form-control form-control-lg" th:value="${productDto.title}" required>
+                            <label class="form-label" for="title">Product Name</label>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-outline mb-4">
+                            <select id="category" name="category" class="form-control form-control-lg" required>
+                                <option value="" disabled>Select a Category</option>
+                                <option value="Metals" th:selected="${productDto.category == 'Metals'}">Metals</option>
+                                <option value="Battery Recycling" th:selected="${productDto.category == 'Battery Recycling'}">Battery Recycling</option>
+                                <option value="Compost & Food Waste" th:selected="${productDto.category == 'Compost & Food Waste'}">Compost & Food Waste</option>
+                                <option value="Computer & Electronics" th:selected="${productDto.category == 'Computer & Electronics'}">Computer & Electronics</option>
+                                <option value="Glass & Fiberglass" th:selected="${productDto.category == 'Glass & Fiberglass'}">Glass & Fiberglass</option>
+                                <option value="Chemicals" th:selected="${productDto.category == 'Chemicals'}">Chemicals</option>
+                                <option value="Paper/Cardboard" th:selected="${productDto.category == 'Paper/Cardboard'}">Paper/Cardboard</option>
+                                <option value="Plastic" th:selected="${productDto.category == 'Plastic'}">Plastic</option>
+                                <option value="Textiles & Leather" th:selected="${productDto.category == 'Textiles & Leather'}">Textiles & Leather</option>
+                                <option value="Tire & Rubber" th:selected="${productDto.category == 'Tire & Rubber'}">Tire & Rubber</option>
+                                <option value="Wood" th:selected="${productDto.category == 'Wood'}">Wood</option>
+                                <option value="Used Commercial Goods" th:selected="${productDto.category == 'Used Commercial Goods'}">Used Commercial Goods</option>
+                                <option value="Used Clothes" th:selected="${productDto.category == 'Used Clothes'}">Used Clothes</option>
+                                <option value="Used Equipment" th:selected="${productDto.category == 'Used Equipment'}">Used Equipment</option>
+                            </select>
+                            <label class="form-label" for="category">Category</label>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="form-outline mb-4">
+                            <input type="number" id="quantity" name="quantity" class="form-control form-control-lg" th:value="${productDto.quantity}" min="1" required>
+                            <label class="form-label" for="quantity">Quantity</label>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-outline mb-4">
+                            <input type="number" id="price" name="price" class="form-control form-control-lg" th:value="${productDto.price}" step="0.01" min="0" required>
+                            <label class="form-label" for="price">Price</label>
+                        </div>
+
+                        <!-- Region -->
+                        <div class="form-outline mb-4">
+                            <select id="region" name="region" class="form-control form-control-lg" onchange="concatenateLocation()" required>
+                                <option value="" disabled>Select a Region</option>
+                                <option value="Chișinău" th:selected="${#strings.contains(productDto.location, 'Chișinău')}">Chișinău</option>
+                                <option value="Bălți" th:selected="${#strings.contains(productDto.location, 'Bălți')}">Bălți</option>
+                                <option value="Tighina" th:selected="${#strings.contains(productDto.location, 'Tighina')}">Tighina</option>
+                                <option value="Tiraspol" th:selected="${#strings.contains(productDto.location, 'Tiraspol')}">Tiraspol</option>
+                                <option value="Comrat" th:selected="${#strings.contains(productDto.location, 'Comrat')}">Comrat</option>
+                                <option value="Anenii Noi" th:selected="${#strings.contains(productDto.location, 'Anenii Noi')}">Anenii Noi</option>
+                                <option value="Basarabeasca" th:selected="${#strings.contains(productDto.location, 'Basarabeasca')}">Basarabeasca</option>
+                                <option value="Briceni" th:selected="${#strings.contains(productDto.location, 'Briceni')}">Briceni</option>
+                                <option value="Cahul" th:selected="${#strings.contains(productDto.location, 'Cahul')}">Cahul</option>
+                                <option value="Cantemir" th:selected="${#strings.contains(productDto.location, 'Cantemir')}">Cantemir</option>
+                                <option value="Călărași" th:selected="${#strings.contains(productDto.location, 'Călărași')}">Călărași</option>
+                                <option value="Căușeni" th:selected="${#strings.contains(productDto.location, 'Căușeni')}">Căușeni</option>
+                                <option value="Cimișlia" th:selected="${#strings.contains(productDto.location, 'Cimișlia')}">Cimișlia</option>
+                                <option value="Criuleni" th:selected="${#strings.contains(productDto.location, 'Criuleni')}">Criuleni</option>
+                                <option value="Dondușeni" th:selected="${#strings.contains(productDto.location, 'Dondușeni')}">Dondușeni</option>
+                                <option value="Drochia" th:selected="${#strings.contains(productDto.location, 'Drochia')}">Drochia</option>
+                                <option value="Dubăsari" th:selected="${#strings.contains(productDto.location, 'Dubăsari')}">Dubăsari</option>
+                                <option value="Edineț" th:selected="${#strings.contains(productDto.location, 'Edineț')}">Edineț</option>
+                                <option value="Fălești" th:selected="${#strings.contains(productDto.location, 'Fălești')}">Fălești</option>
+                                <option value="Florești" th:selected="${#strings.contains(productDto.location, 'Florești')}">Florești</option>
+                                <option value="Glodeni" th:selected="${#strings.contains(productDto.location, 'Glodeni')}">Glodeni</option>
+                                <option value="Hîncești" th:selected="${#strings.contains(productDto.location, 'Hîncești')}">Hîncești</option>
+                                <option value="Ialoveni" th:selected="${#strings.contains(productDto.location, 'Ialoveni')}">Ialoveni</option>
+                                <option value="Leova" th:selected="${#strings.contains(productDto.location, 'Leova')}">Leova</option>
+                                <option value="Nisporeni" th:selected="${#strings.contains(productDto.location, 'Nisporeni')}">Nisporeni</option>
+                                <option value="Ocnița" th:selected="${#strings.contains(productDto.location, 'Ocnița')}">Ocnița</option>
+                                <option value="Orhei" th:selected="${#strings.contains(productDto.location, 'Orhei')}">Orhei</option>
+                                <option value="Rezina" th:selected="${#strings.contains(productDto.location, 'Rezina')}">Rezina</option>
+                                <option value="Rîșcani" th:selected="${#strings.contains(productDto.location, 'Rîșcani')}">Rîșcani</option>
+                                <option value="Sîngerei" th:selected="${#strings.contains(productDto.location, 'Sîngerei')}">Sîngerei</option>
+                                <option value="Soroca" th:selected="${#strings.contains(productDto.location, 'Soroca')}">Soroca</option>
+                                <option value="Strășeni" th:selected="${#strings.contains(productDto.location, 'Strășeni')}">Strășeni</option>
+                                <option value="Șoldănești" th:selected="${#strings.contains(productDto.location, 'Șoldănești')}">Șoldănești</option>
+                                <option value="Ștefan Vodă" th:selected="${#strings.contains(productDto.location, 'Ștefan Vodă')}">Ștefan Vodă</option>
+                                <option value="Taraclia" th:selected="${#strings.contains(productDto.location, 'Taraclia')}">Taraclia</option>
+                                <option value="Telenești" th:selected="${#strings.contains(productDto.location, 'Telenești')}">Telenești</option>
+                                <option value="Ungheni" th:selected="${#strings.contains(productDto.location, 'Ungheni')}">Ungheni</option>
+                            </select>
+                            <label class="form-label" for="region">Region</label>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="address" name="address" class="form-control form-control-lg"
+                                   th:value="${#strings.substringAfter(productDto.location, ', ')}"
+                                   oninput="concatenateLocation()" required>
+                            <label class="form-label" for="address">Address</label>
+                        </div>
+
+                        <!-- Hidden field to store concatenated location -->
+                        <input type="hidden" id="location" name="location" th:value="${productDto.location}" />
+
+                        <!-- Description -->
+                        <div class="form-outline mb-4">
+                            <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required th:text="${productDto.description}"></textarea>
+                            <label class="form-label" for="description">Description</label>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-outline mb-4">
+                            <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*" >
+                            <label class="form-label" for="productImage">Product Image</label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Update Product</button>
+                        </div>
+                    </form>
+                    <!-- End the updated form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+<!-- JavaScript to concatenate region and address -->
+<script>
+    function concatenateLocation() {
+        const region = document.getElementById('region').value || '';
+        const address = document.getElementById('address').value || '';
+
+        if (region && address) {
+            document.getElementById('location').value = `${region}, ${address}`;
+        } else {
+            document.getElementById('location').value = ''; // Clear if either is empty
+        }
+    }
+
+    // Initialize the form with the existing location
+    document.addEventListener('DOMContentLoaded', () => {
+        const location = document.getElementById('location').value;
+        const [region, ...addressParts] = location.split(', ');
+
+        document.getElementById('region').value = region || '';
+        document.getElementById('address').value = addressParts.join(', ') || '';
+
+        concatenateLocation(); // Initialize the hidden field
+    });
+</script>
+
+<!-- Add your JS libraries here -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
