@@ -28,28 +28,26 @@
             <div class="col-md-3 pt-0">
                 <div class="list-group list-group-flush account-settings-links">
                     <!-- Linkuri pentru tab-uri -->
-                    <a class="list-group-item list-group-item-action active" data-toggle="list"
-                       href="#account-general">General</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}">General</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                        href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#info">Info</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-settings}">Profile Settings</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-articles}">Articles</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-sales}">Sales</a>
                 </div>
             </div>
             <div class="col-md-9">
                 <!-- Formularul pentru profil -->
-                <form th:action="@{/update}" method="post" th:object="${profile}">
+                <form th:action="@{/update}" method="post" th:object="${profile}" enctype="multipart/form-data">
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
-<!--                                <img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" class="d-block ui-w-80">-->
+                                <!--                                <img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" class="d-block ui-w-80">-->
                                 <div class="media-body ml-4">
                                     <label class="btn btn-outline-primary">
                                         Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
-                                    </label> &nbsp;
+                                        <input type="file" name="profileImage" class="account-settings-fileinput">
+                                    </label>
                                     <button type="button" class="btn btn-default md-btn-flat">Reset</button>
                                     <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
                                 </div>
@@ -67,14 +65,14 @@
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
                                     <input type="text" class="form-control mb-1" th:field="*{email}">
-<!--                                    <div class="alert alert-warning mt-3">-->
-<!--                                        Your email is not confirmed. Please check your inbox.<br>-->
-<!--                                        <a href="javascript:void(0)">Resend confirmation</a>-->
-<!--                                    </div>-->
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Address</label>
                                     <input type="text" class="form-control" th:field="*{address}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" th:field="*{phoneNumber}">
                                 </div>
                             </div>
                         </div>

@@ -57,7 +57,7 @@ public class User {
     private String userType;
 
     @Lob
-    @Column(name = "image")
+    @Column(name = "image",  columnDefinition = "LONGBLOB")
     private byte[] image;
 
     public String getBase64Image() {
