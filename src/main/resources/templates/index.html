@@ -28,6 +28,35 @@
 
         <!-- Main Stylesheet File -->
         <link href="css/style.css" rel="stylesheet"  th:href="@{/css/style.css}">
+
+        <style>
+            .image-container {
+                position: relative;
+                padding-right: 0;
+            }
+
+            .custom-img {
+                width: 200%;
+                max-width: 1600px;
+                height: auto;
+                position: absolute;
+                left: -200px;
+                top: -280px;
+                margin: 0;
+            }
+
+            .text-container {
+                padding-left: 50px;
+            }
+
+            .counter-icon {
+                width: 85px; /* Smaller size for icons */
+                height: auto;
+                margin-bottom: 10px; /* Adjust if needed for spacing */
+            }
+
+        </style>
+
     </head>
 
     <body>
@@ -68,11 +97,11 @@
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-md-12 col-lg-7">
-                        <h4 class="mb-3 text-secondary">GLOBAL RECYCLED MATERIALS MARKETPLACE</h4>
+                        <h4 class="mb-3 text-secondary">The most eco marketplace in Moldova</h4>
                         <h1 class="mb-5 display-3 text-primary">Trash today, treasure tomorrow</h1>
                         <div class="position-relative mx-auto">
                             <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
-                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
+                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Search Now</button>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-5">
@@ -118,9 +147,8 @@
         </div>
         <!-- Hero End -->
 
-
         <!-- Features Section Start -->
-        <div class="container-fluid featurs py-5">
+        <div class="container-fluid featurs py-3">
             <div class="container py-5">
                 <div class="row g-4">
                     <div class="col-md-6 col-lg-3">
@@ -172,7 +200,27 @@
         </div>
         <!-- Features Section End -->
 
-
+        <!-- AI and Recycling Banner Section Start -->
+        <div class="container-fluid ai-banner my-5" style="background-color: #84c30c;">
+            <div class="container py-5">
+                <div class="row g-0 align-items-center">
+                    <!-- Image on the left, larger and aligned to the left margin -->
+                    <div class="col-lg-6 image-container">
+                        <img src="/img/armrobotflower.png" class="img-fluid custom-img" alt="AI-Powered Recycling">
+                    </div>
+                    <!-- Text content on the right -->
+                    <div class="col-lg-6 text-container">
+                        <div class="py-4 text-right">
+                            <h1 class="display-3 text-white">AI-Powered Recycling</h1>
+                            <p class="fw-normal display-4 text-dark mb-4">for a Better Future</p>
+                            <p class="mb-4 text-dark">We leverage cutting-edge artificial intelligence to optimize recycling processes, minimize waste, and ensure a sustainable tomorrow. Our AI system helps identify, sort, and manage materials efficiently, reducing environmental impact and promoting eco-friendly practices.</p>
+                            <a href="#" class="btn banner-btn border-2 border-white rounded-pill text-dark py-3 px-5">LEARN MORE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AI and Recycling Banner Section End -->
 
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
@@ -553,9 +601,6 @@
         <!-- Banner Section End -->
 
 
-        <!-- Banner Section End -->
-
-
         <!-- Fact Start -->
         <div class="container-fluid py-5">
             <div class="container">
@@ -570,21 +615,21 @@
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-3">
                             <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
+                                <img src="/img/quality.png" alt="Quality Icon" class="counter-icon">
                                 <h4>quality of service</h4>
                                 <h1>99%</h1>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-3">
                             <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
+                                <img src="/img/certificate.png" alt="Certificate Icon" class="counter-icon">
                                 <h4>quality certificates</h4>
                                 <h1>33</h1>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-3">
                             <div class="counter bg-white rounded p-5">
-                                <i class="fa fa-users text-secondary"></i>
+                                <img src="/img/order.png" alt="Available Products Icon" class="counter-icon">
                                 <h4>Available Products</h4>
                                 <h1>1000+</h1>
                             </div>
@@ -597,7 +642,7 @@
 
 
         <!-- Tastimonial Start -->
-        <div class="container-fluid testimonial py-5">
+        <div class="container-fluid testimonial py-3">
             <div class="container py-5">
                 <div class="testimonial-header text-center">
                     <h4 class="text-primary">Our Testimonial</h4>
@@ -613,11 +658,11 @@
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="/img/greta.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Sarah Thompson</h4>
-                                    <p class="m-0 pb-3">Marketing Executive</p>
+                                    <h4 class="text-dark">Greta Rusu</h4>
+                                    <p class="m-0 pb-3">Eco activist</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>
@@ -638,11 +683,11 @@
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-2.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="/img/satean.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Michael Harris</h4>
-                                    <p class="m-0 pb-3">Environmental Engineer</p>
+                                    <h4 class="text-dark">Mihai Lungu</h4>
+                                    <p class="m-0 pb-3">Driver, satean</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>
@@ -663,11 +708,11 @@
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-3.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="/img/babushka.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">David Peterson</h4>
-                                    <p class="m-0 pb-3">Marketing Executive</p>
+                                    <h4 class="text-dark">Maria Popovici</h4>
+                                    <p class="m-0 pb-3">Bunica la pensie</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>

@@ -43,7 +43,7 @@
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">Nr1</a></small>
+                <small class="me-3"><a href="#" class="text-white">Your #1 Marketplace for Recyclable Materials</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">info@refreshai.com</a></small>
             </div>
             <div class="top-link pe-2">
@@ -64,9 +64,31 @@
                     <a th:href="@{/index}" th:classappend="${page == 'index'} ? 'active'" class="nav-item nav-link me-3">Home</a>
                     <a th:href="@{/shop}" th:classappend="${page == 'shop'} ? 'active'" class="nav-item nav-link me-3">Shop</a>
                     <a th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active'" class="nav-item nav-link me-3">Contact</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Metals')}">Metals</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Battery Recycling')}">Battery Recycling</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Compost & Food Waste')}">Compost & Food Waste</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Computer & Electronics')}">Computer & Electronics</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Glass & Fiberglass')}">Glass & Fiberglass</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Chemicals')}">Chemicals</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Paper/Cardboard')}">Paper/Cardboard</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Plastic')}">Plastic</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Textiles & Leather')}">Textiles & Leather</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Tire & Rubber')}">Tire & Rubber</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Wood')}">Wood</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Used Commercial Goods')}">Used Commercial Goods</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Used Clothes')}">Used Clothes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/shop(category='Used Equipment')}">Used Equipment</a></li>
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <a th:href="@{/addprod}" class="btn-recycle btn border border-secondary d-flex align-items-center me-3">
+                    <a sec:authorize="isAuthenticated()" th:href="@{/addprod}" class="btn-recycle btn border border-secondary d-flex align-items-center me-3">
                         <i class="bi bi-plus-circle me-2"></i>
                         Add Product
                     </a>
@@ -78,7 +100,7 @@
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
 
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-item nav-link" >Login</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-item nav-link">Login</a>
 
                     <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-item nav-link">Logout</a>

@@ -13,6 +13,48 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        body {
+            padding-top: 100px; /* Prevent navbar overlap */
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #f3f3f3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: flex-start; /* Align image and text properly */
+            gap: 40px; /* Increase gap for more spacing */
+            margin-bottom: 20px;
+        }
+        .profile-header-info {
+            flex-grow: 1;
+        }
+        .list-group-item.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .profile-card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px; /* Add some padding for the card content */
+        }
+        .profile-section-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .profile-info p {
+            font-size: 1rem;
+            margin: 10px 0; /* Increase margin for better spacing */
+        }
+    </style>
 </head>
 <body>
 
@@ -20,17 +62,14 @@
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!-- Navbar End -->
 
-<br><br><br><br><br><br><br>
-
+<br><br><br>
 <div class="container light-style flex-grow-1 container-p-y">
-    <div class="card overflow-hidden">
-        <div class="row no-gutters row-bordered row-border-light">
-            <div class="col-md-3 pt-0">
+    <div class="card profile-card overflow-hidden">
+        <div class="row no-gutters">
+            <div class="col-md-3">
                 <div class="list-group list-group-flush account-settings-links">
-                    <!-- Linkuri pentru tab-uri -->
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}">General</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#account-change-password">Change password</a>
+                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}" th:object="${profile}">General</a>
+                    <a class="list-group-item list-group-item-action" href="#account-change-password">Change password</a>
                     <a class="list-group-item list-group-item-action" th:href="@{/profile-settings}">Profile Settings</a>
                     <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
                     <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
