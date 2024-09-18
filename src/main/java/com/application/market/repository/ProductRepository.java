@@ -1,6 +1,7 @@
 package com.application.market.repository;
 
 import com.application.market.entity.Product;
+import com.application.market.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByOrderByDatePostedDesc();
 
     Page<Product> findAll(Pageable pageable);
+
+    List<Product> findByUser(User user);
 
     @Query("SELECT COUNT(p) FROM Product p WHERE p.category.categoryName = :categoryName")
     long countProductsByCategory(String categoryName);

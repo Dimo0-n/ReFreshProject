@@ -75,6 +75,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    public List<Product> getProductsByUser(User user) {
+        return productRepository.findByUser(user);
+    }
+
     // Compress image method
     public byte[] compressImageWithThumbnailator(MultipartFile imageFile) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -85,6 +89,39 @@ public class ProductServiceImpl implements ProductService {
                 .toOutputStream(outputStream);
 
         return outputStream.toByteArray();
+    }
+
+    @Override
+    public void updateProduct(ProductDto productDto, MultipartFile imageFile) {
+        Product product = productRepository.findById(productDto.getId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setQuantity(productDto.getQuantity());
+        product.setLocation(productDto.getLocation());
+
+        Category category = categoryRepository.findByCategoryName(productDto.getCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        product.setCategory(category);
+
+        try {
+            if (!imageFile.isEmpty()) {
+                byte[] compressedImage = compressImageWithThumbnailator(imageFile);
+                product.setImage(compressedImage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to upload and compress image", e);
+        }
+
+        productRepository.save(product);
+    }
+
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
     }
 
     @Override

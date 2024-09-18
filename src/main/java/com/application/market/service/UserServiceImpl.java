@@ -47,14 +47,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRegisterDate(LocalDateTime.now());
 
-          profile.setEmail(userDto.getEmail());
+        profile.setEmail(userDto.getEmail());
+        profile.setUser(user);
 
         Role role = roleRepository.findByName("ROLE_USER");
-
         user.setRoles(Arrays.asList(role));
+
         userRepository.save(user);
         profileRepository.save(profile);
     }
+
 
     @Override
     public Profile getUserInfo(String email){

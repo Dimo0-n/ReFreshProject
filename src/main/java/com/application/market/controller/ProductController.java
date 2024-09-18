@@ -1,7 +1,11 @@
 package com.application.market.controller;
 
 import com.application.market.dto.ProductDto;
+import com.application.market.entity.Category;
 import com.application.market.entity.Product;
+import com.application.market.repository.CategoryRepository;
+import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserRepository;
 import com.application.market.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,11 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
@@ -44,7 +53,6 @@ public class ProductController {
         }
     }
 
-
     @PostMapping("/submit-product")
     public String submitProduct(@ModelAttribute ProductDto productDto,
                                 @RequestParam("imageFile") MultipartFile imageFile,
@@ -62,6 +70,42 @@ public class ProductController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error uploading product.");
             return "redirect:/addproduct?error=true";
+        }
+    }
+
+    @GetMapping("/editProduct-{id}")
+    public String showEditProductForm(@PathVariable("id") Long id, Model model) {
+        Product product = productService.findProductById(id);
+
+        if (product != null) {
+            ProductDto productDto = new ProductDto();
+            productDto.setId(product.getId());
+            productDto.setTitle(product.getTitle());
+            productDto.setDescription(product.getDescription());
+            productDto.setPrice(product.getPrice());
+            productDto.setQuantity(product.getQuantity());
+            productDto.setLocation(product.getLocation());
+            productDto.setCategory(product.getCategory().getCategoryName());
+
+            model.addAttribute("productDto", productDto);
+            return "editProductForm";
+        } else {
+            model.addAttribute("errorMessage", "Product not found");
+            return "404";
+        }
+    }
+
+    @PostMapping("/update-product")
+    public String updateProduct(@ModelAttribute ProductDto productDto,
+                                @RequestParam("imageFile") MultipartFile imageFile,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            productService.updateProduct(productDto, imageFile);
+            redirectAttributes.addFlashAttribute("productUpdated", true);
+            return "redirect:/shopDetail-" + productDto.getId();
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error updating product.");
+            return "redirect:/editproduct-" + productDto.getId() + "?error=true";
         }
     }
 }

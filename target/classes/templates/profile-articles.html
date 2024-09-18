@@ -13,6 +13,7 @@
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 <body>
 
@@ -28,16 +29,62 @@
       <div class="col-md-3 pt-0">
         <div class="list-group list-group-flush account-settings-links">
           <!-- Linkuri pentru tab-uri -->
-          <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}">General</a>
+          <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}" th:object="${profile}">General</a>
           <a class="list-group-item list-group-item-action" data-toggle="list"
              href="#account-change-password">Change password</a>
-          <a class="list-group-item list-group-item-action" th:href="@{/profile-settings}">Profile Settings</a>
-          <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
-          <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
+          <a class="list-group-item list-group-item-action active" th:href="@{/profile-settings}">Profile Settings</a>
+          <a class="list-group-item list-group-item-action active" th:href="@{/profile-articles}">Articles</a>
+          <a class="list-group-item list-group-item-action active" th:href="@{/profile-sales}">Sales</a>
+        </div>
+      </div>
+
+      <div class="col-md-9 py-5">
+        <h4>My Articles</h4>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center py-5">
+          <!-- Loop through products posted by this user -->
+          <div th:each="product : ${products}" class="col">
+            <div class="card h-100 rounded position-relative shadow-sm border-0">
+              <!-- Product Image -->
+              <div class="fruite2-img">
+                <a th:href="@{'/shopDetail-' + ${product.id}}">
+                  <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}"
+                       class="img-fluid w-100 rounded-top card-img-top"
+                       alt="Product Image"
+                       style="object-fit: cover; height: 250px;">
+                </a>
+              </div>
+              <!-- Product Info -->
+              <div class="card-body p-4 border border-top-0 rounded-bottom" style="border-color: #f6ba31;">
+                <h5 class="card-title" th:text="${product.title}">Product Title</h5>
+                <p class="card-text text-muted small product-description" th:text="${product.description}">
+                  Product Description
+                </p>
+                <p class="text-dark fs-5 fw-bold mb-0">
+                  <span th:text="${product.price} + ' MDL'"></span>
+                </p>
+
+                <!-- "Change" Button -->
+                <div class="d-flex justify-content-between flex-lg-wrap mt-3">
+                  <a th:href="@{'/editProduct-' + ${product.id}}"
+                     class="btn border border-secondary rounded-pill px-3 text-primary">
+                    Change
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message if no products are found -->
+        <div th:if="${products.isEmpty()}">
+          <p class="text-center">No products posted yet.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
 </body>
 </html>
