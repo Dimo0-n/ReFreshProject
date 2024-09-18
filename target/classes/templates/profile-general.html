@@ -13,6 +13,16 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        .profile-image {
+            width: 150px; /* Adjust the width */
+            height: 150px; /* Adjust the height */
+            object-fit: cover; /* Ensure the image fits within the box */
+            border-radius: 50%; /* Makes the image round */
+            border: 2px solid #ddd; /* Optional: Add a border for aesthetics */
+        }
+    </style>
 </head>
 <body>
 
@@ -38,8 +48,9 @@
             </div>
             <div class="col-md-9">
                 <div class="card-body">
-                    <h5 class="card-title">Profile Information</h5>
-                    <p><strong>Profile Image:</strong></p> <img th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="">
+                    <img th:if="${profile.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="Profile Image" class="profile-image">
+                    <img th:unless="${profile.base64Image != null}" th:src="@{/img/avataruser.jpg}" alt="Default Profile Image" class="profile-image">
+                    <br><br><br>
                     <p><strong>Name:</strong> <span th:text="${profile.name}"></span></p>
                     <p><strong>Surname:</strong> <span th:text="${profile.surname}"></span></p>
                     <p><strong>Email:</strong> <span th:text="${profile.email}"></span></p>
