@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,6 +25,16 @@ public class ShopController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @ModelAttribute("categories")
+    public List<String> getCategories() {
+        return List.of(
+                "Metals", "Battery Recycling", "Compost & Food Waste", "Computer & Electronics",
+                "Glass & Fiberglass", "Chemicals", "Paper/Cardboard", "Plastic",
+                "Textiles & Leather", "Tire & Rubber", "Wood",
+                "Used Commercial Goods", "Used Clothes", "Used Equipment"
+        );
+    }
 
     @GetMapping("/shop")
     public String shop(@RequestParam(value = "page", defaultValue = "0") int page,

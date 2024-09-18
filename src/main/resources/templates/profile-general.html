@@ -15,12 +15,44 @@
     <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
     <style>
+        body {
+            padding-top: 100px; /* Prevent navbar overlap */
+        }
         .profile-image {
-            width: 150px; /* Adjust the width */
-            height: 150px; /* Adjust the height */
-            object-fit: cover; /* Ensure the image fits within the box */
-            border-radius: 50%; /* Makes the image round */
-            border: 2px solid #ddd; /* Optional: Add a border for aesthetics */
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #f3f3f3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: flex-start; /* Align image and text properly */
+            gap: 40px; /* Increase gap for more spacing */
+            margin-bottom: 20px;
+        }
+        .profile-header-info {
+            flex-grow: 1;
+        }
+        .list-group-item.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .profile-card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px; /* Add some padding for the card content */
+        }
+        .profile-section-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .profile-info p {
+            font-size: 1rem;
+            margin: 10px 0; /* Increase margin for better spacing */
         }
     </style>
 </head>
@@ -29,37 +61,42 @@
 <!-- Navbar start -->
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!-- Navbar End -->
-
-<br><br><br><br><br><br><br>
-
+<br><br><br>
 <div class="container light-style flex-grow-1 container-p-y">
-    <div class="card overflow-hidden">
-        <div class="row no-gutters row-bordered row-border-light">
-            <div class="col-md-3 pt-0">
+    <div class="card profile-card overflow-hidden">
+        <div class="row no-gutters">
+            <div class="col-md-3">
                 <div class="list-group list-group-flush account-settings-links">
-                    <!-- Linkuri pentru tab-uri -->
                     <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}" th:object="${profile}">General</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-settings}">Profile Settings</a>
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-articles}">Articles</a>
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-sales}">Sales</a>
+                    <a class="list-group-item list-group-item-action" href="#account-change-password">Change password</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/profile-settings}">Profile Settings</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="card-body">
-                    <img th:if="${profile.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="Profile Image" class="profile-image">
-                    <img th:unless="${profile.base64Image != null}" th:src="@{/img/avataruser.jpg}" alt="Default Profile Image" class="profile-image">
-                    <br><br>
-                    <p><strong>Name:</strong> <span th:text="${profile.name}"></span></p>
-                    <p><strong>Surname:</strong> <span th:text="${profile.surname}"></span></p>
-                    <p><strong>Email:</strong> <span th:text="${profile.email}"></span></p>
-                    <p><strong>Address:</strong> <span th:text="${profile.address}"></span></p>
-                    <p><strong>Phone Number:</strong> <span th:text="${profile.phoneNumber}"></span></p>
+                    <div class="profile-header">
+                        <img th:if="${profile.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${profile.base64Image}" alt="Profile Image" class="profile-image">
+                        <img th:unless="${profile.base64Image != null}" th:src="@{/img/avataruser.jpg}" alt="Default Profile Image" class="profile-image">
+                        <div class="profile-header-info">
+                            <h3 th:text="${profile.name} + ' ' + ${profile.surname}"></h3>
+                            <p th:text="${profile.email}"></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="profile-info">
+                        <p><span class="profile-section-title">Name:</span> <span th:text="${profile.name}"></span></p>
+                        <p><span class="profile-section-title">Surname:</span> <span th:text="${profile.surname}"></span></p>
+                        <p><span class="profile-section-title">Email:</span> <span th:text="${profile.email}"></span></p>
+                        <p><span class="profile-section-title">Address:</span> <span th:text="${profile.address}"></span></p>
+                        <p><span class="profile-section-title">Phone Number:</span> <span th:text="${profile.phoneNumber}"></span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>
