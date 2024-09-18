@@ -32,6 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByUser(User user, Sort sort);
     @Query("SELECT p FROM Product p WHERE " +
+            "p.status = 'Available' AND " +
             "(:category IS NULL OR :category = '' OR p.category.categoryName = :category) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
             "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
@@ -43,4 +44,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("region") String region,
             Pageable pageable);
 
+    List<Product> findByStatus(String status);
 }
