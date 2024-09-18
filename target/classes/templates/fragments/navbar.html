@@ -62,10 +62,8 @@
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <a th:href="@{/index}" th:classappend="${page == 'index'} ? 'active'" class="nav-item nav-link">Home</a>
-                    <a th:href="@{/shop}" th:classappend="${page == 'shop'} ? 'active'" class="nav-item nav-link">Shop</a>
-                    <!--<a th:href="@{/shopDetail}" th:classappend="${page == 'shopDetail'} ? 'active'" class="nav-item nav-link">Shop Detail</a> -->
-                    <a th:href="@{/checkout}" th:classappend="${page == 'checkout'} ? 'active'" class="nav-item nav-link">Checkout</a>
-                    <a th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active'" class="nav-item nav-link">Contact</a>
+                    <a th:href="@{/shop}" th:classappend="${page == 'shop'} ? 'active'" class="nav-item nav-link me-3">Shop</a>
+                    <a th:href="@{/contact}" th:classappend="${page == 'contact'} ? 'active'" class="nav-item nav-link me-3">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
                     <a th:href="@{/addprod}" class="btn-recycle btn border border-secondary d-flex align-items-center me-3">
@@ -80,7 +78,6 @@
                         <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
 
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="nav-item nav-link">Register</a>
                     <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="nav-item nav-link" >Login</a>
 
                     <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="my-auto"><i class="fas fa-user fa-2x"></i></a>

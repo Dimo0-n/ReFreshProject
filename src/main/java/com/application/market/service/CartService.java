@@ -8,4 +8,6 @@ public interface CartService {
 
     List<Cart> getCartsItemsByUserId(Long id);
 
+    Double getTotalPrice();
+
 }

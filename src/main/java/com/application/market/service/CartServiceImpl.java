@@ -18,4 +18,8 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findByUserId(userId);
     }
 
+    public Double getTotalPrice() {
+        return cartRepository.getTotalPrice();
+    }
+
 }
