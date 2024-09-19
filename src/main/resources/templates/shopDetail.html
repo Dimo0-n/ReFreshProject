@@ -115,6 +115,7 @@
                            th:data-price="${product.price}"
                            th:data-image="${product.base64Image}"
                            th:data-username="${product.user.username}"
+                           th:data-location="${product.location}"
                            class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                         </a>
@@ -134,7 +135,8 @@
                                     category:this.getAttribute('data-category'),
                                     price: this.getAttribute('data-price'),
                                     image: this.getAttribute('data-image'),
-                                    username: this.getAttribute('data-username')
+                                    username: this.getAttribute('data-username'),
+                                    location: this.getAttribute('data-location')
                                 };
 
                                 // Trimiterea datelor la server prin cererea POST

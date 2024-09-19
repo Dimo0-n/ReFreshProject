@@ -22,4 +22,9 @@ public class CartServiceImpl implements CartService {
         return cartRepository.getTotalPrice();
     }
 
+    public Cart getCartById(Long id) {
+        // Returnează coșul pe baza id-ului
+        return cartRepository.findById(id).orElse(null);
+    }
+
 }

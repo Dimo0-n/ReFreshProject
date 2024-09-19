@@ -25,6 +25,9 @@ public class Cart {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "quantity")
     private Integer quantity;
 
