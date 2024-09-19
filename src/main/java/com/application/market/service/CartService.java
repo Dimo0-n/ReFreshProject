@@ -10,4 +10,6 @@ public interface CartService {
 
     Double getTotalPrice();
 
+    Cart getCartById(Long id);
+
 }
