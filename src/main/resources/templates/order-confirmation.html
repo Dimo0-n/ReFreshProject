@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReFreshAi - Confirmare Comandă</title>
+
+    <!-- Stiluri și fonturi -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        body {
+            padding-top: 100px; /* Asigură că navbar-ul nu se suprapune peste conținut */
+            background-color: #f4f4f4; /* Culoare de fundal pentru contrast */
+        }
+        .confirmation-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            margin: 50px auto; /* Center the container */
+            text-align: center;
+        }
+        .confirmation-container h1 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        .confirmation-container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .order-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .btn-home {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-home:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar start -->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!-- Navbar End -->
+<br><br>
+<div class="confirmation-container">
+    <h1>Comandă Confirmată!</h1>
+    <p>Mulțumim pentru comanda ta. Un e-mail de confirmare a fost trimis la adresa ta.</p>
+
+    <div class="order-details">
+        <p><strong>Numărul comenzii:</strong> #123456</p>
+        <p><strong>Data:</strong> 19 Septembrie 2024</p>
+        <p><strong>Total:</strong> 250 RON</p>
+    </div>
+
+    <a href="/index" class="btn-home">Înapoi la pagina principală</a>
+</div>
+
+</body>
+</html>
