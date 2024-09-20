@@ -64,7 +64,7 @@ public class CheckoutController {
         if (paymentCash != null) {
             checkout.setPaymentCash("Cash");
             checkoutRepository.save(checkout);
-            return "thankyou";
+            return "oreder-confirmation";
         }
 
         if (paymentOnline != null)
