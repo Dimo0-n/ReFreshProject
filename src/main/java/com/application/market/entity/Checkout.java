@@ -18,6 +18,9 @@ public class Checkout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Product product;
+
     @Column(name = "name")
     private String name;
 

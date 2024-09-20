@@ -77,7 +77,7 @@
 <div class="container-fluid py-5">
     <div class="container py-5">
         <h1 class="mb-4">Billing details</h1>
-        <form id="checkoutForm" th:action="@{submitCheckout}" method="POST">
+        <form id="checkoutForm" th:action="@{submitCheckout}" th:value="*{cart.product.id}" method="POST">
             <div class="row g-5">
                 <div class="col-md-12 col-lg-6 col-xl-7">
                     <div class="row">
@@ -244,9 +244,11 @@
                         </script>
 
                     </div>
+                    <input type="hidden" name="productId" th:value="${cart.product.id}" />
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                        <button type="submit" class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order</button>
+                        <button type="submit"  class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order</button>
                     </div>
+
                 </div>
             </div>
         </form>
