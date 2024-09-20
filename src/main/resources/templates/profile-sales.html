@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReFreshAi</title>
+    <title>Vânzări Utilizator</title>
 
     <!-- Stiluri și fonturi -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
@@ -16,43 +16,57 @@
 
     <style>
         body {
-            padding-top: 100px; /* Prevent navbar overlap */
+            padding-top: 150px; /* Prevent navbar overlap */
+            background-color: #f4f4f4;
         }
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #f3f3f3;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+        .sales-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .profile-header {
+        .order-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             display: flex;
-            align-items: flex-start; /* Align image and text properly */
-            gap: 40px; /* Increase gap for more spacing */
+            align-items: center;
             margin-bottom: 20px;
         }
-        .profile-header-info {
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .order-info {
             flex-grow: 1;
         }
-        .list-group-item.active {
+        .order-info p {
+            margin: 5px 0;
+        }
+        .order-date,
+        .buyer-name,
+        .payment-method {
+            font-weight: bold;
+        }
+        .order-actions {
+            display: flex;
+            align-items: center;
+        }
+        .order-actions button {
             background-color: #007bff;
             color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 10px;
         }
-        .profile-card {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px; /* Add some padding for the card content */
-        }
-        .profile-section-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        .profile-info p {
-            font-size: 1rem;
-            margin: 10px 0; /* Increase margin for better spacing */
+        .order-actions button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -62,21 +76,53 @@
 <div th:replace="~{/fragments/navbar :: navbar}"></div>
 <!-- Navbar End -->
 
-<br><br><br>
-<div class="container light-style flex-grow-1 container-p-y">
-    <div class="card profile-card overflow-hidden">
-        <div class="row no-gutters">
-            <div class="col-md-3">
-                <div class="list-group list-group-flush account-settings-links">
-                    <a class="list-group-item list-group-item-action active" th:href="@{/profile-general}" th:object="${profile}">General</a>
-                    <a class="list-group-item list-group-item-action" href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-settings}">Profile Settings</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-articles}">Articles</a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/profile-sales}">Sales</a>
+<div class="sales-container">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="order-card">
+                <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+                <div class="order-info">
+                    <p><strong>Numele produsului:</strong> Smartphone XYZ</p>
+                    <p><strong>Cantitate:</strong> 2 bucăți</p>
+                    <p class="order-date"><strong>Data comenzii:</strong> 19 Septembrie 2024</p>
+                    <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Maria Popescu</p>
+                    <p class="payment-method"><strong>Mod de achitare:</strong> Card de credit</p>
                 </div>
             </div>
         </div>
+
+        <!-- Card 2 -->
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="order-card">
+                <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+                <div class="order-info">
+                    <p><strong>Numele produsului:</strong> Laptop ABC</p>
+                    <p><strong>Cantitate:</strong> 1 buc</p>
+                    <p class="order-date"><strong>Data comenzii:</strong> 20 Septembrie 2024</p>
+                    <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Andrei Ionescu</p>
+                    <p class="payment-method"><strong>Mod de achitare:</strong> PayPal</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="order-card">
+                <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+                <div class="order-info">
+                    <p><strong>Numele produsului:</strong> Televizor DEF</p>
+                    <p><strong>Cantitate:</strong> 1 buc</p>
+                    <p class="order-date"><strong>Data comenzii:</strong> 21 Septembrie 2024</p>
+                    <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Ioana Vasile</p>
+                    <p class="payment-method"><strong>Mod de achitare:</strong> Ramburs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adaugă alte carduri aici -->
     </div>
 </div>
+
 </body>
 </html>

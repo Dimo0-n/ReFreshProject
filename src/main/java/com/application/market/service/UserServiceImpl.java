@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -85,4 +83,12 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("User not found with id: " + id);
         }
     }
+
+    @Override
+    @Transactional
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
 }
