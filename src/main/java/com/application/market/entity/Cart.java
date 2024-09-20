@@ -9,7 +9,7 @@ import java.util.Base64;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cart")
+@Table(name = "cart_items")
 public class Cart {
 
     @Id
@@ -17,7 +17,6 @@ public class Cart {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
