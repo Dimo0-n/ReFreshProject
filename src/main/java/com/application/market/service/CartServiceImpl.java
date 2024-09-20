@@ -27,4 +27,11 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findById(id).orElse(null);
     }
 
+    public void updateQuantity(Long id, int quantity) {
+        Cart cart = getCartById(id);
+        cart.setQuantity(quantity);
+        cart.setTotal(cart.getPrice() * quantity); // Actualizează prețul total
+        cartRepository.save(cart);
+    }
+
 }
