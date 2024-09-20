@@ -17,20 +17,11 @@ public class Checkout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private User user;
-
     @Column(name = "name")
     private String name;
 
     @Column(name = "surname")
     private String surname;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "city")
-    private String city;
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
@@ -38,7 +29,14 @@ public class Checkout {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "orederNotes")
-    private String orederNotes;
+    private String adresaPreluarePersonala;
+
+    private String adresaLivrare;
+
+    private String paymentCash;
+
+    private String paymentOnline;
+
+    private String orderNotes;
 
 }
