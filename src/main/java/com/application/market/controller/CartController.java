@@ -5,6 +5,7 @@ import com.application.market.entity.Product;
 import com.application.market.entity.User;
 import com.application.market.repository.CartRepository;
 import com.application.market.service.CartService;
+import com.application.market.service.ProductService;
 import com.application.market.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class CartController {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private ProductService productService;
 
     @PostMapping("/addToCart")
     public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> product) {
@@ -52,6 +59,23 @@ public class CartController {
         // Logica pentru ștergerea produsului din coș
         cartRepository.deleteById(id);
         return "redirect:/cart"; // Redirectează către pagina coșului de cumpărături
+    }
+
+    @PostMapping("/cart/update-quantity/{id}")
+    public String updateQuantity(@PathVariable(value="id") Long id, @RequestParam int quantity, Model model) {
+        Cart cart = cartService.getCartById(id);
+
+        Product product = cart.getProduct();
+
+        // Verifică dacă există suficient stoc pentru produs
+        if (quantity <= product.getQuantity()) {
+            cartService.updateQuantity(id, quantity);
+            model.addAttribute("message", "Quantity updated successfully.");
+        } else {
+            model.addAttribute("error", "Not enough stock available.");
+        }
+
+        return "redirect:/cart"; // Redirecționează la pagina de coș
     }
 
 

@@ -12,4 +12,6 @@ public interface CartService {
 
     Cart getCartById(Long id);
 
+    void updateQuantity(Long cartId, int quantity);
+
 }

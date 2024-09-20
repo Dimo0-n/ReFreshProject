@@ -17,6 +17,10 @@ public class Cart {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
     private User user;
 
     @Column(name = "category_name")

@@ -90,44 +90,45 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="cart : ${cartItems}">
+                        <tr th:each="cartItem : ${cartItems}">
                             <th scope="row">
                                 <div class="d-flex align-items-center">
                                     <!-- Dinamic Image from Base64 -->
-                                    <img th:src="@{'data:image/jpeg;base64,' + ${cart.base64Image}}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="Product Image">
+                                    <img th:src="@{'data:image/jpeg;base64,' + ${cartItem.base64Image}}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="Product Image">
                                 </div>
                             </th>
                             <td>
                                 <!-- Dinamic Product Title  -->
-                                <p class="mb-0 mt-4" th:text="${cart.title}"></p>
+                                <p class="mb-0 mt-4" th:text="${cartItem.title}">Product Title</p>
                             </td>
                             <td>
                                 <!-- Dinamic Product Price -->
-                                <p class="mb-0 mt-4"><span th:text="${cart.price}"></span> MDL</p>
+                                <p class="mb-0 mt-4">$<span th:text="${cartItem.price}">0.00</span></p>
                             </td>
+                            <td>
                             <td>
                                 <!-- Quantity Input -->
-                                <div class="input-group quantity mt-4" style="width: 100px;">
+                            <form th:action="@{/cart/update-quantity/{id}(id=${cartItem.id})}" method="post">
+                                <div class="input-group quantity mt-4" style="width: 150px;">
+                                    <!-- Câmp de input pentru cantitate -->
+                                    <input type="number" class="form-control form-control-sm text-center"
+                                           name="quantity" min="1" th:value="${cartItem.quantity}">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" th:value="${cart.quantity}" readonly>
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                     </div>
                                 </div>
-                            </td>
+                            </form>
+
+                        </td>
                             <td>
-                                <!-- Total Price (if applicable, you can multiply price by quantity if needed) -->
-                                <p class="mb-0 mt-4"><span th:text="${cart.price * cart.quantity}">MDL</span></p>
+                                <!-- Total Price -->
+                                <span th:text="${cartItem.total}"></span>
+                            </td>
+
                             </td>
                             <td>
                                 <!-- Remove from Cart Button -->
-                                <form th:action="@{delete/{id}(id=${cart.id})}" method="post" style="display: inline;">
+                                <form th:action="@{delete/{id}(id=${cartItem.id})}" method="post" style="display: inline;">
                                     <button type="submit" class="btn btn-md rounded-circle bg-light border mt-4">
                                         <i class="fa fa-times text-danger"></i>
                                     </button>
@@ -135,7 +136,7 @@
                             </td>
                             <td>
                                 <!-- Purchase Button -->
-                                <form th:action="@{purchase{id}(id=${cart.id})}" method="get" style="display: inline;">
+                                <form th:action="@{purchase{id}(id=${cartItem.id})}" method="get" style="display: inline;">
                                     <button type="submit" class="btn btn-success mt-4">Purchase</button>
                                 </form>
                             </td>
@@ -149,9 +150,9 @@
         <!-- Cart Page End -->
 
 
-        <!-- About start -->
+        <!-- Navbar start -->
         <div th:replace="~{/fragments/about :: about}"></div>
-        <!-- About End -->
+        <!-- Navbar End -->
 
         <!-- Copyright Start -->
         <div class="container-fluid copyright bg-dark py-4">
@@ -160,7 +161,12 @@
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                         <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
                     </div>
-
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
                 </div>
             </div>
         </div>
