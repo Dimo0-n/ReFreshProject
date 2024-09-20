@@ -4,6 +4,7 @@ import com.application.market.entity.Cart;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
 import com.application.market.repository.CartRepository;
+import com.application.market.repository.ProductRepository;
 import com.application.market.service.CartService;
 import com.application.market.service.ProductService;
 import com.application.market.service.UserService;
@@ -31,6 +32,9 @@ public class CartController {
     private CartService cartService;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private ProductService productService;
 
     @PostMapping("/addToCart")
@@ -40,6 +44,13 @@ public class CartController {
         User user = userService.findByEmail(authentication.getName());
 
         Cart cart = new Cart();
+
+        Long productId = Long.valueOf(product.get("id").toString());
+
+        Product foundProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        cart.setProduct(foundProduct);
 
         cart.setUser(user);
         cart.setCategoryName((String) product.get("category"));
@@ -69,7 +80,7 @@ public class CartController {
 
         // Verifică dacă există suficient stoc pentru produs
         if (quantity <= product.getQuantity()) {
-            cartService.updateQuantity(id, quantity);
+            cartService.updateQuantity(id, quantity + 1);
             model.addAttribute("message", "Quantity updated successfully.");
         } else {
             model.addAttribute("error", "Not enough stock available.");
