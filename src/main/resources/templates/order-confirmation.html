@@ -66,10 +66,11 @@
     <h1>Order Confirmed!</h1>
     <p>Thank you for your order. A confirmation email has been sent to your address.</p>
 
-    <div class="order-details">
-        <p><strong>Order number: </strong><span th:text="${checkout.id}"></span></p>
-        <p><strong>Date: </strong><span th:text="${time}"></span></p>
-        <p><strong>Total: </strong><span th:text="${checkout.total}"></span> MDL</p>
+    <div class="order-details"
+        <p><strong th:text="${checkout.id}">Order number:</strong></p>
+        <p><strong th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm')}">Date:</strong></p>
+        <p><strong th:text="${checkout.total}">Total:</strong>MDL</p>
+
     </div>
 
     <a href="/index" class="btn-home">Back to home page</a>
