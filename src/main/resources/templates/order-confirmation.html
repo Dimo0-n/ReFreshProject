@@ -67,7 +67,7 @@
     <p>Thank you for your order. A confirmation email has been sent to your address.</p>
 
     <div class="order-details">
-        <p><strong>Order number: #</strong><span th:text="${checkout.id}"></span></p>
+        <p><strong>Order number:#</strong><span th:text="${checkout.id}"></span></p>
         <p><strong>Date: </strong><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm')}"></span></p>
         <p><strong>Total: </strong><span th:text="${checkout.total}"></span> MDL</p>
     </div>
