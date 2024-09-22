@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vânzări Utilizator</title>
+
+  <!-- Stiluri și fonturi -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+  <style>
+    body {
+      padding-top: 150px; /* Prevent navbar overlap */
+      background-color: #f4f4f4;
+    }
+    .sales-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .order-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .order-info {
+      flex-grow: 1;
+    }
+    .order-info p {
+      margin: 5px 0;
+    }
+    .order-date,
+    .buyer-name,
+    .payment-method {
+      font-weight: bold;
+    }
+    .order-actions {
+      display: flex;
+      align-items: center;
+    }
+    .order-actions button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    .order-actions button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar start -->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!-- Navbar End -->
+
+<div class="sales-container">
+  <div class="row">
+    <!-- Card 1 -->
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="order-card">
+        <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+        <div class="order-info">
+          <p><strong>Numele produsului:</strong> Smartphone XYZ</p>
+          <p><strong>Cantitate:</strong> 2 bucăți</p>
+          <p class="order-date"><strong>Data comenzii:</strong> 19 Septembrie 2024</p>
+          <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Maria Popescu</p>
+          <p class="payment-method"><strong>Mod de achitare:</strong> Card de credit</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="order-card">
+        <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+        <div class="order-info">
+          <p><strong>Numele produsului:</strong> Laptop ABC</p>
+          <p><strong>Cantitate:</strong> 1 buc</p>
+          <p class="order-date"><strong>Data comenzii:</strong> 20 Septembrie 2024</p>
+          <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Andrei Ionescu</p>
+          <p class="payment-method"><strong>Mod de achitare:</strong> PayPal</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="order-card">
+        <img src="img/product-sample.jpg" alt="Produs" class="product-image">
+        <div class="order-info">
+          <p><strong>Numele produsului:</strong> Televizor DEF</p>
+          <p><strong>Cantitate:</strong> 1 buc</p>
+          <p class="order-date"><strong>Data comenzii:</strong> 21 Septembrie 2024</p>
+          <p class="buyer-name"><strong>Numele cumpărătorului:</strong> Ioana Vasile</p>
+          <p class="payment-method"><strong>Mod de achitare:</strong> Ramburs</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adaugă alte carduri aici -->
+  </div>
+</div>
+
+</body>
+</html>
