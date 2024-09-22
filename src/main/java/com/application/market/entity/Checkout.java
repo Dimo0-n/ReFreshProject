@@ -43,4 +43,6 @@ public class Checkout {
 
     private String orderNotes;
 
+    private Double total;
+
 }

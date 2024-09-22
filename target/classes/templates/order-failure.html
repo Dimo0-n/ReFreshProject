@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comanda Anulată</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #e9ecef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+    }
+    .message-box {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    .message-box h1 {
+      color: #dc3545; /* Roșu pentru mesaj de eroare */
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .message-box p {
+      color: #6c757d; /* Text gri */
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .btn-custom {
+      background-color: #007bff; /* Culoarea butonului */
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    .btn-custom:hover {
+      background-color: #0056b3; /* Culoarea butonului la hover */
+    }
+  </style>
+</head>
+<body>
+<div class="message-box">
+  <h1>Comanda Anulată</h1>
+  <p>Îmi pare rău, dar comanda dumneavoastră a fost anulată înainte de a fi achitată.</p>
+  <p>Dacă doriți să plasați o altă comandă, vă rugăm să navigați la pagina principală.</p>
+  <a href="/index" class="btn btn-custom">Înapoi la pagina principală</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

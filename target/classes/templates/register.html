@@ -56,7 +56,7 @@
               <form method="POST" action="/register/save" th:object="${user}">
 
                 <div th:if="${param.error}">
-                  <div class="alert alert-danger">Invalid Email or Password.</div>
+                  <div class="alert alert-danger">Invalid Username or Email.</div>
                 </div>
                 <div th:if="${param.success}">
                   <div class="alert alert-success">You've successfully registered to our app!</div>
@@ -65,17 +65,27 @@
                 <div data-mdb-input-init class="form-outline mb-4">
                   <input type="text" id="form3Example1cg" th:field="*{username}" class="form-control form-control-lg" required/>
                   <label class="form-label" for="form3Example1cg">Your username</label>
+                  <div th:if="${#fields.hasErrors('username')}" class="text-danger">
+                    <span th:errors="*{username}">Username error message</span>
+                  </div>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
                   <input type="email" id="form3Example3cg" th:field="*{email}" class="form-control form-control-lg" required/>
                   <label class="form-label" for="form3Example3cg">Your Email</label>
+                  <div th:if="${#fields.hasErrors('email')}" class="text-danger">
+                    <span th:errors="*{email}">Email error message</span>
+                  </div>
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
                   <input type="password" id="form3Example4cg" th:field="*{password}" class="form-control form-control-lg" required/>
                   <label class="form-label" for="form3Example4cg">Password</label>
+                  <div th:if="${#fields.hasErrors('password')}" class="text-danger">
+                    <span th:errors="*{password}">Password error message</span>
+                  </div>
                 </div>
+
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />

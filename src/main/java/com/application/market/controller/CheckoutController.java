@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
+@SessionAttributes("checkout")
 public class CheckoutController {
 
     @Autowired
@@ -52,6 +55,7 @@ public class CheckoutController {
             @RequestParam(value = "paymentCash", required = false) String paymentCash,
             @RequestParam(value = "paymentOnline", required = false) String paymentOnline,
             @RequestParam(value = "productId", required = false) Long productId,
+            @RequestParam(value = "totalPrice") String totalPrice,
             Model model) {
 
         Checkout checkout = new Checkout();
@@ -67,6 +71,9 @@ public class CheckoutController {
         checkout.setPhoneNumber(phoneNumber);
         checkout.setEmail(email);
         checkout.setOrderNotes(orderNotes);
+        checkout.setTotal(Double.valueOf(totalPrice));
+
+        LocalDateTime now = LocalDateTime.now();
 
         if (personal != null) {
             checkout.setAdresaPreluarePersonala(locationVanzator);
@@ -76,13 +83,63 @@ public class CheckoutController {
         if (paymentCash != null) {
             checkout.setPaymentCash("Cash");
             checkoutRepository.save(checkout);
+            model.addAttribute("checkout", checkout);
+            model.addAttribute("time", now);
+            model.addAttribute("totalPrice", checkout.getTotal());
             return "order-confirmation";
         }
 
-        if (paymentOnline != null)
-            return "redirect:/paymentOnline";
+        if (paymentOnline != null) {
+            model.addAttribute("checkout", checkout);
+            model.addAttribute("totalPrice", checkout.getTotal());
+            return "redirect:/payment";
+        }
 
-        return "thankyou";
+        return "index";
+    }
+
+    @GetMapping("/payment")
+    public String getPaymentPage(Model model) {
+        Checkout checkout = (Checkout) model.getAttribute("checkout");
+        model.addAttribute("checkout", checkout);
+        model.addAttribute("totalPrice", checkout.getTotal());
+        return "payment";
+    }
+
+    @PostMapping("/payment/verification")
+    public String verification(
+            @RequestParam(value = "fullName") String fullName,
+            @RequestParam(value = "cardNumber") String cardNumber,
+            @RequestParam(value = "expirationDate") String expirationCode,
+            @RequestParam(value = "securityCode") String securityCode,
+            Model model) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        // Verificarea codului de securitate
+        if ("000".equals(securityCode)) {
+            try {
+
+//                checkoutRepository.save(checkout);
+//
+//                model.addAttribute("checkout", checkout);
+//                model.addAttribute("time", now);
+//                model.addAttribute("totalPrice", checkout.getTotal());
+
+                return "order-confirmation";
+            } catch (Exception e) {
+                model.addAttribute("errorMessage", "A apărut o eroare la salvarea comenzii.");
+                return "payment";
+            }
+        } else {
+            model.addAttribute("errorMessage", "Datele cardului sunt incorecte");
+            return "payment";
+        }
+    }
+
+    @GetMapping("/anulare")
+    public String dc(){
+        return "order-failure";
     }
 
 }
