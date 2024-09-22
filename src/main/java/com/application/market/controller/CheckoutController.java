@@ -84,7 +84,7 @@ public class CheckoutController {
             checkout.setPaymentCash("Cash");
             checkoutRepository.save(checkout);
             model.addAttribute("checkout", checkout);
-            model.addAttribute("time", now);
+//            model.addAttribute("time", now);
             model.addAttribute("totalPrice", checkout.getTotal());
             return "order-confirmation";
         }
@@ -107,28 +107,23 @@ public class CheckoutController {
     }
 
     @PostMapping("/payment/verification")
-    public String verification(
-            @RequestParam(value = "fullName") String fullName,
-            @RequestParam(value = "cardNumber") String cardNumber,
-            @RequestParam(value = "expirationDate") String expirationCode,
-            @RequestParam(value = "securityCode") String securityCode,
-            Model model) {
+    public String verification(Model model, @ModelAttribute("checkout") Checkout checkout) {
 
-        LocalDateTime now = LocalDateTime.now();
+        String securityCode = "000";
 
         // Verificarea codului de securitate
         if ("000".equals(securityCode)) {
             try {
+                checkout.setPaymentOnline("Achitare cu success");
+                checkoutRepository.save(checkout);
+                LocalDateTime now = LocalDateTime.now();
 
-//                checkoutRepository.save(checkout);
-//
-//                model.addAttribute("checkout", checkout);
+                model.addAttribute("checkout", checkout);
 //                model.addAttribute("time", now);
-//                model.addAttribute("totalPrice", checkout.getTotal());
-
-                return "order-confirmation";
+                model.addAttribute("total", checkout.getTotal());
+                return "redirect:/order-confirmation";
             } catch (Exception e) {
-                model.addAttribute("errorMessage", "A apărut o eroare la salvarea comenzii.");
+                model.addAttribute("error", "A apărut o eroare la salvarea comenzii.");
                 return "payment";
             }
         } else {
@@ -138,8 +133,13 @@ public class CheckoutController {
     }
 
     @GetMapping("/anulare")
-    public String dc(){
+    public String failure(){
         return "order-failure";
+    }
+
+    @GetMapping("/order-confirmation")
+    public String success(){
+        return "order-confirmation";
     }
 
 }

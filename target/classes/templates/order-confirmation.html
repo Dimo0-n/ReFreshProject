@@ -68,7 +68,7 @@
 
     <div class="order-details">
         <p><strong th:text="${checkout.id}">Order number:</strong></p>
-        <p><strong th:text="${time}">Date:</strong></p>
+        <p><strong th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm')}">Date:</strong></p>
         <p><strong th:text="${checkout.total}">Total:</strong>MDL</p>
     </div>
 
