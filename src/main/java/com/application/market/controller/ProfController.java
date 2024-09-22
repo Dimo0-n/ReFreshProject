@@ -123,4 +123,9 @@ public class ProfController {
         return "change-password";
     }
 
+    @GetMapping("/purchase-history")
+    public String purchaseHistory() {
+        return "profile-purchase-history";
+    }
+
 }
