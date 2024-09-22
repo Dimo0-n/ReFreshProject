@@ -41,16 +41,21 @@ public class AuthController {
                                BindingResult result,
                                Model model) {
 
-        User existingUser = userService.findByEmail(userDto.getEmail());
+        User existingUserByEmail = userService.findByEmail(userDto.getEmail());
+        User existingUserByUsername = userService.findByUsername(userDto.getUsername());
 
-          if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-                result.rejectValue("email", null, "There is already an account registered with that email");
-            }
-            if (result.hasErrors()) {
-                model.addAttribute("userDto", userDto);
+        if (existingUserByEmail != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
 
-                return "redirect:/register?error";
-            }
+        if (existingUserByUsername != null) {
+            result.rejectValue("username", null, "This username is already taken");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("userDto", userDto);
+            return "redirect:/register?error";
+        }
 
         userService.saveUser(userDto);
 

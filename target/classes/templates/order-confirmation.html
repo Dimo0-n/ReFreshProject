@@ -67,9 +67,9 @@
     <p>Thank you for your order. A confirmation email has been sent to your address.</p>
 
     <div class="order-details">
-        <p><strong>Order number:</strong> #123456</p>
-        <p><strong>Date:</strong> 19 Septembrie 2024</p>
-        <p><strong>Total:</strong> 250 RON</p>
+        <p><strong th:text="${checkout.id}">Order number:</strong></p>
+        <p><strong th:text="${time}">Date:</strong></p>
+        <p><strong th:text="${checkout.total}">Total:</strong>MDL</p>
     </div>
 
     <a href="/index" class="btn-home">Back to home page</a>

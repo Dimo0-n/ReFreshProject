@@ -10,6 +10,7 @@
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/payment.css}"> <!-- Payment Styles -->
+    <link rel="stylesheet" th:href="@{/css/paymentButtons.css}">
 
     <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet">
     <script src="https://unpkg.com/imask"></script>
@@ -143,23 +144,58 @@
 <div class="form-container">
     <div class="field-container">
         <label for="name">Name</label>
-        <input id="name" maxlength="20" type="text">
+        <input name="fullName" id="name" maxlength="20" type="text">
     </div>
     <div class="field-container">
         <label for="cardnumber">Card Number</label><span id="generatecard">generate random</span>
-        <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
+        <input name="cardNumber" id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
         <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink">
         </svg>
     </div>
     <div class="field-container">
         <label for="expirationdate">Expiration (mm/yy)</label>
-        <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+        <input name="expirationDate" id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
     </div>
     <div class="field-container">
         <label for="securitycode">Security Code</label>
-        <input id="securitycode" type="text" pattern="[0-9]*" inputmode ="numeric">
+        <input name="securityCode" id="securitycode" type="text" pattern="[0-9]*" inputmode ="numeric">
     </div>
+
+    <form th:action="@{index}" method="get">
+        <button type="submit" class="animated-button2">
+            <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M7.8284 10.9999L13.1924 16.3638L11.7782 17.778L4 9.9999L11.7782 2.22168L13.1924 3.63589L7.8284 8.9999H20V10.9999H7.8284Z"
+                ></path>
+            </svg>
+            <span class="text">Anulează</span>
+            <span class="circle"></span>
+            <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M7.8284 10.9999L13.1924 16.3638L11.7782 17.778L4 9.9999L11.7782 2.22168L13.1924 3.63589L7.8284 8.9999H20V10.9999H7.8284Z"
+                ></path>
+            </svg>
+        </button>
+    </form>
+
+    <form th:action="@{payment/verification}" method="post">
+        <button type="submit" class="animated-button">
+            <input type="hidden" name="total" >
+            <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                ></path>
+            </svg>
+            <span class="text">Achită</span>
+            <span class="circle"></span>
+            <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                ></path>
+            </svg>
+        </button>
+    </form>
 </div>
 
 </body>
