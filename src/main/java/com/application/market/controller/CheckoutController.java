@@ -3,10 +3,14 @@ package com.application.market.controller;
 import com.application.market.entity.Cart;
 import com.application.market.entity.Checkout;
 import com.application.market.entity.Product;
+import com.application.market.entity.User;
 import com.application.market.repository.CheckoutRepository;
 import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserRepository;
 import com.application.market.service.CartService;
+import com.application.market.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,9 @@ public class CheckoutController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/purchase{id}")
     public String showCheckoutPage(@PathVariable Long id, Model model) {
@@ -56,7 +63,8 @@ public class CheckoutController {
             @RequestParam(value = "paymentOnline", required = false) String paymentOnline,
             @RequestParam(value = "productId", required = false) Long productId,
             @RequestParam(value = "totalPrice") String totalPrice,
-            Model model) {
+            Model model,
+            Authentication auth) {
 
         Checkout checkout = new Checkout();
 
@@ -64,8 +72,12 @@ public class CheckoutController {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new RuntimeException("Product not found"));
             checkout.setProduct(product);
+            checkout.setVanzatorId(product.getUser().getId());
         }
 
+        User user = userService.findByEmail(auth.getName());
+
+        checkout.setCumparatorId(user.getId());
         checkout.setName(name);
         checkout.setSurname(surname);
         checkout.setPhoneNumber(phoneNumber);
