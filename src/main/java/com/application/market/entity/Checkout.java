@@ -45,4 +45,8 @@ public class Checkout {
 
     private Double total;
 
+    private Long cumparatorId;
+
+    private Long vanzatorId;
+
 }
