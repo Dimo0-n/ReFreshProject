@@ -39,7 +39,7 @@ public class ChatAiService {
                 "{ \"model\": \"llama3.1:8b\", \"messages\": [ {\"role\": \"user\", \"content\"" +
                         ": \"Generate an answer that is only for this question: '%s'. " +
                         "Make all the answers related to the theme of eco and recycling." +
-                        "If the user deviates from the topic of eco, recycling, RETURN IT to the topic. Stay within the 25 word limit\" } ], \"stream\": false }",
+                        "If the user deviates from the topic of eco, recycling, RETURN IT to the topic. If applicable, mention that the user can sell recyclable materials on our ReFreshAI marketplace. Stay within the 25 word limit\" } ], \"stream\": false }",
                 userMessage
         );
 

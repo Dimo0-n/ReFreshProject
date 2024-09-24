@@ -4,8 +4,10 @@ import com.application.market.entity.Cart;
 import com.application.market.entity.Checkout;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
+import com.application.market.entity.UserActivity;
 import com.application.market.repository.CheckoutRepository;
 import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserActivityRepository;
 import com.application.market.repository.UserRepository;
 import com.application.market.service.CartService;
 import com.application.market.service.UserService;
@@ -32,6 +34,9 @@ public class CheckoutController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserActivityRepository userActivityRepository;
 
     @GetMapping("/purchase{id}")
     public String showCheckoutPage(@PathVariable Long id, Model model) {
@@ -96,6 +101,10 @@ public class CheckoutController {
         if (paymentCash != null) {
             checkout.setPaymentCash("Cash");
             checkoutRepository.save(checkout);
+            // Log the user's activity as 'PURCHASE'
+            if (productId != null) {
+                logUserPurchaseActivity(user, productRepository.findById(productId).get());
+            }
             cartService.removeProductFromCart(cartItem.getId()); // Șterge produsul din coș
             model.addAttribute("checkout", checkout);
 //            model.addAttribute("time", now);
@@ -106,10 +115,23 @@ public class CheckoutController {
         if (paymentOnline != null) {
             model.addAttribute("checkout", checkout);
             model.addAttribute("totalPrice", checkout.getTotal());
+            // Log the user's activity as 'PURCHASE'
+            if (productId != null) {
+                logUserPurchaseActivity(user, productRepository.findById(productId).get());
+            }
             return "redirect:/payment";
         }
 
         return "index";
+    }
+
+    private void logUserPurchaseActivity(User user, Product product) {
+        UserActivity activity = new UserActivity();
+        activity.setUser(user);
+        activity.setProduct(product);
+        activity.setActivityType(UserActivity.ActivityType.PURCHASE);  // Set the action as 'PURCHASE'
+        activity.setTimestamp(LocalDateTime.now());
+        userActivityRepository.save(activity);
     }
 
     @GetMapping("/payment")

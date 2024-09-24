@@ -23,40 +23,55 @@ public class RecommendationServiceImpl implements RecommendationService{
 
     @Override
     public List<Product> getRecommendedProducts(User user) {
-        // Step 1: Get user activity (clicked, carted, purchased)
         List<UserActivity> userActivities = userActivityRepository.findByUserOrderByTimestampDesc(user);
 
         if (userActivities.isEmpty()) {
-            // If no activity, return the top recent products as fallback
-            return productRepository.findAllByOrderByDatePostedDesc().stream().limit(20).collect(Collectors.toList());
+            return productRepository.findAllByOrderByDatePostedDesc()
+                    .stream().limit(20).collect(Collectors.toList());
         }
 
-        // Step 2: Count interactions by category
-        Map<Category, Long> categoryCountMap = userActivities.stream()
-                .collect(Collectors.groupingBy(ua -> ua.getProduct().getCategory(), Collectors.counting()));
+        // Step 1: Collect categories and keywords based on user activity
+        Map<Category, Integer> categoryFrequency = new HashMap<>();
+        Set<String> keywords = new HashSet<>();
 
-        // Sort categories by interaction frequency
-        List<Category> topCategories = categoryCountMap.entrySet().stream()
-                .sorted(Map.Entry.<Category, Long>comparingByValue().reversed()) // Sort by frequency
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        for (UserActivity activity : userActivities) {
+            Product product = activity.getProduct();
+            categoryFrequency.merge(product.getCategory(), 1, Integer::sum);
+            keywords.addAll(Arrays.asList(product.getTitle().split(" ")));
+        }
 
-        // Step 3: Find products in the top categories
-        List<Product> recommendedProducts = productRepository.findByCategoryIn(topCategories);
+        // Step 2: Get all products, categorized by their category and sorted by price
+        List<Product> allProducts = productRepository.findAll();
 
-        // Step 4: Match keywords in the product title or description
-        Set<String> keywords = userActivities.stream()
-                .flatMap(ua -> Arrays.stream(ua.getProduct().getTitle().split(" "))) // Extract keywords from the product title
-                .collect(Collectors.toSet());
+        Map<Category, List<Product>> categorizedProducts = allProducts.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
 
-        List<Product> finalRecommendedProducts = recommendedProducts.stream()
-                .filter(product -> keywords.stream().anyMatch(keyword ->
-                        product.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
-                                product.getDescription().toLowerCase().contains(keyword.toLowerCase())))
-                .distinct()
-                .limit(20)
-                .collect(Collectors.toList());
+        // Step 3: Randomize and select products from different categories and price ranges
+        List<Product> recommendedProducts = new ArrayList<>();
 
-        return finalRecommendedProducts;
+        Random rand = new Random();
+
+        while (recommendedProducts.size() < 20 && !categorizedProducts.isEmpty()) {
+            for (Map.Entry<Category, Integer> entry : categoryFrequency.entrySet()) {
+                Category category = entry.getKey();
+                List<Product> productsInCategory = categorizedProducts.get(category);
+
+                if (productsInCategory != null && !productsInCategory.isEmpty()) {
+                    // Mix in price criteria
+                    productsInCategory.sort(Comparator.comparing(Product::getPrice));
+
+                    // Randomly pick a product from this category
+                    Product selectedProduct = productsInCategory.remove(rand.nextInt(productsInCategory.size()));
+                    recommendedProducts.add(selectedProduct);
+
+                    if (productsInCategory.isEmpty()) {
+                        categorizedProducts.remove(category); // Remove category when empty
+                    }
+                }
+            }
+        }
+
+        return recommendedProducts.stream().distinct().limit(20).collect(Collectors.toList());
     }
+
 }

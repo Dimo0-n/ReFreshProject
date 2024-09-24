@@ -1,19 +1,26 @@
 package com.application.market.controller;
 
 import com.application.market.entity.Product;
+import com.application.market.entity.User;
+import com.application.market.entity.UserActivity;
 import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserRepository;
 import com.application.market.service.ProductService;
+import com.application.market.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +32,12 @@ public class ShopController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private RecommendationService recommendationService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute("categories")
     public List<String> getCategories() {
@@ -71,6 +84,17 @@ public class ShopController {
         Page<Product> productPage = productService.getProductsWithFilters(category, minPrice, maxPrice, region, pageable);
         long totalProducts = productService.countAllProducts();
         Map<String, Long> productCounts = productService.countProductsPerCategory();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUsername = authentication.getName();
+            User user = userRepository.findByEmail(currentUsername);
+
+            if (user != null) {
+                List<Product> recommendedProducts = recommendationService.getRecommendedProducts(user);
+                model.addAttribute("recommendedProducts", recommendedProducts);
+            }
+        }
 
         model.addAttribute("productCounts", productCounts);
         model.addAttribute("products", productPage.getContent());

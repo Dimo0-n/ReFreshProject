@@ -302,6 +302,13 @@
     transition: 0.5s;
 }
 
+.product-title {
+    display: block;
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    overflow: hidden; /* Hides overflowed text */
+    text-overflow: ellipsis; /* Adds the '...' at the end if text overflows */
+}
+
 .fruite-item {
     height: 450px; /* Make this height fixed for all cards */
     display: flex;
