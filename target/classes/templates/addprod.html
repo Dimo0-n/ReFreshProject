@@ -73,8 +73,22 @@
                 }
             });
         });
-
     </script>
+    <style>
+        .ai-button {
+            background-color: transparent;
+            border: 2px solid #81c408;
+            color: #81c408;
+            margin-left: 10px; /* Spacing between buttons */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+        }
+
+        .ai-button:hover {
+            background-color: #81c408;
+            color: white; /* Change text color on hover */
+        }
+
+    </style>
 </head>
 
 <body>
@@ -134,19 +148,78 @@
                                     <label class="form-label" for="price">Price</label>
                                 </div>
 
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var categorySelect = document.getElementById('category');
+                                        var priceInput = document.getElementById('price');
+                                        var recommendationPopup = document.createElement('div');
+
+                                        // Set the id for the popup
+                                        recommendationPopup.id = 'recommendationPopup';
+                                        recommendationPopup.style.position = 'absolute';
+                                        recommendationPopup.style.backgroundColor = '#d1e7dd'; // Cloud-like light greenish color
+                                        recommendationPopup.style.color = '#275d3c'; // Darker green text
+                                        recommendationPopup.style.borderRadius = '8px'; // Rounded corners for cloud effect
+                                        recommendationPopup.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Shadow for depth
+                                        recommendationPopup.style.padding = '10px 15px'; // Padding for spacing
+                                        recommendationPopup.style.display = 'none'; // Initially hidden
+                                        recommendationPopup.style.zIndex = '1000'; // Ensure it appears above other elements
+
+                                        document.body.appendChild(recommendationPopup);
+
+                                        categorySelect.addEventListener('change', function () {
+                                            var category = this.value;
+
+                                            if (category) {
+                                                var encodedCategory = encodeURIComponent(category);
+
+                                                fetch(`/getAveragePrice?category=${encodedCategory}`)
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        if (data.averagePrice) {
+                                                            var roundedPrice = data.averagePrice.toFixed(3);
+                                                            recommendationPopup.innerHTML = `Recommended Price: ${roundedPrice} MDL`;
+                                                            recommendationPopup.style.display = 'block';
+                                                            var rect = priceInput.getBoundingClientRect();
+                                                            recommendationPopup.style.top = rect.top + window.scrollY + 'px';
+                                                            recommendationPopup.style.left = (rect.left + priceInput.offsetWidth + 10) + 'px';
+                                                        } else {
+                                                            recommendationPopup.style.display = 'none';
+                                                        }
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error fetching price:', error);
+                                                    });
+                                            } else {
+                                                recommendationPopup.style.display = 'none';
+                                            }
+                                        });
+
+                                        priceInput.addEventListener('focus', function () {
+                                            if (recommendationPopup.innerHTML) {
+                                                recommendationPopup.style.display = 'block';
+                                            }
+                                        });
+
+                                        priceInput.addEventListener('blur', function () {
+                                            recommendationPopup.style.display = 'none';
+                                        });
+                                    });
+                                </script>
+
                                 <!-- Image Upload (Base64) -->
                                 <div id="fileSizeWarning" style="display: none; color: red; margin-top: -10px;">
-                                    The selected file is too large. Please select a file smaller than 1MB.
+                                    The selected file is too large. Please select a file smaller than 10MB.
                                 </div>
                                 <div class="form-outline mb-4"> <!--onchange="checkFileSize(this)"-->
                                     <input type="file" id="productImage" class="form-control form-control-lg" name="imageFile" accept="image/*" >
                                     <label class="form-label" for="productImage">Product Image</label>
                                 </div>
 
-                                <!--<script>
+                                <script>
                                     function checkFileSize(input) {
                                         const file = input.files[0];
-                                        const maxSize = 1024 * 1024; // 1MB
+                                        const maxSize = 10 * 1024 * 1024; // 10MB
 
                                         if (file && file.size > maxSize) {
                                             document.getElementById('fileSizeWarning').style.display = 'block';
@@ -154,9 +227,7 @@
                                             document.getElementById('fileSizeWarning').style.display = 'none';
                                         }
                                     }
-                                </script>-->
-
-
+                                </script>
 
                                 <!-- Region -->
                                 <div class="form-outline mb-4">
@@ -214,14 +285,56 @@
 
                                 <!-- Description -->
                                 <div class="form-outline mb-4">
-                                    <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required></textarea>
+                                    <textarea id="description" name="description" class="form-control form-control-lg" rows="10" required></textarea>
                                     <label class="form-label" for="description">Description</label>
                                 </div>
 
-                                <!-- Submit Button -->
+
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Submit Product</button>
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn btn-success btn-lg gradient-custom-4 text-body">Submit Product</button>
+                                    <!-- Generate with AI Button -->
+                                    <button type="button" class="btn ai-button" id="generateAIButton">Generate with AI</button>
+                                    <!-- Loading Spinner -->
+                                    <span id="loadingSpinner" class="spinner-border spinner-border-sm text-success" role="status" aria-hidden="true" style="display: none; margin-left: 10px;"></span>
                                 </div>
+
+                                <script>
+                                    document.getElementById('generateAIButton').addEventListener('click', function() {
+                                        const title = document.getElementById('title').value;
+                                        const description = document.getElementById('description').value;
+
+                                        // Show the loading spinner
+                                        const loadingSpinner = document.getElementById('loadingSpinner');
+                                        loadingSpinner.style.display = 'inline-block'; // Show spinner
+
+                                        fetch('/generate-description', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ title: title, description: description })
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                // Hide the loading spinner
+                                                loadingSpinner.style.display = 'none'; // Hide spinner
+
+                                                if (data.generatedDescription) {
+                                                    document.getElementById('description').value = data.generatedDescription;
+                                                } else {
+                                                    alert('Failed to generate description: ' + data.error);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                // Hide the loading spinner
+                                                loadingSpinner.style.display = 'none'; // Hide spinner
+                                                console.error('Error:', error);
+                                            });
+                                    });
+
+
+                                </script>
                             </form>
 
                         </div>

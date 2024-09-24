@@ -58,13 +58,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryCategoryName(categoryName, pageable);
     }
 
-//    @Override
-//    public List<Product> getTop5ProductsByCategory(String categoryName) {
-//        Pageable pageable = PageRequest.of(0, 5); // Limit to 5 products
-//        return productRepository.findByCategoryCategoryName(categoryName, pageable).getContent();
-//    }
-
-
     @Override
     public Product findProductById(Long id) {
         return productRepository.findById(id).orElse(null);
@@ -199,5 +192,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Double getAveragePriceForCategory(String category) {
+        return productRepository.findAveragePriceByCategory(category);
     }
 }

@@ -2,16 +2,25 @@ package com.application.market.controller;
 
 import com.application.market.dto.ProductDto;
 import com.application.market.entity.Product;
+import com.application.market.entity.User;
+import com.application.market.entity.UserActivity;
 import com.application.market.repository.CategoryRepository;
 import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserActivityRepository;
+import com.application.market.repository.UserRepository;
 import com.application.market.service.ProductService;
+import com.application.market.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -26,6 +35,16 @@ public class ProductController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserActivityRepository userActivityRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RecommendationService recommendationService;
+
+
+
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
@@ -36,20 +55,35 @@ public class ProductController {
     public String getProductDetails(@PathVariable("id") Long id, Model model) {
         Product product = productService.findProductById(id);
 
-        if (product != null) {
-            model.addAttribute("page", "shopDetail");
-            model.addAttribute("product", product);
-//
-//            // Fetch related products from the same category (limit 5)
-//            List<Product> relatedProducts = productService.getTop5ProductsByCategory(product.getCategory().getCategoryName());
-//            model.addAttribute("relatedProducts", relatedProducts);
-
-            return "shopDetail";
-        } else {
+        if (product == null) {
             model.addAttribute("errorMessage", "Product not found");
             return "404";
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String currentUsername = authentication.getName();
+            User user = userRepository.findByEmail(currentUsername);
+
+            if (user != null) {
+                // Log the user's activity
+                UserActivity activity = new UserActivity();
+                activity.setUser(user);
+                activity.setProduct(product);
+                activity.setActivityType(UserActivity.ActivityType.CLICK);
+                activity.setTimestamp(LocalDateTime.now());
+
+                userActivityRepository.save(activity); // Save the activity
+            }
+        }
+
+        // Add product to the model
+        model.addAttribute("page", "shopDetail");
+        model.addAttribute("product", product);
+
+        return "shopDetail";
     }
+
 
     @PostMapping("/submit-product")
     public String submitProduct(@ModelAttribute ProductDto productDto,
@@ -130,6 +164,23 @@ public class ProductController {
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
             return "redirect:/profile-articles"; // Redirecționezi la pagina de produse
+        }
+    }
+
+    @GetMapping("/recommended")
+    public String getRecommendedProducts(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        User user = userRepository.findByEmail(currentUsername);
+
+        if (user != null) {
+            List<Product> recommendedProducts = recommendationService.getRecommendedProducts(user);
+            model.addAttribute("recommendedProducts", recommendedProducts);
+            return "recommended"; // Points to Thymeleaf template 'recommended.html'
+        } else {
+            model.addAttribute("errorMessage", "User not found");
+            return "404";
         }
     }
 
