@@ -3,8 +3,10 @@ package com.application.market.controller;
 import  com.application.market.entity.Cart;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
+import com.application.market.entity.UserActivity;
 import com.application.market.repository.CartRepository;
 import com.application.market.repository.ProductRepository;
+import com.application.market.repository.UserActivityRepository;
 import com.application.market.service.CartService;
 import com.application.market.service.ProductService;
 import com.application.market.service.UserService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
@@ -36,6 +39,9 @@ public class CartController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserActivityRepository userActivityRepository;
+
 
     @PostMapping("/addToCart")
     public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> product) {
@@ -62,6 +68,15 @@ public class CartController {
         cart.setLocation(product.get("location").toString());
 
         cartRepository.save(cart);
+
+        // Log the user's activity as 'CART'
+        UserActivity activity = new UserActivity();
+        activity.setUser(user);
+        activity.setProduct(foundProduct);
+        activity.setActivityType(UserActivity.ActivityType.CART);
+        activity.setTimestamp(LocalDateTime.now());
+
+        userActivityRepository.save(activity);
         return ResponseEntity.ok().body("Product added to cart successfully");
     }
 

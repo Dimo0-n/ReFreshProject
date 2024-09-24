@@ -2,6 +2,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-bom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -83,41 +120,61 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
-      <dependency>
-          <groupId>jakarta.persistence</groupId>
-          <artifactId>jakarta.persistence-api</artifactId>
-          <version>3.1.0</version>
-      </dependency>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
     <dependency>
       <groupId>net.coobird</groupId>
       <artifactId>thumbnailator</artifactId>
       <version>0.4.14</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.ai</groupId>
+      <artifactId>spring-ai-ollama</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.ai</groupId>
+      <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.0.0</version> <!-- Check for the latest version -->
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.2.0.Final</version> <!-- Check for the latest version -->
+    </dependency>
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.jsonwebtoken</groupId>-->
-<!--      <artifactId>jjwt-api</artifactId>-->
-<!--      <version>0.11.5</version>-->
-<!--    </dependency>-->
+
+    <!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.jsonwebtoken</groupId>-->
+    <!--      <artifactId>jjwt-api</artifactId>-->
+    <!--      <version>0.11.5</version>-->
+    <!--    </dependency>-->
 
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.jsonwebtoken</groupId>-->
-<!--      <artifactId>jjwt-impl</artifactId>-->
-<!--      <version>0.12.6</version>-->
-<!--      <scope>runtime</scope>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.jsonwebtoken</groupId>-->
+    <!--      <artifactId>jjwt-impl</artifactId>-->
+    <!--      <version>0.12.6</version>-->
+    <!--      <scope>runtime</scope>-->
+    <!--    </dependency>-->
 
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>io.jsonwebtoken</groupId>-->
-<!--      <artifactId>jjwt-jackson</artifactId>-->
-<!--      <version>0.11.2</version>-->
-<!--      <scope>runtime</scope>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.jsonwebtoken</groupId>-->
+    <!--      <artifactId>jjwt-jackson</artifactId>-->
+    <!--      <version>0.11.2</version>-->
+    <!--      <scope>runtime</scope>-->
+    <!--    </dependency>-->
 
 
   </dependencies>

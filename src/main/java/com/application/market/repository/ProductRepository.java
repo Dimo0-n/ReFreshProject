@@ -1,7 +1,9 @@
 package com.application.market.repository;
 
+import com.application.market.entity.Category;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
+import com.application.market.entity.UserActivity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -45,4 +47,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Pageable pageable);
 
     List<Product> findByStatus(String status);
+
+    @Query("SELECT AVG(p.price) FROM Product p WHERE p.category.categoryName = :categoryName")
+    Double findAveragePriceByCategory(@Param("categoryName") String categoryName);
+
+    List<Product> findByCategoryIn(List<Category> categories);
 }

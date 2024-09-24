@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Recommended Products</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet"  th:href="@{/css/style.css}">
+
+    <style>
+        /* Recommended product listing */
+        .recommended-products .col-md-6,
+        .recommended-products .col-lg-6,
+        .recommended-products .col-xl-4 {
+            max-width: 270px; /* Adjust the width as per requirement */
+        }
+
+        .recommended-products .fruite-item {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            height: auto; /* Make sure the height adapts to the content */
+        }
+
+        .recommended-products .fruite-img img {
+            max-height: 150px; /* Adjust this size */
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Navbar start -->
+<div th:replace="~{/fragments/navbar :: navbar}"></div>
+<!-- Navbar End -->
+<br><br><br><br><br><br>
+
+<h2>Recommended Products for You</h2>
+
+<!-- Recommended Products Section -->
+<div class="row g-4 justify-content-center recommended-products">
+    <div th:each="product : ${recommendedProducts}" class="col-md-6 col-lg-6 col-xl-4">
+        <a th:href="@{'/shopDetail-' + ${product.id}}" class="text-decoration-none">
+            <div class="rounded position-relative fruite-item">
+                <div class="fruite-img">
+                    <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" alt="Product Image">
+                </div>
+                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                    <span th:text="${product.category.categoryName}">Category</span>
+                </div>
+                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                    <h4 th:text="${product.title}">Product Title</h4>
+                    <p class="text-muted">
+                        Posted by: <a th:href="@{/profile/{username}(username=${product.user.username})}" th:text="${product.user.username}">Username</a>
+                    </p>
+                    <p class="product-description" th:text="${product.description}">Product Description</p>
+                    <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0"><span th:text="${product.price} + ' MDL'"></span></p>
+                        <a th:href="@{addToCart}" onclick="addToCart(this)" class="btn border border-secondary rounded-pill px-3 text-primary to-cart-button">
+                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- If there are no recommendations, show a message -->
+<div th:if="${#lists.isEmpty(recommendedProducts)}">
+    <p>No recommendations available at the moment.</p>
+</div>
+
+</body>
+</html>

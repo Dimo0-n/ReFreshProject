@@ -42,4 +42,6 @@ public interface ProductService {
     Page<Product> getProductsWithFilters(String category, Double minPrice, Double maxPrice, String region, Pageable pageable);
 
     void deleteProductById(Long id);
+
+    Double getAveragePriceForCategory(String category);
 }
