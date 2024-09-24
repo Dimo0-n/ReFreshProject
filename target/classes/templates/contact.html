@@ -26,6 +26,7 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
+        <link rel="stylesheet"  th:href="@{/css/chat.css}">
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet"  th:href="@{/css/style.css}">
     </head>
@@ -134,6 +135,9 @@
         </div>
         <!-- Contact End -->
 
+        <!-- Chat Support start -->
+        <div th:replace="~{/fragments/chat :: chat}"></div>
+        <!-- Chat Support End -->
 
         <!-- About start -->
         <div th:replace="~{/fragments/about :: about}"></div>
@@ -151,12 +155,6 @@
             </div>
         </div>
         <!-- Copyright End -->
-
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-
         
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -168,6 +166,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+        <script src="js/chat.js"></script>
     </body>
 
 </html>

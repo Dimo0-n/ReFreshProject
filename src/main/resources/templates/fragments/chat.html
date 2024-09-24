@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet"  th:href="@{/css/chat.css}">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<!--        -------------------Chat Start-------------------->
+
+    <div th:fragment="chat">
+      <!-- Iconita de chat -->
+      <div class="chat-icon" onclick="toggleChat()" >
+        <i class="fas fa-comments"></i>
+      </div>
+
+      <!-- Sectiunea de chat -->
+      <div class="chat-box" id="chatBox">
+        <div class="chat-header">
+          <h4>EcoTalk</h4>
+          <span onclick="toggleChat()" style="cursor: pointer">X</span>
+        </div>
+
+        <div class="chat-body">
+          <h4>Choose the subject that interests you:</h4>
+
+          <div class="chat-suggestions">
+            <div class="chat-suggestion">
+              <button class="chat-option" onclick="sendMessage('What is the platform?')">What is the platform?</button>
+            </div>
+            <div class="chat-suggestion">
+              <button class="chat-option" onclick="sendMessage('What products can I sell?')">What products can I sell?</button>
+            </div>
+            <div class="chat-suggestion">
+              <button class="chat-option" onclick="sendMessage('Where? Why?')">Where? Why?</button>
+            </div>
+          </div>
+
+          <div class="chat-messages"></div>
+        </div>
+
+        <div class="chat-footer">
+          <input type="text" id="chatInput" placeholder="Write a message..." />
+          <button onclick="sendUserMessage()" class="send-btn">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+<!--      --------------------  Chat end------------>
+
+</body>
+
+<script src="js/chat.js"></script>
+
+</html>

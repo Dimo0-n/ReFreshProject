@@ -1,27 +1,17 @@
 package com.application.market.controller;
 
 import com.application.market.entity.Cart;
-import com.application.market.entity.Product;
 import com.application.market.entity.User;
 import com.application.market.service.CartService;
-import com.application.market.service.ProductService;
 import com.application.market.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -51,12 +41,6 @@ public class HomeController {
         model.addAttribute("cartItems", cartItems);
         return "cart";
     }
-
-//    @GetMapping("/shopDetail")
-//    public String shopDetails(Model model){
-//        model.addAttribute("page", "shopDetail");
-//        return "shopDetail";
-//    }
 
     @GetMapping("/testimonial")
     public String testimonial(Model model){

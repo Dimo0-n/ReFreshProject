@@ -130,7 +130,6 @@ public class CheckoutController {
             try {
                 checkout.setPaymentOnline("Achitare cu success");
                 checkoutRepository.save(checkout);
-                LocalDateTime now = LocalDateTime.now();
 
                 model.addAttribute("checkout", checkout);
 //                model.addAttribute("time", now);
