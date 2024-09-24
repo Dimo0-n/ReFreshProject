@@ -34,4 +34,14 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cart);
     }
 
+
+    // Găsește produsul din coș pe baza utilizatorului și a produsului
+    public Cart getCartByUserIdAndProductId(Long userId, Long productId) {
+        return cartRepository.findByUserIdAndProductId(userId, productId);
+    }
+
+    // Metodă pentru ștergerea unui produs din coș
+    public void removeProductFromCart(Long cartId) {
+        cartRepository.deleteById(cartId);
+    }
 }
