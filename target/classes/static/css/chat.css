@@ -1,0 +1,134 @@
+/* Stilizare fereastră chat */
+.chat-box {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 9999; /* Asigură-te că fereastra de chat este deasupra celorlalte elemente */
+}
+
+.chat-header {
+    background-color: #FFB524;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-body {
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.chat-footer button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    background-color: #FFB524;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.chat-suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.chat-option {
+    background-color: white;
+    color: #10100e;
+    border: 2px solid #FFB524;
+    width: 250px; /* Setează lățimea fixă */
+    height: 40px; /* Setează înălțimea fixă */
+    margin: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    display: flex; /* Aliniază textul vertical și orizontal */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.chat-option:hover {
+    background-color: #FFB524;
+    color: white;
+}
+
+/*Scrisul de deasupra intrebarilor initiale*/
+.chat-body h4 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Stilizare iconiță */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #FFB524;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10000; /* Asigură-te că iconița de chat este deasupra tuturor elementelor */
+}
+
+.chat-icon i {
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.send-btn {
+    background-color: #FFB524; /* Culoarea fundalului butonului */
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-btn i {
+    color: white;
+    font-size: 20px;
+}
+

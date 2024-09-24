@@ -27,6 +27,7 @@
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet"  th:href="@{/css/style.css}">
+    <link rel="stylesheet"  th:href="@{/css/chat.css}">
 
     <style>
         .img-container {
@@ -448,6 +449,10 @@
 </div>
 <!-- Single Product End -->
 
+<!-- Chat Support start -->
+<div th:replace="~{/fragments/chat :: chat}"></div>
+<!-- Chat Support End -->
+
 <!-- About start -->
 <div th:replace="~{/fragments/about :: about}"></div>
 <!-- About End -->
@@ -486,6 +491,7 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script src="js/chat.js"></script>
 </body>
 
 </html>

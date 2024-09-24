@@ -27,6 +27,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet"  th:href="@{/css/style.css}">
+        <link rel="stylesheet"  th:href="@{/css/chat.css}">
     </head>
 
     <body>
@@ -149,6 +150,9 @@
         </div>
         <!-- Cart Page End -->
 
+        <!-- Chat Support start -->
+        <div th:replace="~{/fragments/chat :: chat}"></div>
+        <!-- Chat Support End -->
 
         <!-- Navbar start -->
         <div th:replace="~{/fragments/about :: about}"></div>
@@ -188,6 +192,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+        <script src="js/chat.js"></script>
     </body>
 
 </html>
