@@ -577,7 +577,7 @@
                                             <span th:text="${product.category.categoryName}">Category</span>
                                         </div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4 th:text="${product.title}">Product Title</h4>
+                                            <h4 class="product-title" th:text="${product.title}">Product Title</h4>
                                             <!-- Scoate linkul profilului din zona clickabilă a containerului -->
                                             <p class="text-muted">
                                                 Posted by: <a th:href="@{/profile/{username}(username=${product.user.username})}" th:text="${product.user.username}">Username</a>
@@ -688,10 +688,42 @@
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br>
+        <h1 class="fw-bold mb-0">Recommended Products for You</h1>
+        <div class="vesitable">
+            <div class="owl-carousel vegetable-carousel justify-content-center recommended-products">
+                <div th:each="product : ${recommendedProducts}" class="border border-primary rounded position-relative vesitable-item">
+                    <div class="fruite-img">
+                        <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" th:alt="${product.title}">
+                    </div>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
+                        <span th:text="${product.category.categoryName}">Category</span>
+                    </div>
+                    <div class="p-4 pb-0 rounded-bottom">
+                        <h4 class="product-title" th:text="${product.title}">Product Title</h4>
+                        <p class="product-description" th:text="${product.description}">Product Description</p>
+                        <!-- Price div -->
+                        <div class="mb-3">
+                            <p class="text-dark fs-5 fw-bold" th:text="'MDL ' + ${product.price} "></p>
+                        </div>
+
+                        <!-- Add to Cart button div -->
+                        <div>
+                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- If there are no recommendations, show a message -->
+            <div th:if="${#lists.isEmpty(recommendedProducts)}">
+                <p>No recommendations available at the moment.</p>
             </div>
         </div>
     </div>

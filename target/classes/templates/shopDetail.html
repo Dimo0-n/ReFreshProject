@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ReFreshAi</title>
+    <title>DetailsProduct</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -292,26 +292,6 @@
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="row g-4 fruite">
-<!--                    <div class="col-lg-12">-->
-<!--                        <h4 class="mb-4">Products in the same category</h4>-->
-
-<!--                        <div th:each="relatedProduct : ${relatedProducts}" class="d-flex align-items-center justify-content-start mb-3">-->
-<!--                            <div class="rounded me-4" style="width: 100px; height: 100px;">-->
-<!--                                <img th:src="'data:image/jpeg;base64,' + ${relatedProduct.base64Image}" class="img-fluid rounded" alt="Product Image">-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <h6 class="mb-2" th:text="${relatedProduct.title}">Product Title</h6>-->
-<!--                                <div class="d-flex mb-2">-->
-<!--                                    <h5 class="fw-bold me-2" th:text="${relatedProduct.price + ' $'}">Product Price</h5>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="d-flex justify-content-center my-4">-->
-<!--                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">View More</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
                     <div class="col-lg-12">
                         <div class="position-relative">
                             <img th:src="@{/img/banner-fruits.jpg}" class="img-fluid w-100 rounded" alt="">
@@ -320,129 +300,36 @@
                 </div>
             </div>
         </div>
-        <h1 class="fw-bold mb-0">Related products</h1>
+        <h1 class="fw-bold mb-0">Recommended Products for You</h1>
         <div class="vesitable">
-            <div class="owl-carousel vegetable-carousel justify-content-center">
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-6.jpg}" class="img-fluid w-100 rounded-top" alt="Parsely">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
+            <div class="owl-carousel vegetable-carousel justify-content-center recommended-products">
+                <div th:each="product : ${recommendedProducts}" class="border border-primary rounded position-relative vesitable-item">
+                    <div class="fruite-img">
+                        <img th:src="@{'data:image/jpeg;base64,' + ${product.base64Image}}" class="img-fluid w-100 rounded-top" th:alt="${product.title}">
+                    </div>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">
+                        <span th:text="${product.category.categoryName}">Category</span>
+                    </div>
                     <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
+                        <h4 class="product-title" th:text="${product.title}">Product Title</h4>
+                        <p class="product-description" th:text="${product.description}">Product Description</p>
+                        <!-- Price div -->
+                        <div class="mb-3">
+                            <p class="text-dark fs-5 fw-bold" th:text="'MDL ' + ${product.price} "></p>
+                        </div>
+
+                        <!-- Add to Cart button div -->
+                        <div>
                             <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary">
                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-1.jpg}" class="img-fluid w-100 rounded-top" alt="Parsely">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-3.png}" class="img-fluid w-100 rounded-top bg-light" alt="Banana">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Banana</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-4.jpg}" class="img-fluid w-100 rounded-top" alt="Bell Papper">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Bell Papper</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-5.jpg}" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Potatoes</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-6.jpg}" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-5.jpg}" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Potatoes</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-<!--                    <div class="vesitable-img">-->
-<!--                        <img th:src="@{/img/vegetable-item-6.jpg}" class="img-fluid w-100 rounded-top" alt="">-->
-<!--                    </div>-->
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 pb-0 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <!-- If there are no recommendations, show a message -->
+            <div th:if="${#lists.isEmpty(recommendedProducts)}">
+                <p>No recommendations available at the moment.</p>
             </div>
         </div>
     </div>
@@ -465,9 +352,6 @@
                 <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
             </div>
             <div class="col-md-6 my-auto text-center text-md-end text-white">
-                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
                 Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
@@ -488,6 +372,24 @@
 <script src="lib/waypoints/waypoints.min.js"></script>
 <script src="lib/lightbox/js/lightbox.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function(){
+        $(".vegetable-carousel").owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            dots: true,
+            responsive:{
+                0:{ items:1 },
+                600:{ items:2 },
+                1000:{ items:3 }
+            }
+        });
+    });
+</script>
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>

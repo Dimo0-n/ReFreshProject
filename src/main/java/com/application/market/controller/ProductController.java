@@ -40,10 +40,9 @@ public class ProductController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RecommendationService recommendationService;
-
-
 
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
@@ -72,6 +71,8 @@ public class ProductController {
                 activity.setProduct(product);
                 activity.setActivityType(UserActivity.ActivityType.CLICK);
                 activity.setTimestamp(LocalDateTime.now());
+                List<Product> recommendedProducts = recommendationService.getRecommendedProducts(user);
+                model.addAttribute("recommendedProducts", recommendedProducts);
 
                 userActivityRepository.save(activity); // Save the activity
             }
