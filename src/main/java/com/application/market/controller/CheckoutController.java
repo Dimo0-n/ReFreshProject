@@ -76,6 +76,7 @@ public class CheckoutController {
         }
 
         User user = userService.findByEmail(auth.getName());
+        Cart cartItem = cartService.getCartByUserIdAndProductId(user.getId(), productId);
 
         checkout.setCumparatorId(user.getId());
         checkout.setName(name);
@@ -95,6 +96,7 @@ public class CheckoutController {
         if (paymentCash != null) {
             checkout.setPaymentCash("Cash");
             checkoutRepository.save(checkout);
+            cartService.removeProductFromCart(cartItem.getId()); // Șterge produsul din coș
             model.addAttribute("checkout", checkout);
 //            model.addAttribute("time", now);
             model.addAttribute("totalPrice", checkout.getTotal());
@@ -150,8 +152,25 @@ public class CheckoutController {
     }
 
     @GetMapping("/order-confirmation")
-    public String success(){
+    public String success(Model model, Authentication auth) {
+        User user = userService.findByEmail(auth.getName());
+        Checkout checkout = (Checkout) model.getAttribute("checkout");
+
+        if (checkout != null) {
+            Long productId = checkout.getProduct().getId();
+
+            // Găsește produsul din coș pentru utilizatorul respectiv
+            Cart cartItem = cartService.getCartByUserIdAndProductId(user.getId(), productId);
+
+            // Dacă produsul există în coș, șterge-l
+            if (cartItem != null) {
+                cartService.removeProductFromCart(cartItem.getId());
+            }
+        }
+
+        model.addAttribute("checkout", checkout);
         return "order-confirmation";
     }
+
 
 }
