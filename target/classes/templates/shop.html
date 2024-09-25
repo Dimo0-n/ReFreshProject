@@ -125,10 +125,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center">
-                <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                </div>
+                <form method="get" th:action="@{/shop}">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" name="keyword" class="form-control p-3" placeholder="Search by keyword" aria-describedby="search-icon-1">
+                        <button type="submit" class="btn btn-primary p-3"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -212,10 +215,12 @@
             <div class="col-lg-12">
                 <div class="row g-4">
                     <div class="col-xl-3">
-                        <div class="input-group w-100 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
+                        <form method="get" th:action="@{/shop}">
+                            <div class="input-group w-100 mx-auto d-flex">
+                                <input type="search" name="keyword" class="form-control p-3" placeholder="Search" aria-describedby="search-icon-1">
+                                <button type="submit" class="btn btn-primary p-3"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-6"></div>
                 </div>

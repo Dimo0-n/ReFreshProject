@@ -56,6 +56,7 @@ public class ShopController {
                        @RequestParam(value = "maxPrice", required = false) Double maxPrice,
                        @RequestParam(value = "sort", required = false) String sort,
                        @RequestParam(value = "region", required = false) String region,
+                       @RequestParam(value = "keyword", required = false) String keyword,
                        Model model) {
 
         if (minPrice == null) minPrice = 0.0;
@@ -81,7 +82,13 @@ public class ShopController {
         }
 
         Pageable pageable = PageRequest.of(page, 12, sortOrder);
-        Page<Product> productPage = productService.getProductsWithFilters(category, minPrice, maxPrice, region, pageable);
+        Page<Product> productPage;
+        if (keyword != null && !keyword.isEmpty()) {
+            productPage = productService.searchProductsByKeyword(keyword, category, minPrice, maxPrice, pageable);
+        } else {
+            productPage = productService.getProductsWithFilters(category, minPrice, maxPrice, region, pageable);
+        }
+
         long totalProducts = productService.countAllProducts();
         Map<String, Long> productCounts = productService.countProductsPerCategory();
 
@@ -107,6 +114,7 @@ public class ShopController {
         model.addAttribute("currentRegion", region);
         model.addAttribute("noProductsFound", productPage.getTotalElements() == 0);
         model.addAttribute("totalProducts", totalProducts);
+        model.addAttribute("keyword", keyword);  // Add keyword to model
 
         return "shop";
     }

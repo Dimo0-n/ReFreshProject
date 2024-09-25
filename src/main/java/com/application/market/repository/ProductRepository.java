@@ -52,4 +52,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Double findAveragePriceByCategory(@Param("categoryName") String categoryName);
 
     List<Product> findByCategoryIn(List<Category> categories);
+
+    @Query("SELECT p FROM Product p WHERE p.title LIKE CONCAT('%', :keyword, '%') OR p.description LIKE CONCAT('%', :keyword, '%')")
+    Page<Product> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
+
+
 }
