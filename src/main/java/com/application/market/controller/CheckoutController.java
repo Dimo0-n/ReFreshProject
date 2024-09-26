@@ -77,13 +77,13 @@ public class CheckoutController {
             Product product = productRepository.findById(productId)
                     .orElseThrow(() -> new RuntimeException("Product not found"));
             checkout.setProduct(product);
-            checkout.setVanzatorId(product.getUser().getId());
+            //checkout.setVanzatorId(product.getUser().getId());
         }
 
         User user = userService.findByEmail(auth.getName());
         Cart cartItem = cartService.getCartByUserIdAndProductId(user.getId(), productId);
 
-        checkout.setCumparatorId(user.getId());
+        //checkout.setCumparatorId(user.getId());
         checkout.setName(name);
         checkout.setSurname(surname);
         checkout.setPhoneNumber(phoneNumber);

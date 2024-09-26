@@ -198,4 +198,11 @@ public class ProductServiceImpl implements ProductService {
     public Double getAveragePriceForCategory(String category) {
         return productRepository.findAveragePriceByCategory(category);
     }
+
+    public Page<Product> searchProductsByKeyword(String keyword, String category, double minPrice, double maxPrice, Pageable pageable) {
+        if (keyword == null || keyword.isEmpty()) {
+            return getProductsWithFilters(category, minPrice, maxPrice, null, pageable);  // Use your existing filter logic
+        }
+        return productRepository.searchByKeyword(keyword, pageable);
+    }
 }

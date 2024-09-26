@@ -44,4 +44,6 @@ public interface ProductService {
     void deleteProductById(Long id);
 
     Double getAveragePriceForCategory(String category);
+
+    Page<Product> searchProductsByKeyword(String keyword, String category, double minPrice, double maxPrice, Pageable pageable);
 }
