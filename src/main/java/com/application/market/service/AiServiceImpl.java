@@ -18,7 +18,7 @@ public class AiServiceImpl implements AiService{
         ObjectMapper objectMapper = new ObjectMapper();
 
         String jsonRequest = String.format(
-                "{ \"model\": \"llama3.1:8b\", \"messages\": [ {\"role\": \"user\", \"content\": \"Generate a concise product description based on the title: '%s' and keywords: '%s'.\" } ], \"stream\": false }",
+                "{ \"model\": \"llama3.1:8b\", \"messages\": [ {\"role\": \"user\", \"content\": \"Generate a concise product description based on the title: '%s' and keywords: '%s'. Do not use phrases to introduce the description such as Here is a concise product description or others.\" } ], \"stream\": false }",
                 title, description
         );
 
