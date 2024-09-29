@@ -3,6 +3,7 @@ package com.application.market.controller;
 import com.application.market.dto.ProductDto;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
+import com.application.market.entity.Review;
 import com.application.market.entity.UserActivity;
 import com.application.market.repository.CategoryRepository;
 import com.application.market.repository.ProductRepository;
@@ -10,6 +11,7 @@ import com.application.market.repository.UserActivityRepository;
 import com.application.market.repository.UserRepository;
 import com.application.market.service.ProductService;
 import com.application.market.service.RecommendationService;
+import com.application.market.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,6 +46,9 @@ public class ProductController {
     @Autowired
     private RecommendationService recommendationService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
@@ -77,6 +82,10 @@ public class ProductController {
                 userActivityRepository.save(activity); // Save the activity
             }
         }
+
+        // Fetch and display product reviews
+        List<Review> reviews = reviewService.getReviewsByProduct(product);
+        model.addAttribute("reviews", reviews);
 
         // Add product to the model
         model.addAttribute("page", "shopDetail");
