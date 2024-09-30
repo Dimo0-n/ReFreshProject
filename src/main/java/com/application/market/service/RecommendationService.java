@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RecommendationService {
     List<Product> getRecommendedProducts(User user);
+
+    void deleteByProductId(Long productId);
 }

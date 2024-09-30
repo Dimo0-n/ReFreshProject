@@ -6,6 +6,7 @@ import com.application.market.entity.User;
 import com.application.market.entity.UserActivity;
 import com.application.market.repository.ProductRepository;
 import com.application.market.repository.UserActivityRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class RecommendationServiceImpl implements RecommendationService{
 
     @Autowired
@@ -20,6 +22,9 @@ public class RecommendationServiceImpl implements RecommendationService{
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @Override
     public List<Product> getRecommendedProducts(User user) {
@@ -74,4 +79,18 @@ public class RecommendationServiceImpl implements RecommendationService{
         return recommendedProducts.stream().distinct().limit(20).collect(Collectors.toList());
     }
 
+    public void deleteByProductId(Long productId) {
+        // Retrieve the product entity to ensure it exists
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + productId));
+
+        // Delete associated user activities
+        userActivityRepository.deleteByProductId(productId);
+
+        // Delete reviews associated with the product
+        reviewService.deleteByProductId(productId);
+
+        // Finally, delete the product itself
+        productRepository.delete(product);
+    }
 }

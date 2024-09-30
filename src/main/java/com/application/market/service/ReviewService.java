@@ -13,4 +13,9 @@ public interface ReviewService {
     Review saveReview(Review review);
 
     void addReview(Product product, User user, String comment, int rating);
+
+    Review findById(Long id);
+    void save(Review review);
+    void deleteById(Long id);
+    void deleteByProductId(Long productId);
 }
