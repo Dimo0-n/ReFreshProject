@@ -3,13 +3,12 @@ package com.application.market.controller;
 import com.application.market.dto.ProductDto;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
+import com.application.market.entity.Review;
 import com.application.market.entity.UserActivity;
-import com.application.market.repository.CategoryRepository;
-import com.application.market.repository.ProductRepository;
-import com.application.market.repository.UserActivityRepository;
-import com.application.market.repository.UserRepository;
+import com.application.market.repository.*;
 import com.application.market.service.ProductService;
 import com.application.market.service.RecommendationService;
+import com.application.market.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,6 +43,15 @@ public class ProductController {
     @Autowired
     private RecommendationService recommendationService;
 
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private CheckoutRepository checkoutRepository;
+
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
@@ -77,6 +85,10 @@ public class ProductController {
                 userActivityRepository.save(activity); // Save the activity
             }
         }
+
+        // Fetch and display product reviews
+        List<Review> reviews = reviewService.getReviewsByProduct(product);
+        model.addAttribute("reviews", reviews);
 
         // Add product to the model
         model.addAttribute("page", "shopDetail");
@@ -157,16 +169,35 @@ public class ProductController {
 
     @GetMapping("/deleteProduct-{id}")
     public String deleteProduct(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        System.out.println("Attempting to delete product with ID: " + id);
         Optional<Product> productOptional = productRepository.findById(id);
+
         if (productOptional.isPresent()) {
-            productService.deleteProductById(id); // apel către serviciu pentru a șterge produsul
-            redirectAttributes.addFlashAttribute("productDeleted", true);
-            return "redirect:/profile-articles"; // Redirecționezi la pagina unde sunt afișate produsele
+            try {
+
+                // Step 1: Delete related orders (Checkout entries)
+                checkoutRepository.deleteByProductId(id);
+
+                // Delete user activities associated with the product first
+                userActivityRepository.deleteByProductId(id);
+
+                // Use the ReviewService to delete reviews associated with the product
+                reviewService.deleteByProductId(id);
+
+                // Now delete the product
+                productService.deleteProductById(id);
+                redirectAttributes.addFlashAttribute("productDeleted", true);
+                return "redirect:/profile-articles";
+            } catch (Exception e) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Failed to delete product: " + e.getMessage());
+                return "redirect:/profile-articles";
+            }
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
-            return "redirect:/profile-articles"; // Redirecționezi la pagina de produse
+            return "redirect:/profile-articles";
         }
     }
+
 
     @GetMapping("/recommended")
     public String getRecommendedProducts(Model model) {

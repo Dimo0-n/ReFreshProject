@@ -22,7 +22,7 @@ public class UserActivity {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Product product;
 
     @Enumerated(EnumType.STRING)

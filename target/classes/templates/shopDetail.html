@@ -226,25 +226,64 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                <div class="d-flex">
-                                    <img th:src="@{/img/avatar.jpg}" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                    <div class="">
-                                        <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                        <div class="d-flex justify-content-between">
-                                            <h5>Jason Smith</h5>
-                                            <div class="d-flex mb-3">
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star"></i>
+                                <div th:if="${reviews != null}" th:each="review : ${reviews}" class="d-flex mb-4">
+                                    <!-- User Avatar -->
+                                    <img th:if="${review.user.base64Image != null}" th:src="'data:image/jpeg;base64,' + ${review.user.base64Image}"
+                                         class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="User Image">
+                                    <img th:unless="${review.user.base64Image != null}" th:src="@{/img/avatar.jpg}"
+                                         class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="Default Avatar">
+
+                                    <!-- Review Content -->
+                                    <div class="ms-3">
+                                        <div class="d-flex align-items-center">
+                                            <h5 class="mb-0" th:text="${review.user.name}"></h5>
+                                            <p class="ms-2 text-muted mb-0" style="font-size: 12px;" th:text="${#temporals.format(review.datePosted, 'MMMM d, yyyy')}"></p>
+                                        </div>
+                                        <p class="mt-2" th:text="${review.comment}"></p>
+
+                                        <!-- Buttons for the logged-in user only -->
+                                        <div th:if="${#authentication.name == review.user.email}">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" th:data-bs-target="'#editReviewModal-' + ${review.id}">Edit</button>
+                                            <form action="/delete-review" method="post" class="d-inline">
+                                                <input type="hidden" name="reviewId" th:value="${review.id}">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Edit Review Modal -->
+                                    <div class="modal fade" th:id="'editReviewModal-' + ${review.id}" tabindex="-1" aria-labelledby="editReviewLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="/update-review" method="post">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" th:data-bs-target="'#editReviewModal-' + ${review.id}">
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="reviewId" th:value="${review.id}">
+                                                        <div class="form-group">
+                                                            <label for="editComment">Comment</label>
+                                                            <textarea id="editComment" name="comment" class="form-control" th:text="${review.comment}"></textarea>
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="editRating">Rating (1-5)</label>
+                                                            <input id="editRating" type="number" name="rating" class="form-control" th:value="${review.rating}" min="1" max="5">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
                                     </div>
                                 </div>
+
                             </div>
+
                             <div class="tab-pane" id="nav-vision" role="tabpanel">
                                 <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
                                     amet diam et eos labore. 3</p>
@@ -253,41 +292,27 @@
                             </div>
                         </div>
                     </div>
-                    <form action="#">
+                    <form action="/submit-review" method="post" class="mt-5">
                         <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+                        <input type="hidden" name="productId" th:value="${product.id}">
+
                         <div class="row g-4">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="border-bottom rounded">
-                                    <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="border-bottom rounded">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                    <textarea name="comment" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div class="border-bottom rounded my-4">
-                                    <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+                                <div class="border-bottom rounded">
+                                    <input type="number" name="rating" class="form-control border-0" placeholder="Rating (1-5)" min="1" max="5">
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="d-flex justify-content-between py-3 mb-5">
-                                    <div class="d-flex align-items-center">
-                                        <p class="mb-0 me-3">Please rate:</p>
-                                        <div class="d-flex align-items-center" style="font-size: 12px;">
-                                            <i class="fa fa-star text-muted"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
-                                </div>
+                            <div class="col-lg-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-outline-primary">Submit Review</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
             <div class="col-lg-4 col-xl-3">
@@ -300,6 +325,7 @@
                 </div>
             </div>
         </div>
+        <br><br><br><br>
         <h1 class="fw-bold mb-0">Recommended Products for You</h1>
         <div class="vesitable">
             <div class="owl-carousel vegetable-carousel justify-content-center recommended-products">
