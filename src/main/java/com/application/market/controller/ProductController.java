@@ -49,6 +49,9 @@ public class ProductController {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private CheckoutRepository checkoutRepository;
+
     @GetMapping("/addproduct")
     public String showProductForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
@@ -171,6 +174,10 @@ public class ProductController {
 
         if (productOptional.isPresent()) {
             try {
+
+                // Step 1: Delete related orders (Checkout entries)
+                checkoutRepository.deleteByProductId(id);
+
                 // Delete user activities associated with the product first
                 userActivityRepository.deleteByProductId(id);
 

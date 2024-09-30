@@ -4,6 +4,7 @@ import com.application.market.entity.Category;
 import com.application.market.entity.Product;
 import com.application.market.entity.User;
 import com.application.market.entity.UserActivity;
+import com.application.market.repository.CheckoutRepository;
 import com.application.market.repository.ProductRepository;
 import com.application.market.repository.UserActivityRepository;
 import jakarta.transaction.Transactional;
@@ -19,6 +20,9 @@ public class RecommendationServiceImpl implements RecommendationService{
 
     @Autowired
     private UserActivityRepository userActivityRepository;
+
+    @Autowired
+    private CheckoutRepository checkoutRepository;
 
     @Autowired
     private ProductRepository productRepository;
@@ -90,7 +94,11 @@ public class RecommendationServiceImpl implements RecommendationService{
         // Delete reviews associated with the product
         reviewService.deleteByProductId(productId);
 
+        // Delete associated orders (checkout entries)
+        checkoutRepository.deleteByProductId(productId);
+
         // Finally, delete the product itself
         productRepository.delete(product);
     }
+
 }
