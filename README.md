@@ -42,6 +42,16 @@ java -version  # Ensure that Java JDK 17+ is installed
 # Check if Maven is installed
 mvn -version  # Ensure Apache Maven is installed. If not, install Maven via the official website.
 
+# Ensure Docker is installed and running
+# Visit https://www.docker.com/get-started to download and install Docker
+
+# Run MySQL using Docker
+docker run --name my-mysql-market -e MYSQL_ROOT_PASSWORD=qwertyuiop -p 3308:3306 -d mysql:latest
+
+# Run the Ollama model for AI-powered features
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+ollama run llama3.1:8b
+
 # Run the Spring Boot application
 mvn spring-boot:run  
 
