@@ -62,11 +62,69 @@ http://localhost:8080
 
 ## 🔥 Key Features
 
-Trebuie screenuri si gif-uri
+**1. User Authentication** 
+Register and Login functionality for users: Users can create an account and log in to access personalized features.
+![loginregister](https://github.com/user-attachments/assets/5e0e01fa-ff5e-4fe7-9d06-97c9407ab3ee)
+
+**2. Shop Page**
+![image](https://github.com/user-attachments/assets/1d8795de-1c7e-4f00-b11f-54a9bb6a1861)
+
+Browse Products with multiple filtering options:
+Filter by category, region, price, and sort by price or posting date.
+![sort](https://github.com/user-attachments/assets/fa77c463-4308-46e8-a85d-dc3d51ec672f)
+
+Search for products using keywords.
+![search](https://github.com/user-attachments/assets/e97ec7b2-8a8a-46f7-9ece-f911dd9bfa8b)
+
+**3. Product Details**
+Click on a product to view its details.
+![image](https://github.com/user-attachments/assets/d97b043e-5e55-4c69-8a8a-5b89123b5e5d)
+
+Users can add, edit, or delete reviews.
+![image](https://github.com/user-attachments/assets/384e66dc-7c7f-4205-9dfa-50dcb9d1b439)
+
+
+**4. Cart & Checkout**
+Add products to the cart with the ability to adjust quantities.
+![image](https://github.com/user-attachments/assets/db71b9ba-9d6e-441f-92e2-6e1ec43bf2fb)
+
+Proceed to checkout and confirm your purchase on the payment page.
+![image](https://github.com/user-attachments/assets/8c0971fa-80f2-4d31-9322-36ef7d67ee32)
+![image](https://github.com/user-attachments/assets/62e7ec99-de35-4b3b-8511-14dd8c1a293b)
+![image](https://github.com/user-attachments/assets/3faf77dc-8ca2-4bba-a3c6-b8fe4cb772cb)
+
+**5. AI-powered Product Addition**
+Add new products with AI assistance:
+AI generates detailed descriptions from titles and keywords.
+![Designfrtitlu1online-video-cutter com-ezgif com-optimize](https://github.com/user-attachments/assets/73717609-fa23-4230-b0bf-08919fade134)
+
+AI provides a recommended price based on the category.
+![recomendedprice](https://github.com/user-attachments/assets/1d444604-55e3-45e4-8053-8f994a3f289c)
+
+
+**6. User Profile Management**
+View and edit profile details, change your password, and manage your products.
+![image](https://github.com/user-attachments/assets/79bc57fe-f545-4706-880c-d60f34e51691)
+
+Products can be edited, activated/deactivated, or deleted from the profile.
+![image](https://github.com/user-attachments/assets/15e21eb8-ec08-4cc8-8559-7e44f67b7128)
+
+
+**7. AI Chat Support**
+Integrated AI chat to assist with eco-related and marketplace questions.
+If asked questions outside the eco-topic, the chat reorients users towards relevant content.
+![Designfrtitlu2online-video-cutter com-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ff0db038-376b-4bb7-bd3a-b0c70d6baeb7)
+
+
+**8. Contact Page**
+Send messages directly to the contributors of the platform.
+![image](https://github.com/user-attachments/assets/c1d18937-debc-488e-9e8a-418fe1ce9c4b)
+
+
 
 ## 🍻 Contributors
 
-For more details about our product, services, or any general information regarding ReFreshAI, feel free to reach out to us. We are here to provide support and answer any questions you may have. Below are the best ways to contact our team:
+For more details about our product or any general information, feel free to reach out to us.
 
 <a href="https://github.com/Dimo0-n"><img src="https://avatars.githubusercontent.com/u/77103943?v=4" title="Frimu Dumitru" width="50" height="50"></a>
 <a href="https://github.com/mihaela-chiaburu"><img src="https://avatars.githubusercontent.com/u/145827544?v=4" title="Chiaburu Mihaela" width="50" height="50"></a>
