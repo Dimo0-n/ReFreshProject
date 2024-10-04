@@ -62,63 +62,109 @@ http://localhost:8080
 
 ## 🔥 Key Features
 
-**1. User Authentication** 
+1. **User Authentication**  
 Register and Login functionality for users: Users can create an account and log in to access personalized features.
-![loginregister](https://github.com/user-attachments/assets/5e0e01fa-ff5e-4fe7-9d06-97c9407ab3ee)
 
-**2. Shop Page**
-![image](https://github.com/user-attachments/assets/1d8795de-1c7e-4f00-b11f-54a9bb6a1861)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5e0e01fa-ff5e-4fe7-9d06-97c9407ab3ee" width="600"/>
+</p>
 
+2. **Shop Page**  
 Browse Products with multiple filtering options:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1d8795de-1c7e-4f00-b11f-54a9bb6a1861" width="600"/>
+</p>
 Filter by category, region, price, and sort by price or posting date.
-![sort](https://github.com/user-attachments/assets/fa77c463-4308-46e8-a85d-dc3d51ec672f)
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fa77c463-4308-46e8-a85d-dc3d51ec672f" width="600"/>
+</p>
 Search for products using keywords.
-![search](https://github.com/user-attachments/assets/e97ec7b2-8a8a-46f7-9ece-f911dd9bfa8b)
 
-**3. Product Details**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e97ec7b2-8a8a-46f7-9ece-f911dd9bfa8b" width="600"/>
+</p>
+
+
+3. **Product Details**  
 Click on a product to view its details.
-![image](https://github.com/user-attachments/assets/d97b043e-5e55-4c69-8a8a-5b89123b5e5d)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d97b043e-5e55-4c69-8a8a-5b89123b5e5d" width="600"/>
+</p>
 
 Users can add, edit, or delete reviews.
-![image](https://github.com/user-attachments/assets/384e66dc-7c7f-4205-9dfa-50dcb9d1b439)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/384e66dc-7c7f-4205-9dfa-50dcb9d1b439" width="600"/>
+</p>
 
 
-**4. Cart & Checkout**
+4. **Cart & Checkout**  
 Add products to the cart with the ability to adjust quantities.
-![image](https://github.com/user-attachments/assets/db71b9ba-9d6e-441f-92e2-6e1ec43bf2fb)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/db71b9ba-9d6e-441f-92e2-6e1ec43bf2fb" width="600"/>
+</p>
 
 Proceed to checkout and confirm your purchase on the payment page.
-![image](https://github.com/user-attachments/assets/8c0971fa-80f2-4d31-9322-36ef7d67ee32)
-![image](https://github.com/user-attachments/assets/62e7ec99-de35-4b3b-8511-14dd8c1a293b)
-![image](https://github.com/user-attachments/assets/3faf77dc-8ca2-4bba-a3c6-b8fe4cb772cb)
 
-**5. AI-powered Product Addition**
-Add new products with AI assistance:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8c0971fa-80f2-4d31-9322-36ef7d67ee32" width="600"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/62e7ec99-de35-4b3b-8511-14dd8c1a293b" width="600"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3faf77dc-8ca2-4bba-a3c6-b8fe4cb772cb" width="450"/>
+</p>
+
+
+5. **AI-powered Product Addition**  
+Add new products with AI assistance:  
 AI generates detailed descriptions from titles and keywords.
-![Designfrtitlu1online-video-cutter com-ezgif com-optimize](https://github.com/user-attachments/assets/73717609-fa23-4230-b0bf-08919fade134)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/73717609-fa23-4230-b0bf-08919fade134" width="600"/>
+</p>
 
 AI provides a recommended price based on the category.
-![recomendedprice](https://github.com/user-attachments/assets/1d444604-55e3-45e4-8053-8f994a3f289c)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1d444604-55e3-45e4-8053-8f994a3f289c" width="600"/>
+</p>
 
 
-**6. User Profile Management**
+6. **User Profile Management**  
 View and edit profile details, change your password, and manage your products.
-![image](https://github.com/user-attachments/assets/79bc57fe-f545-4706-880c-d60f34e51691)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/79bc57fe-f545-4706-880c-d60f34e51691" width="600"/>
+</p>
 
 Products can be edited, activated/deactivated, or deleted from the profile.
-![image](https://github.com/user-attachments/assets/15e21eb8-ec08-4cc8-8559-7e44f67b7128)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/15e21eb8-ec08-4cc8-8559-7e44f67b7128" width="600"/>
+</p>
 
 
-**7. AI Chat Support**
-Integrated AI chat to assist with eco-related and marketplace questions.
+7. **AI Chat Support**  
+Integrated AI chat to assist with eco-related and marketplace questions.  
 If asked questions outside the eco-topic, the chat reorients users towards relevant content.
-![Designfrtitlu2online-video-cutter com-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ff0db038-376b-4bb7-bd3a-b0c70d6baeb7)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ff0db038-376b-4bb7-bd3a-b0c70d6baeb7" width="600"/>
+</p>
 
 
-**8. Contact Page**
+8. **Contact Page**  
 Send messages directly to the contributors of the platform.
-![image](https://github.com/user-attachments/assets/c1d18937-debc-488e-9e8a-418fe1ce9c4b)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c1d18937-debc-488e-9e8a-418fe1ce9c4b" width="600"/>
+</p>
 
 
 
